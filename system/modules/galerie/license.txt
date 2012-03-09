@@ -1,0 +1,9 @@
+Galleria (http://galleria.io) is made by Aino (http://www.aino.se)
+
+You can support the project by purchasing a Premium Theme : (http://galleria.io/themes)
+
+Galleria and the plugins History, Picasa and Flickr are free to use and licensed under MIT. (https://github.com/aino/galleria/blob/master/LICENSE)
+
+-----
+
+Contao extension by Synergie Consulting (http://synergie-consulting.com)
