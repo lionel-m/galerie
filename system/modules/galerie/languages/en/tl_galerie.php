@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Synergie Consulting http://www.synergie-consulting.com 
+ * @copyright  Lionel Maccaud 
  * @author     Lionel Maccaud (Galleria by Aino: http://galleria.aino.se)
  * @package    galerie 
  * @license    MIT 
@@ -40,7 +40,7 @@ $GLOBALS['TL_LANG']['tl_galerie']['minifiedJS'] = array('Use minified javascript
 
 // Options
 $GLOBALS['TL_LANG']['tl_galerie']['width'] = array('Width', 'By default, Galleria fetches the width from the containing element. But you can use this option to set a gallery width manually.');
-$GLOBALS['TL_LANG']['tl_galerie']['height'] = array('Height', 'Galleria need a height to work properly. You can set the height using this option to make sure it has the correct height. If no height is set, Galleria will try to find the height of the parent container.');
+$GLOBALS['TL_LANG']['tl_galerie']['height'] = array('Height', 'Galleria need a height to work properly. You can set the height using this option to make sure it has the correct height. If no height is set, Galleria will try to find the height of the parent container. You can set an exact value, f.ex 200, and it will apply this exact height in pixels. You can also set a relative ratio value which is anything below 2. If you set a relative ratio value, the gallery height will be calculated by multiplying this value with the width at any given scaling process. This is very useful when programming responsive layouts.');
 $GLOBALS['TL_LANG']['tl_galerie']['transition'] = array('Transition', 'The transition that is used when displaying the images.');
 $GLOBALS['TL_LANG']['tl_galerie']['initialTransition'] = array('Initial transition', 'Defines a different transition to show on the first image. F.ex, if you are using a slide transition, you might want the first image to fade. You can then set this option to \'fade\'.');
 $GLOBALS['TL_LANG']['tl_galerie']['transitionSpeed'] = array('Transition speed', 'The milliseconds used in the animation when applying the transition. The higher number, the slower transition.');
@@ -88,6 +88,12 @@ $GLOBALS['TL_LANG']['tl_galerie']['fullscreenCrop'] = array('Fullscreen crop', '
 $GLOBALS['TL_LANG']['tl_galerie']['fullscreenTransition'] = array('Fullscreen transition', 'Defines a different transition for fullscreen mode. Some transitions are less smooth in fullscreen mode, this option allows you to set a different transition when in fullscreen mode.');
 $GLOBALS['TL_LANG']['tl_galerie']['touchTransition'] = array('Touch transition', 'Defines a different transition when a touch device is detected.');
 $GLOBALS['TL_LANG']['tl_galerie']['dataConfig'] = array('Data config', 'Documentation: http://galleria.aino.se/docs/1.2/options/dataConfig/. This very useful function configures how the data should be extracted from the source. It should return an object that will blend in with the default extractions.');
+$GLOBALS['TL_LANG']['tl_galerie']['dailymotion'] = array('Dailymotion', 'You can customize the Dailymotion player using the Dailymotion Player options. You can view the different options at Dailymotion when you choose embed -> options.');
+$GLOBALS['TL_LANG']['tl_galerie']['vimeo'] = array('Vimeo', 'You can customize the Vimeo player : http://vimeo.com/api/docs/player#universal-params');
+$GLOBALS['TL_LANG']['tl_galerie']['youtube'] = array('YouTube', 'You can customize the YouTube player : http://code.google.com/apis/youtube/player_parameters.html');
+$GLOBALS['TL_LANG']['tl_galerie']['trueFullscreen'] = array('True fullscreen', 'Galleria supports true fullscreen mode if it is supported by the browser (currently FF10+, Safari 5.1+ and Chrome 15+). That means that it will enter a native OS fullscreen if the fullscreen method is triggered. If you don’t want this behavior, set this option to false.');
+$GLOBALS['TL_LANG']['tl_galerie']['wait'] = array('Wait', 'Sets how long Galleria should wait when trying to extract measurements, before throwing an error. Set this to true for infinity.');
+$GLOBALS['TL_LANG']['tl_galerie']['responsive'] = array('Responsive', 'This option sets thew Gallery in responsive mode. That means that it will resize the entire container if your CSS is dynamic. In other words, you can add media queries or dynamic proportions in your CSS and the gallery will follow these proportions as the window resizes.');
 
 // Flickr Options
 $GLOBALS['TL_LANG']['tl_galerie']['flickr'] = array('Flickr', 'Use the gallery with the Flickr API.');
@@ -106,7 +112,6 @@ $GLOBALS['TL_LANG']['tl_galerie']['picasaMethodsValue'] = array('Research Method
 $GLOBALS['TL_LANG']['tl_galerie']['picasaOptMax'] = array('Max', 'Maximum number of photos to return (maximum value 100)');
 $GLOBALS['TL_LANG']['tl_galerie']['picasaOptImageSize'] = array('Image size', 'The size to fetch for the main image. The bigger size, the slower downloads and interaction. Use this to match image sizes with your gallery layout. You can apply any number here, and the plugin will fetch the closest match. And since Picasa has many different sizes cached, it will most often be a very close match.');
 $GLOBALS['TL_LANG']['tl_galerie']['picasaOptThumbSize'] = array('Thumb size', 'The size to fetch for the thumbnail image. The bigger size, the slower downloads and interaction. Use this to match thumbnail sizes with your gallery layout.');
-$GLOBALS['TL_LANG']['tl_galerie']['picasaOptDescription'] = array('Description', 'The plugin fetches the title per default. If you also wish to fetch the description, set this option to true.');
 
 // History Plugin
 $GLOBALS['TL_LANG']['tl_galerie']['history'] = array('History', 'The Galleria History plugin is a simple extension to create Galleria add hash tags for permalinks and back button functionality enabled. This is useful on fullscreen views and other use cases. The plugin simply adds a #/[id] hash to the URL and then applies the necessary code for all browsers to enable the back button. It also makes permalinks possible by simply bookmarking f.ex http://mygalleria.com/#/4 and the user will be shown the 5th image in the gallery (index starts at 0).');
@@ -127,6 +132,8 @@ $GLOBALS['TL_LANG']['tl_galerie']['true'] = 'Yes';
 $GLOBALS['TL_LANG']['tl_galerie']['empty'] = 'Empty';
 $GLOBALS['TL_LANG']['tl_galerie']['numbers'] = 'Numbers';
 $GLOBALS['TL_LANG']['tl_galerie']['auto'] = 'auto';
+$GLOBALS['TL_LANG']['tl_galerie']['landscape'] = 'Landscape';
+$GLOBALS['TL_LANG']['tl_galerie']['portrait'] = 'Portrait';
 
 //Flickr methods
 $GLOBALS['TL_LANG']['tl_galerie']['search'] = 'Search';
@@ -154,10 +161,42 @@ $GLOBALS['TL_LANG']['tl_galerie']['useralbum'] = 'User album';
 
 
 /**
+ * Video options
+ */
+$GLOBALS['TL_LANG']['tl_galerie']['vimeo_options'] = "{
+    title: 0,
+    byline: 0,
+    portrait: 0,
+    color: 'aaaaaa'
+}";
+$GLOBALS['TL_LANG']['tl_galerie']['youtube_options'] = "{
+    modestbranding: 1,
+    autohide: 1,
+    color: 'white',
+    hd: 1,
+    rel: 0,
+    showinfo: 0
+}";
+$GLOBALS['TL_LANG']['tl_galerie']['dailymotion_options'] = "{
+    foreground: '#EEEEEE',
+    highlight: '#5BCEC5',
+    background: '#222222',
+    logo: 0,
+    hideInfos: 1
+}";
+
+
+/**
  * Label
  */
-$GLOBALS['TL_LANG']['tl_galerie']['picture'] = 'picture';
-$GLOBALS['TL_LANG']['tl_galerie']['pictures'] = 'pictures';
+$GLOBALS['TL_LANG']['tl_galerie']['label_datas'] = 'datas';
+$GLOBALS['TL_LANG']['tl_galerie']['label_data'] = 'data';
+$GLOBALS['TL_LANG']['tl_galerie']['label_image'] = 'image';
+$GLOBALS['TL_LANG']['tl_galerie']['label_images'] = 'images';
+$GLOBALS['TL_LANG']['tl_galerie']['label_video'] = 'video';
+$GLOBALS['TL_LANG']['tl_galerie']['label_videos'] = 'videos';
+$GLOBALS['TL_LANG']['tl_galerie']['label_iframe'] = 'iframe';
+$GLOBALS['TL_LANG']['tl_galerie']['label_iframes'] = 'iframes';
 
 
 /**
@@ -181,6 +220,7 @@ $GLOBALS['TL_LANG']['tl_galerie']['history_legend'] = 'History Plugin';
 $GLOBALS['TL_LANG']['tl_galerie']['error_legend'] = 'Error handling';
 $GLOBALS['TL_LANG']['tl_galerie']['fullscreen_legend'] = 'Fullscreen';
 $GLOBALS['TL_LANG']['tl_galerie']['picasa_legend'] = 'Picasa';
+$GLOBALS['TL_LANG']['tl_galerie']['video_legend'] = 'Video';
 
 
 /**

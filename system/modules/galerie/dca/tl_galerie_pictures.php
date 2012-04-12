@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Synergie Consulting http://www.synergie-consulting.com 
+ * @copyright  Lionel Maccaud 
  * @author     Lionel Maccaud (Galleria by Aino: http://galleria.aino.se)
  * @package    galerie 
  * @license    MIT 
@@ -113,7 +113,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{title_legend},title;{image_fullscreen_legend},fullscreenSingleSRC;{image_legend},singleSRC,alt,imageUrl,size,thumbSize;{publish_legend},published'
+		'default'                     => '{title_legend},title;{image_fullscreen_legend},fullscreenSingleSRC;{image_legend},singleSRC,alt,imageUrl,size;{thumbnail_legend},thumbSize;{video_legend},video,videoThumb;{iframe_legend},iframe,iframeThumb;{publish_legend},published'
 	),
 
 	// Subpalettes
@@ -191,7 +191,37 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'options'                 => array('crop', 'proportional', 'box'),
                         'reference'               => &$GLOBALS['TL_LANG']['MSC'],
                         'eval'                    => array('rgxp' => 'digit', 'nospace' => true, 'tl_class' => 'w50')
-                )
+                ),
+                'video' => array
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['video'],
+                        'exclude'                 => true,
+                        'search'                  => true,
+                        'inputType'               => 'text',
+                        'eval'                    => array('maxlength' => 255, 'tl_class' => 'w50')
+                ),
+                'videoThumb' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['videoThumb'],
+			'exclude'                 => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+		),
+                'iframe' => array
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['iframe'],
+                        'exclude'                 => true,
+                        'search'                  => true,
+                        'inputType'               => 'text',
+                        'eval'                    => array('maxlength' => 255, 'tl_class' => 'w50')
+                ),
+                'iframeThumb' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['iframeThumb'],
+			'exclude'                 => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+		)
 	)
 );
 

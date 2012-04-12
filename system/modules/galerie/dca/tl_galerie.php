@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Synergie Consulting http://www.synergie-consulting.com 
+ * @copyright  Lionel Maccaud 
  * @author     Lionel Maccaud (Galleria by Aino: http://galleria.aino.se)
  * @package    galerie 
  * @license    MIT 
@@ -119,7 +119,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('autoplay', 'lightbox', 'flickr', 'picasa'),
-		'default'                     => '{title_legend},title,alias;{themes_legend},themesSRC,minifiedJS;{dimensions_legend},width,height;{effects_legend},initialTransition,transition,fullscreenTransition,touchTransition,transitionSpeed,easing,queue;{navigation_legend},clicknext,popupLinks,swipe;{fullscreen_legend},fullscreenCrop,fullscreenDoubleTap;{show_legend},gShow,showInfo,showImagenav,showCounter;{autoplay_legend},autoplay,pauseOnInteraction;{lightbox_legend},lightbox;{images_legend},imageCrop,imageMargin,imagePosition,imagePan,imagePanSmoothness,preload,minScaleRatio,maxScaleRatio,layerFollow;{carousel_legend},carousel,carouselFollow,carouselSpeed,carouselSteps;{thumbnails_legend},thumbnails,thumbCrop,thumbMargin,thumbFit,thumbQuality;{flickr_legend},flickr;{picasa_legend},picasa;{history_legend},history;{error_legend},dummy,imageTimeout;{extend_legend},extend,dataConfig,debug;{publish_legend},published'
+		'default'                     => '{title_legend},title,alias;{themes_legend},themesSRC,minifiedJS;{dimensions_legend},width,height,responsive;{effects_legend},initialTransition,transition,fullscreenTransition,touchTransition,transitionSpeed,easing,queue;{navigation_legend},clicknext,popupLinks,swipe;{fullscreen_legend},fullscreenCrop,fullscreenDoubleTap,trueFullscreen;{show_legend},gShow,showInfo,showImagenav,showCounter;{autoplay_legend},autoplay,pauseOnInteraction;{lightbox_legend},lightbox;{images_legend},imageCrop,imageMargin,imagePosition,imagePan,imagePanSmoothness,preload,minScaleRatio,maxScaleRatio,layerFollow;{carousel_legend},carousel,carouselFollow,carouselSpeed,carouselSteps;{thumbnails_legend},thumbnails,thumbCrop,thumbMargin,thumbFit,thumbQuality;{video_legend},dailymotion,vimeo,youtube;{flickr_legend},flickr;{picasa_legend},picasa;{history_legend},history;{error_legend},dummy,imageTimeout,wait;{extend_legend},extend,dataConfig,debug;{publish_legend},published'
 	),
 
 	// Subpalettes
@@ -128,7 +128,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 		'lightbox'                            => 'lightboxFadeSpeed,lightboxTransitionSpeed,overlayBackground,overlayOpacity',
                 'autoplay'                            => 'autoplayInterval',
                 'flickr'                              => 'flickrMethods,flickrMethodsValue,flickrOptMax,flickrOptImageSize,flickrOptThumbSize,flickrOptSort,flickrOptDescription',
-                'picasa'                              => 'picasaMethods,picasaMethodsValue,picasaOptMax,picasaOptImageSize,picasaOptThumbSize,picasaOptDescription'
+                'picasa'                              => 'picasaMethods,picasaMethodsValue,picasaOptMax,picasaOptImageSize,picasaOptThumbSize'
 	),
 
 	// Fields
@@ -184,7 +184,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '650',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
 		),
 		'height' => array
 		(
@@ -192,7 +192,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '300',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
 		),
                 'transition' => array
 		(
@@ -331,9 +331,10 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => 'false',
 			'inputType'               => 'select',
-                        'options'                 => array('false', 'true', 'height', 'width'),
+                        'options'                 => array('false', 'true', 'height', 'width', 'landscape', 'portrait'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50', 'helpwizard'=>true),
+                        'explanation'             => 'cropMethods'
 		),
                 'imageMargin' => array
 		(
@@ -452,9 +453,10 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => 'true',
 			'inputType'               => 'select',
-                        'options'                 => array('true', 'false', 'height', 'width'),
+                        'options'                 => array('false', 'true', 'height', 'width', 'landscape', 'portrait'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50', 'helpwizard'=>true),
+                        'explanation'             => 'cropMethods'
 		),
                 'thumbMargin' => array
 		(
@@ -567,7 +569,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'inputType'               => 'select',
                         'options'                 => array('search', 'tags', 'user', 'set', 'gallery', 'groupsearch', 'group'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50','helpwizard'=>true),
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50', 'helpwizard'=>true),
                         'explanation'             => 'flickrMethods'
 		),
                 'flickrMethodsValue' => array
@@ -658,11 +660,12 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['fullscreenCrop'],
 			'exclude'                 => true,
-                        'default'                 => 'false',
+                        'default'                 => 'undefined',
 			'inputType'               => 'select',
-                        'options'                 => array('false', 'true', 'height', 'width'),
+                        'options'                 => array('undefined', 'false', 'true', 'height', 'width', 'landscape', 'portrait'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50', 'helpwizard'=>true),
+                        'explanation'             => 'cropMethods'
 		),
                 'picasa' => array
 		(
@@ -720,12 +723,58 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50','helpwizard'=>true),
                         'explanation'             => 'flickrOptImageSize'
 		),
-                'picasaOptDescription' => array
+                'dailymotion' => array
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['dailymotion'],
+                        'exclude'                 => true,
+                        'inputType'               => 'textarea',
+                        'eval'                    => array('allowHtml'=>true, 'preserveTags'=>true,  'tl_class'=>'clr'),
+                        'load_callback' => array (
+                                                     array('tl_galerie', 'getDefaultOptionsForDailymotion')
+                                                 )
+                ),
+                'vimeo' => array
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['vimeo'],
+                        'exclude'                 => true,
+                        'inputType'               => 'textarea',
+                        'eval'                    => array('allowHtml'=>true, 'preserveTags'=>true,  'tl_class'=>'clr'),
+                        'load_callback' => array (
+                                                     array('tl_galerie', 'getDefaultOptionsForVimeo')
+                                                 )
+                ),
+                'youtube' => array
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['youtube'],
+                        'exclude'                 => true,
+                        'inputType'               => 'textarea',
+                        'eval'                    => array('allowHtml'=>true, 'preserveTags'=>true,  'tl_class'=>'clr'),
+                        'load_callback' => array (
+                                                     array('tl_galerie', 'getDefaultOptionsForYouTube')
+                                                 )
+                ),
+                'trueFullscreen' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['picasaOptDescription'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['trueFullscreen'],
+			'exclude'                 => true,
+                        'default'                 => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+		),
+                'responsive' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['responsive'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
 			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+		),
+                'wait' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['wait'],
+			'exclude'                 => true,
+                        'default'                 => '5000',
+			'inputType'               => 'text',
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
 		)
 	)
 );
@@ -751,21 +800,67 @@ class tl_galerie extends Backend {
     }
         
     /**
-     * Count the number of pictures in the database
+     * Count the number of pictures, videos and iframes in the database
      * @param array
      * @param string
      * @return string
      */
     public function addPicturesNumber($row, $label) {
 
-        $objChildren = $this->Database->prepare("SELECT COUNT(*) AS count FROM tl_galerie_pictures WHERE pid=?")
+        // Calculates the total number of elements
+        $objTotal = $this->Database->prepare("SELECT COUNT(*) AS count FROM tl_galerie_pictures WHERE pid=?")
                 ->execute($row['id']);
+        
+        
+        // Retrieve the current gallery videos
+        $objVideo = $this->Database->prepare("SELECT video FROM tl_galerie_pictures WHERE pid=?")
+        ->execute($row['id']);
+        
+        while($objVideo->next()) {
+            $arrVideo[] = $objVideo->row();
+        }
+        // Calculates the total number of videos 
+        $video = count(array_filter(array_map('array_filter', $arrVideo)));
 
-        if ($objChildren->count > 1)
-            $label .= ' <span style="color:#b3b3b3; padding-left:3px;">' . sprintf('[%s ' . $GLOBALS['TL_LANG']['tl_galerie']['pictures'] . ']', $objChildren->count) . '</span>';
+        
+        // Retrieve the current gallery iframes
+        $objIframe = $this->Database->prepare("SELECT iframe FROM tl_galerie_pictures WHERE pid=?")
+        ->execute($row['id']);
+        
+        while($objIframe->next()) {
+            $arrIframe[] = $objIframe->row();
+        }
+        // Calculates the total number of iframes 
+        $iframe = count(array_filter(array_map('array_filter', $arrIframe)));
+        
+        
+        // Calculates the total number of images 
+        $image = $objTotal->count - $video - $iframe;
+        
+        
+        // Adds the designation with the number
+        if ($objTotal->count > 1)
+            $label_total = sprintf('%s ' . $GLOBALS['TL_LANG']['tl_galerie']['label_datas'], $objTotal->count);
         else
-            $label .= ' <span style="color:#b3b3b3; padding-left:3px;">' . sprintf('[%s ' . $GLOBALS['TL_LANG']['tl_galerie']['picture'] . ']', $objChildren->count) . '</span>';
+            $label_total = sprintf('%s ' . $GLOBALS['TL_LANG']['tl_galerie']['label_data'], $objTotal->count);
+        
+        if ($video > 1)
+            $label_video = sprintf('%s ' . $GLOBALS['TL_LANG']['tl_galerie']['label_videos'], $video);
+        else
+            $label_video = sprintf('%s ' . $GLOBALS['TL_LANG']['tl_galerie']['label_video'], $video);
+            
+        if ($image > 1)
+            $label_image = sprintf('%s ' . $GLOBALS['TL_LANG']['tl_galerie']['label_images'], $image);
+        else
+            $label_image = sprintf('%s ' . $GLOBALS['TL_LANG']['tl_galerie']['label_image'], $image);
+            
+        if ($iframe > 1)
+            $label_iframe = sprintf('%s ' . $GLOBALS['TL_LANG']['tl_galerie']['label_iframes'], $iframe);
+        else
+            $label_iframe = sprintf('%s ' . $GLOBALS['TL_LANG']['tl_galerie']['label_iframe'], $iframe);
 
+        $label .= ' <span style="color:#b3b3b3; padding-left:3px;">[' . $label_total  . " : " . $label_video . " - " . $label_image . " - " . $label_iframe . ']</span>';
+       
         return $label;
     }
     
@@ -882,6 +977,45 @@ class tl_galerie extends Backend {
     public function editHeader($row, $href, $label, $title, $icon, $attributes)
     {
             return ($this->User->isAdmin || count(preg_grep('/^tl_galerie::/', $this->User->alexf)) > 0) ? '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ' : '';
+    }
+    
+    /**
+     * Load the default options for Vimeo
+     * @param string
+     * @return string
+     */
+    public function getDefaultOptionsForVimeo($varValue, DataContainer $dc) {
+        if (!trim($varValue)) {
+            $varValue = $GLOBALS['TL_LANG']['tl_galerie']['vimeo_options'];
+        }
+
+        return $varValue;
+    }
+    
+    /**
+     * Load the default options for YouTube
+     * @param string
+     * @return string
+     */
+    public function getDefaultOptionsForYouTube($varValue, DataContainer $dc) {
+        if (!trim($varValue)) {
+            $varValue = $GLOBALS['TL_LANG']['tl_galerie']['youtube_options'];
+        }
+
+        return $varValue;
+    }
+    
+    /**
+     * Load the default options for Dailymotion
+     * @param string
+     * @return string
+     */
+    public function getDefaultOptionsForDailymotion($varValue, DataContainer $dc) {
+        if (!trim($varValue)) {
+            $varValue = $GLOBALS['TL_LANG']['tl_galerie']['dailymotion_options'];
+        }
+
+        return $varValue;
     }
 }
 

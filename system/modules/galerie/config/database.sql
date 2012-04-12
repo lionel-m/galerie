@@ -25,7 +25,7 @@ CREATE TABLE `tl_galerie` (
   `themesSRC` varchar(255) NOT NULL default '',
   `minifiedJS` char(1) NOT NULL default '',
   `width` int(10) unsigned NOT NULL default '0',
-  `height` int(10) unsigned NOT NULL default '0',
+  `height` double unsigned NOT NULL default '0',
   `transition` varchar(32) NOT NULL default '',
   `initialTransition` varchar(32) NOT NULL default '',
   `fullscreenTransition` varchar(32) NOT NULL default '',
@@ -88,7 +88,12 @@ CREATE TABLE `tl_galerie` (
   `picasaOptMax` int(10) unsigned NOT NULL default '0',
   `picasaOptImageSize` varchar(32) NOT NULL default '',
   `picasaOptThumbSize` varchar(32) NOT NULL default '',
-  `picasaOptDescription` char(1) NOT NULL default '',
+  `dailymotion` text NULL,
+  `vimeo` text NULL,
+  `youtube` text NULL,
+  `trueFullscreen` char(1) NOT NULL default '',
+  `wait` varchar(32) NOT NULL default '',
+  `responsive` char(1) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -113,6 +118,10 @@ CREATE TABLE `tl_galerie_pictures` (
   `imageUrl` varchar(255) NOT NULL default '',
   `size` varchar(64) NOT NULL default '',
   `thumbSize` varchar(64) NOT NULL default '',
+  `video` varchar(255) NOT NULL default '',
+  `videoThumb` char(1) NOT NULL default '',
+  `iframe` varchar(255) NOT NULL default '',
+  `iframeThumb` char(1) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

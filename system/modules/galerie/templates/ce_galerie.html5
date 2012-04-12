@@ -5,15 +5,31 @@
     
         <?php if (($this->flickr == FALSE) && ($this->picasa == FALSE)): ?>
         
-            <div id="<?php echo $this->alias.'-'.$this->tstamp; ?>">
+            <div id="<?php echo $this->alias.'-'.$this->moduleID; ?>">
 
                 <?php foreach ($this->pictures as $pictures):
-                        echo '<a' . ($pictures['imageFullscreenSRC'] ? ' rel="'.$pictures['imageFullscreenSRC'].'" ' : ' ') . 'href="'.$pictures['imageSRC'].'"><img alt="'.$pictures['alt'].'" title="'.$pictures['title'].'" src="'.$pictures['thumbnailSRC'].'" ' . ($pictures['imageUrl'] ? 'longdesc="'.$pictures['imageUrl'].'" ' : '') . '/></a>';
-                      endforeach; ?>
+		
+		    if (($pictures['video'] != NULL) && ($pictures['iframe'] == NULL)):
+			if ($pictures['videoThumb']):
+			    echo '<a href="' . $pictures['video'] . '"><span class="video"></span></a>';
+			else:
+			    echo '<a href="' . $pictures['video'] . '"><img src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
+			endif;
+		    elseif (($pictures['iframe'] != NULL) && ($pictures['video'] == NULL)):
+			if ($pictures['iframeThumb']):
+			    echo '<a href="' . $pictures['iframe'] . '"><span class="iframe"></span></a>';
+			else:
+			    echo '<a href="' . $pictures['iframe'] . '"><img class="iframe" src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
+			endif;
+		    else:
+			echo '<a' . ($pictures['imageFullscreenSRC'] ? ' rel="'.$pictures['imageFullscreenSRC'].'" ' : ' ') . 'href="'.$pictures['imageSRC'].'"><img alt="'.$pictures['alt'].'" title="'.$pictures['title'].'" src="'.$pictures['thumbnailSRC'].'" ' . ($pictures['imageUrl'] ? 'longdesc="'.$pictures['imageUrl'].'" ' : '') . '/></a>';
+		    endif;
+		
+                endforeach; ?>
 
             </div>
 
-            <?php else: echo '<div id='.$this->alias.'-'.$this->tstamp.'></div>'; ?>
+            <?php else: echo '<div id='.$this->alias.'-'.$this->moduleID.'></div>'; ?>
         
         <?php endif; ?>
         
@@ -26,9 +42,9 @@
     Galleria.loadTheme('<?php echo $this->pathJS; ?>');
     
     // Initialize Galleria
-    jQuery.noConflict();
-    jQuery(document).ready(function(){
-	jQuery('#<?php echo $this->alias.'-'.$this->tstamp; ?>').galleria(<?php if($this->options) echo '{'; ?>
+
+	Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>')
+	Galleria.configure(<?php if($this->options) echo '{'; ?>
 
         <?php
             for ($i = 0; $i < count($this->options); $i++) {
@@ -49,8 +65,6 @@
         <?php endif; ?>
 
         <?php if($this->options) echo '}'; ?>);
-    });
+
     //--><!]]>
 </script>
-
-    

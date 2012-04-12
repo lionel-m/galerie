@@ -2,7 +2,7 @@
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -21,7 +21,7 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Synergie Consulting http://www.synergie-consulting.com 
+ * @copyright  Lionel Maccaud 
  * @author     Lionel Maccaud (Galleria by Aino: http://galleria.aino.se)
  * @package    galerie
  * @license    MIT 
@@ -63,5 +63,18 @@ $GLOBALS['TL_LANG']['XPL']['picasaMethods'] = array
     array('Search', 'Search Picasa for public photos using a search string.'),
     array('User', 'Fetch a user’s public photos using the username like displayed in the URL (not user ID).'),
     array('User album', 'Get photos from a user album.')
+);
+
+/**
+ * Crop methods
+ */
+$GLOBALS['TL_LANG']['XPL']['cropMethods'] = array
+(
+    array('True', 'Means that all images will be scaled to fill the stage, centered and cropped.'),
+    array('False', 'Will scale down so the entire image fits.'),
+    array('Height', 'Will scale the image to fill the height of the stage.'),
+    array('Width', 'Will scale the image to fill the width of the stage.'),
+    array('Landscape', 'Will fill up images that has landscape proportions, but scale portrait images to fit inside the container.'),
+    array('Portrait', 'Is like ‘landscape’ but the other way around.')
 );
 ?>

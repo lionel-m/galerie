@@ -6,4 +6,4 @@ Galleria and the plugins History, Picasa and Flickr are free to use and licensed
 
 -----
 
-Contao extension by Synergie Consulting (http://synergie-consulting.com)
+Contao extension by Lionel Maccaud (http://www.contao.org/en/extension-list/authors/lionel.html)

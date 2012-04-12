@@ -5,7 +5,7 @@
     
         <?php if (($this->flickr == FALSE) && ($this->picasa == FALSE)): ?>
         
-            <div id="<?php echo $this->alias.'-'.$this->tstamp; ?>">
+            <div id="<?php echo $this->alias.'-'.$this->moduleID; ?>">
 
                 <?php foreach ($this->pictures as $pictures):
                         echo '<a' . ($pictures['imageFullscreenSRC'] ? ' rel="'.$pictures['imageFullscreenSRC'].'" ' : ' ') . 'href="'.$pictures['imageSRC'].'"><img alt="'.$pictures['alt'].'" title="'.$pictures['title'].'" src="'.$pictures['thumbnailSRC'].'" ' . ($pictures['imageUrl'] ? 'longdesc="'.$pictures['imageUrl'].'" ' : '') . '/></a>';
@@ -13,22 +13,22 @@
 
             </div>
 
-            <?php else: echo '<div id='.$this->alias.'-'.$this->tstamp.'></div>'; ?>
+            <?php else: echo '<div id='.$this->alias.'-'.$this->moduleID.'></div>'; ?>
         
         <?php endif; ?>
         
         <?php if (($this->noImages) && ($this->flickr == FALSE) && ($this->picasa == FALSE)): echo '<p>'.$this->noImages.'</p>'; endif; ?>
 </div>
 
-<script>
+<script type="text/javascript">
     <!--//--><![CDATA[//><!--
     // Load JS file theme
     Galleria.loadTheme('<?php echo $this->pathJS; ?>');
     
     // Initialize Galleria
-    jQuery.noConflict();
-    jQuery(document).ready(function(){
-	jQuery('#<?php echo $this->alias.'-'.$this->tstamp; ?>').galleria(<?php if($this->options) echo '{'; ?>
+
+	Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>')
+	Galleria.configure(<?php if($this->options) echo '{'; ?>
 
         <?php
             for ($i = 0; $i < count($this->options); $i++) {
@@ -49,8 +49,6 @@
         <?php endif; ?>
 
         <?php if($this->options) echo '}'; ?>);
-    });
+
     //--><!]]>
 </script>
-
-    

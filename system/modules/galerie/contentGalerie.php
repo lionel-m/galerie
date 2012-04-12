@@ -5,7 +5,7 @@ if (!defined('TL_ROOT'))
 
 /**
  * Contao Open Source CMS
- * Copyright (C) 2005-2011 Leo Feyer
+ * Copyright (C) 2005-2012 Leo Feyer
  *
  * Formerly known as TYPOlight Open Source CMS.
  *
@@ -24,7 +24,7 @@ if (!defined('TL_ROOT'))
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Synergie Consulting http://www.synergie-consulting.com 
+ * @copyright  Lionel Maccaud
  * @author     Lionel Maccaud (Galleria by Aino: http://galleria.aino.se)
  * @package    galerie 
  * @license    MIT 
@@ -34,8 +34,8 @@ if (!defined('TL_ROOT'))
 /**
  * Class contentGalerie 
  *
- * @copyright  Synergie Consulting http://www.synergie-consulting.com 
- * @author     Lionel Maccaud 
+ * @copyright  Lionel Maccaud 
+ * @author     Lionel Maccaud
  * @package    Controller
  */
 class contentGalerie extends Module {
@@ -60,7 +60,7 @@ class contentGalerie extends Module {
         if (TL_MODE == 'FE') {
 
             // From the extension - Galleria script
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.2.6.min.js';
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.2.7.min.js';
             
             // Flickr Plugin
             if($this->isFlickrEnabled())
@@ -77,9 +77,6 @@ class contentGalerie extends Module {
 
         $this->getOptions();
         $this->getPictures();
-        $this->isFlickrEnabled();
-        $this->isHistoryEnabled();
-        $this->isPicasaEnabled();
     }
 
     /**
@@ -259,12 +256,12 @@ class contentGalerie extends Module {
             if ($arrOptions[0]['imageTimeout'] != 30000)
                 $options[43] = 'imageTimeout: ' . $arrOptions[0]['imageTimeout'];
             
-            if (($arrOptions[0]['fullscreenCrop'] != 'false') && ($arrOptions[0]['fullscreenCrop'] == 'true'))
+            if (($arrOptions[0]['fullscreenCrop'] == 'false') || ($arrOptions[0]['fullscreenCrop'] == 'true'))
                 $options[44] = 'fullscreenCrop: ' . $arrOptions[0]['fullscreenCrop'];
             
-            elseif (($arrOptions[0]['fullscreenCrop'] != 'false') && ($arrOptions[0]['fullscreenCrop'] != 'true'))
+            elseif (($arrOptions[0]['fullscreenCrop'] != 'undefined') && ($arrOptions[0]['fullscreenCrop'] != 'false') && ($arrOptions[0]['fullscreenCrop'] != 'true'))
                 $options[44] = 'fullscreenCrop: ' . "'" . $arrOptions[0]['fullscreenCrop'] . "'";
-            
+
             if ($arrOptions[0]['fullscreenTransition'] != 'undefined')
                 $options[45] = 'fullscreenTransition: ' . "'" . $arrOptions[0]['fullscreenTransition'] . "'";
             
@@ -273,6 +270,16 @@ class contentGalerie extends Module {
             
             if ($arrOptions[0]['dataConfig'] != NULL)
                 $options[47] = $arrOptions[0]['dataConfig'];
+            
+            if ($arrOptions[0]['trueFullscreen'] == '')
+                $options[48] = 'trueFullscreen: false';
+            
+            if ($arrOptions[0]['responsive'] == '1')
+                $options[49] = 'responsive: true';
+
+            if (($arrOptions[0]['wait'] != '5000') && ($arrOptions[0]['wait'] != NULL))
+                $options[50] = 'wait: ' . $arrOptions[0]['wait'];
+            
             
             // Reindex the array
             $options = array_values($options);
@@ -330,9 +337,6 @@ class contentGalerie extends Module {
             if ($arrOptions[0]['picasaOptThumbSize'] != 'thumb')
                 $picasaOptions[2] = 'thumbSize: ' . "'" . $arrOptions[0]['picasaOptThumbSize'] . "'";
             
-            if ($arrOptions[0]['picasaOptDescription'] == '1')
-                $picasaOptions[3] = 'description: true';
-            
             // Reindex the array
             $picasaOptions = array_values($picasaOptions);
             
@@ -389,9 +393,9 @@ class contentGalerie extends Module {
         $this->Template->pathJS = $pathJS;
         
         
-        // Use tstamp for the ID container (id="{alias}-{tstamp}")
+        // Use alias and module ID for the ID container (id="{alias}-{moduleID}")
         $this->Template->alias = $objOptions->alias;
-        $this->Template->tstamp = $objOptions->tstamp;
+        $this->Template->moduleID = $this->galerie;
     }
     
     /**
@@ -434,7 +438,7 @@ class contentGalerie extends Module {
         else
             $isPicasaEnabled = TRUE;
 
-        // Boolean : Does the Flickr plugin is enabled ?
+        // Boolean : Does the Picasa plugin is enabled ?
         $this->Template->picasa = $isPicasaEnabled;
         
         return $isPicasaEnabled;
@@ -492,7 +496,11 @@ class contentGalerie extends Module {
                     'imageUrl'              => $objPictures->imageUrl,
                     'imageSRC'              => $imageSRC,
                     'thumbnailSRC'          => $thumbnailSRC,
-                    'imageFullscreenSRC'    => $this->urlEncode($objPictures->fullscreenSingleSRC)
+                    'imageFullscreenSRC'    => $this->urlEncode($objPictures->fullscreenSingleSRC),
+                    'video'                 => $this->urlVerification($objPictures->video),
+                    'videoThumb'            => $objPictures->videoThumb,
+                    'iframe'                => $objPictures->iframe,
+                    'iframeThumb'           => $objPictures->iframeThumb
                 );
             }
 
@@ -530,6 +538,59 @@ class contentGalerie extends Module {
          */
         return $theme;
     }
+    
+    /**
+     * Return the name of the video sharing website
+     * 
+     * @access protected
+     * @param String
+     * @return String
+     */
+    protected function videoSharingWebsiteName($url) {
+        
+        $videoSharingWebsiteName = '';
+        
+        // Extract the hostname of the url.
+        $url_parsed = parse_url($url);
+        $domain = $url_parsed['host'];
+        // Delete the prefix www.
+        $domain = preg_replace('/www./', '', $domain);
+        
+        switch($domain) {
+            case $domain == 'dai.ly'  || $domain == 'dailymotion.com' :
+                $videoSharingWebsiteName = 'dailymotion';
+                break;
+            case $domain == 'youtu.be' || $domain == 'youtube.com' :
+                $videoSharingWebsiteName = 'youtube';
+                break;
+            case $domain == 'vimeo.com' :
+                $videoSharingWebsiteName = 'vimeo';
+                break;
+            default : $videoSharingWebsiteName = 'undefined';
+        }
+        
+        return $videoSharingWebsiteName;
+    }
+    
+    /**
+     * Check if there is the prefix "http://" and if not, add it.
+     * 
+     * @access protected
+     * @param String
+     * @return String
+     */
+    protected function urlVerification($url) {
+        
+        if(!empty($url)) {
+            $urlPrefix = strpos($url, "http://");
+            
+            if($urlPrefix === false) {
+                $url = "http://" . $url;
+            }
+            return $url;
+        }
+        else
+            return '';
+    }
 }
-
 ?>
