@@ -261,7 +261,7 @@ class contentGalerie extends Module {
             
             elseif (($arrOptions[0]['fullscreenCrop'] != 'undefined') && ($arrOptions[0]['fullscreenCrop'] != 'false') && ($arrOptions[0]['fullscreenCrop'] != 'true'))
                 $options[44] = 'fullscreenCrop: ' . "'" . $arrOptions[0]['fullscreenCrop'] . "'";
-
+            
             if ($arrOptions[0]['fullscreenTransition'] != 'undefined')
                 $options[45] = 'fullscreenTransition: ' . "'" . $arrOptions[0]['fullscreenTransition'] . "'";
             
@@ -276,9 +276,18 @@ class contentGalerie extends Module {
             
             if ($arrOptions[0]['responsive'] == '1')
                 $options[49] = 'responsive: true';
-
+            
             if (($arrOptions[0]['wait'] != '5000') && ($arrOptions[0]['wait'] != NULL))
                 $options[50] = 'wait: ' . $arrOptions[0]['wait'];
+            
+            if ($arrOptions[0]['dailymotion'] != NULL)
+                $options[51] = 'dailymotion: ' . $arrOptions[0]['dailymotion'];
+            
+            if ($arrOptions[0]['vimeo'] != NULL)
+                $options[52] = 'vimeo: ' . $arrOptions[0]['vimeo'];
+            
+            if ($arrOptions[0]['youtube'] != NULL)
+                $options[53] = 'youtube: ' . $arrOptions[0]['youtube'];
             
             
             // Reindex the array

@@ -44,6 +44,8 @@ $GLOBALS['TL_LANG']['tl_galerie_pictures']['video']               = array('Video
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['videoThumb']          = array('Thumbnail from the provider', 'Fetches the thumbnail from the provider API\'s.');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['iframe']              = array('Iframe', 'Galleria also supports iframes to be displayed instead of an image.');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['iframeThumb']         = array('Skip the thumbnail', 'You can also skip the thumbnail by adding an element with the class "iframe".');
+
+
 /**
  * Legends
  */
@@ -71,5 +73,8 @@ $GLOBALS['TL_LANG']['tl_galerie_pictures']['show']   = array('Image details', 'S
 /**
  * Miscellaneous
  */
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['untitled'] = 'Untitled';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['untitled']      = 'Untitled';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['label_video']   = 'Video';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['label_iframe']  = 'Iframe';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['label_image']   = 'Image';
 ?>

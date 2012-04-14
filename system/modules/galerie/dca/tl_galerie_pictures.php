@@ -154,7 +154,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['singleSRC'],
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
-                        'eval'                    => array('fieldType' => 'radio', 'files' => true, 'filesOnly' => true, 'mandatory' => true)
+                        'eval'                    => array('fieldType' => 'radio', 'files' => true, 'filesOnly' => true)
                 ),
                 'alt' => array
                 (
@@ -241,6 +241,7 @@ class tl_galerie_pictures extends Backend {
      */
     public function listPictures($arrRow) {
 
+        $type = '';
         $key = ($arrRow['published']) ? 'published' : 'unpublished';
         $image = $this->getImage($arrRow['singleSRC'], 150, 150, 'box');
         
@@ -248,11 +249,20 @@ class tl_galerie_pictures extends Backend {
             $title = $arrRow['title'];
         else
             $title = $GLOBALS['TL_LANG']['tl_galerie_pictures']['untitled'];
-
+        
+        if($arrRow['video'])
+            $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_video'];
+        elseif($arrRow['iframe'])
+            $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_iframe'];
+        else
+            $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_image'];
+        
         return '
-          <div class="cte_type ' . $key . '" style="color:#444;"> ' . $title . '</div>
-          <div class="limit_height h64 block' . (!$GLOBALS['TL_CONFIG']['doNotCollapse'] ? ' h52' : '') . ' block">'
-        . '<div style="float: left; margin-right: 10px;"><img src="' . $image . '" /></div>'
+          <div class="cte_type ' . $key . '" style="color:#444;"> ' . '<span style="color:#777;">[' . $type . ']</span> - ' . $title . '</div>
+          <div class="limit_height h64 block' . (!$GLOBALS['TL_CONFIG']['doNotCollapse'] ? ' h52' : '') . ' block">
+          <div style="float: left; margin-right: 10px;">'
+          . ($arrRow['singleSRC'] ? '<img src="' . $image . '" />' : '')
+          .'</div>'
         . '</div>' . "\n";
     }
 
