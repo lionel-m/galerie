@@ -549,46 +549,13 @@ class contentGalerie extends Module {
     }
     
     /**
-     * Return the name of the video sharing website
-     * 
-     * @access protected
-     * @param String
-     * @return String
-     */
-    protected function videoSharingWebsiteName($url) {
-        
-        $videoSharingWebsiteName = '';
-        
-        // Extract the hostname of the url.
-        $url_parsed = parse_url($url);
-        $domain = $url_parsed['host'];
-        // Delete the prefix www.
-        $domain = preg_replace('/www./', '', $domain);
-        
-        switch($domain) {
-            case $domain == 'dai.ly'  || $domain == 'dailymotion.com' :
-                $videoSharingWebsiteName = 'dailymotion';
-                break;
-            case $domain == 'youtu.be' || $domain == 'youtube.com' :
-                $videoSharingWebsiteName = 'youtube';
-                break;
-            case $domain == 'vimeo.com' :
-                $videoSharingWebsiteName = 'vimeo';
-                break;
-            default : $videoSharingWebsiteName = 'undefined';
-        }
-        
-        return $videoSharingWebsiteName;
-    }
-    
-    /**
      * Check if there is the prefix "http://" and if not, add it.
      * 
-     * @access protected
+     * @access public
      * @param String
      * @return String
      */
-    protected function urlVerification($url) {
+    public function urlVerification($url) {
         
         if(!empty($url)) {
             $urlPrefix = strpos($url, "http://");

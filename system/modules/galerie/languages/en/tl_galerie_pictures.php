@@ -77,4 +77,5 @@ $GLOBALS['TL_LANG']['tl_galerie_pictures']['untitled']      = 'Untitled';
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_video']   = 'Video';
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_iframe']  = 'Iframe';
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_image']   = 'Image';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['from']          = 'from';
 ?>

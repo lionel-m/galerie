@@ -250,8 +250,10 @@ class tl_galerie_pictures extends Backend {
         else
             $title = $GLOBALS['TL_LANG']['tl_galerie_pictures']['untitled'];
         
-        if($arrRow['video'])
+        if($arrRow['video']) {
             $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_video'];
+            $type .= " " . $GLOBALS['TL_LANG']['tl_galerie_pictures']['from'] . " " . $this->videoSharingWebsiteName($arrRow['video']);
+        }
         elseif($arrRow['iframe'])
             $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_iframe'];
         else
@@ -264,6 +266,41 @@ class tl_galerie_pictures extends Backend {
           . ($arrRow['singleSRC'] ? '<img src="' . $image . '" />' : '')
           .'</div>'
         . '</div>' . "\n";
+    }
+    
+    /**
+     * Return the name of the video sharing website
+     * 
+     * @access protected
+     * @param String
+     * @return String
+     */
+    protected function videoSharingWebsiteName($url) {
+        
+        $videoSharingWebsiteName = '';
+        
+        $url = contentGalerie::urlVerification($url);
+        
+        // Extract the hostname of the url.
+        $url_parsed = parse_url($url);
+        $domain = $url_parsed['host'];
+        // Delete the prefix www.
+        $domain = preg_replace('/www./', '', $domain);
+        
+        switch($domain) {
+            case $domain == 'dai.ly'  || $domain == 'dailymotion.com' :
+                $videoSharingWebsiteName = 'dailymotion';
+                break;
+            case $domain == 'youtu.be' || $domain == 'youtube.com' :
+                $videoSharingWebsiteName = 'youtube';
+                break;
+            case $domain == 'vimeo.com' :
+                $videoSharingWebsiteName = 'vimeo';
+                break;
+            default : $videoSharingWebsiteName = 'undefined';
+        }
+        
+        return $videoSharingWebsiteName;
     }
 
     /**
