@@ -50,7 +50,7 @@ $GLOBALS['TL_LANG']['tl_galerie_pictures']['iframeThumb']         = array('Skip 
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['title_legend']            = 'Title';
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['image_fullscreen_legend'] = 'Image - Fullscreen';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['image_fullscreen_legend'] = 'Image - Fullscreen and lightbox';
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['image_legend']            = 'Image - Standard';
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['thumbnail_legend']        = 'Size of thumbnails for images or videos or iframes.';
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['publish_legend']          = 'Publish';
