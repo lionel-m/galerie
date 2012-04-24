@@ -3,7 +3,8 @@
         <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
     <?php endif; ?>
     
-<?php if (($this->noImages == FALSE) && ($this->flickr == FALSE) && ($this->picasa == FALSE)): ?>
+    <?php if (($this->noImages == TRUE) && ($this->flickr == FALSE) && ($this->picasa == FALSE)): echo '<p>'.$this->noImages.'</p></div>'; ?>
+    <?php else: ?>
     
         <?php if (($this->flickr == FALSE) && ($this->picasa == FALSE)): ?>
         
@@ -34,41 +35,39 @@
         <?php else: echo '<div id='.$this->alias.'-'.$this->moduleID.'></div>'; ?>
         
         <?php endif; ?>
-        
-    <?php else: echo '<p>'.$this->noImages.'</p>'; endif; ?>
 </div>
 
-<?php if ($this->noImages == FALSE) : ?>
-    <script type="text/javascript">
-	<!--//--><![CDATA[//><!--
-	// Load JS file theme
-	Galleria.loadTheme('<?php echo $this->pathJS; ?>');
-	
-	// Initialize Galleria
+<script type="text/javascript">
+    <!--//--><![CDATA[//><!--
+    // Load JS file theme
+    Galleria.loadTheme('<?php echo $this->pathJS; ?>');
     
-	    Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>')
-	    Galleria.configure(<?php if($this->options) echo '{'; ?>
-    
-	    <?php
-		for ($i = 0; $i < count($this->options); $i++) {
-		    echo($this->options[$i]);
-		}
-	    ?>
-		  
-	    <?php if ($this->flickr == TRUE): echo ',' ?>
-		
-		<?php echo $this->flickrFunction; ?>
-    
-	    <?php endif; ?>
-    
-	    <?php if ($this->picasa == TRUE): echo ',' ?>
-		
-		<?php echo $this->picasaFunction; ?>
-    
-	    <?php endif; ?>
-    
-	    <?php if($this->options) echo '}'; ?>);
-    
-	//--><!]]>
-    </script>
+    // Initialize Galleria
+
+	Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>')
+	Galleria.configure(<?php if($this->options) echo '{'; ?>
+
+	<?php
+	    for ($i = 0; $i < count($this->options); $i++) {
+		echo($this->options[$i]);
+	    }
+	?>
+	      
+	<?php if ($this->flickr == TRUE): echo ',' ?>
+	    
+	    <?php echo $this->flickrFunction; ?>
+
+	<?php endif; ?>
+
+	<?php if ($this->picasa == TRUE): echo ',' ?>
+	    
+	    <?php echo $this->picasaFunction; ?>
+
+	<?php endif; ?>
+
+	<?php if($this->options) echo '}'; ?>);
+
+    //--><!]]>
+</script>
+
 <?php endif; ?>
