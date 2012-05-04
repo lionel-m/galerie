@@ -42,30 +42,31 @@
     // Load JS file theme
     Galleria.loadTheme('<?php echo $this->pathJS; ?>');
     
+    <?php echo $this->json; ?>
+    
     // Initialize Galleria
+    Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>')
+    Galleria.configure(<?php if($this->options) echo '{'; ?>
 
-	Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>')
-	Galleria.configure(<?php if($this->options) echo '{'; ?>
+    <?php
+	for ($i = 0; $i < count($this->options); $i++) {
+	    echo($this->options[$i]);
+	}
+    ?>
+	  
+    <?php if ($this->flickr == TRUE): echo ',' ?>
+	
+	<?php echo $this->flickrFunction; ?>
 
-	<?php
-	    for ($i = 0; $i < count($this->options); $i++) {
-		echo($this->options[$i]);
-	    }
-	?>
-	      
-	<?php if ($this->flickr == TRUE): echo ',' ?>
-	    
-	    <?php echo $this->flickrFunction; ?>
+    <?php endif; ?>
 
-	<?php endif; ?>
+    <?php if ($this->picasa == TRUE): echo ',' ?>
+	
+	<?php echo $this->picasaFunction; ?>
 
-	<?php if ($this->picasa == TRUE): echo ',' ?>
-	    
-	    <?php echo $this->picasaFunction; ?>
+    <?php endif; ?>
 
-	<?php endif; ?>
-
-	<?php if($this->options) echo '}'; ?>);
+    <?php if($this->options) echo '}'; ?>);
 
     //--><!]]>
 </script>

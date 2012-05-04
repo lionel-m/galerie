@@ -268,26 +268,35 @@ class contentGalerie extends Module {
             if ($arrOptions[0]['touchTransition'] != 'undefined')
                 $options[46] = 'touchTransition: ' . "'" . $arrOptions[0]['touchTransition'] . "'";
             
+            if ($arrOptions[0]['dataSource'] != NULL)
+                $options[47] = 'dataSource: ' . $arrOptions[0]['dataSource'];
+            
+            if ($arrOptions[0]['dataSelector'] != NULL)
+                $options[48] = 'dataSelector: ' . $arrOptions[0]['dataSelector'];
+            
+            if ($arrOptions[0]['keepSource'] == '1')
+                $options[49] = 'keepSource: true';
+            
             if ($arrOptions[0]['dataConfig'] != NULL)
-                $options[47] = $arrOptions[0]['dataConfig'];
+                $options[50] = $arrOptions[0]['dataConfig'];
             
             if ($arrOptions[0]['trueFullscreen'] == '')
-                $options[48] = 'trueFullscreen: false';
+                $options[51] = 'trueFullscreen: false';
             
             if ($arrOptions[0]['responsive'] == '1')
-                $options[49] = 'responsive: true';
+                $options[52] = 'responsive: true';
             
             if (($arrOptions[0]['wait'] != '5000') && ($arrOptions[0]['wait'] != NULL))
-                $options[50] = 'wait: ' . $arrOptions[0]['wait'];
+                $options[53] = 'wait: ' . $arrOptions[0]['wait'];
             
             if ($arrOptions[0]['dailymotion'] != NULL)
-                $options[51] = 'dailymotion: ' . $arrOptions[0]['dailymotion'];
+                $options[54] = 'dailymotion: ' . $arrOptions[0]['dailymotion'];
             
             if ($arrOptions[0]['vimeo'] != NULL)
-                $options[52] = 'vimeo: ' . $arrOptions[0]['vimeo'];
+                $options[55] = 'vimeo: ' . $arrOptions[0]['vimeo'];
             
             if ($arrOptions[0]['youtube'] != NULL)
-                $options[53] = 'youtube: ' . $arrOptions[0]['youtube'];
+                $options[56] = 'youtube: ' . $arrOptions[0]['youtube'];
             
             
             // Reindex the array
@@ -297,6 +306,9 @@ class contentGalerie extends Module {
             for ($i = 0; $i < count($options)-1; $i++) {
                 $options[$i] = $options[$i] . ",\n";
             }
+            
+            // Add JSON if exist
+            ($arrOptions[0]['json'] != NULL ? ($this->Template->json = $arrOptions[0]['json']) : ($this->Template->json = ""));
             
             $this->Template->options = $options;
             

@@ -94,6 +94,10 @@ CREATE TABLE `tl_galerie` (
   `trueFullscreen` char(1) NOT NULL default '',
   `wait` varchar(32) NOT NULL default '',
   `responsive` char(1) NOT NULL default '',
+  `dataSource` varchar(32) NOT NULL default '',
+  `dataSelector` varchar(32) NOT NULL default '',
+  `keepSource` char(1) NOT NULL default '',
+  `json` text NULL,
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
