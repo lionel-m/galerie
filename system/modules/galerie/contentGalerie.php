@@ -509,7 +509,8 @@ class contentGalerie extends Module {
                     'video'                 => $this->urlVerification($objPictures->video),
                     'videoThumb'            => $objPictures->videoThumb,
                     'iframe'                => $objPictures->iframe,
-                    'iframeThumb'           => $objPictures->iframeThumb
+                    'iframeThumb'           => $objPictures->iframeThumb,
+                    'codeHTML'              => $objPictures->dataConfigHTML
                 );
             }
 

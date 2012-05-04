@@ -122,6 +122,7 @@ CREATE TABLE `tl_galerie_pictures` (
   `videoThumb` char(1) NOT NULL default '',
   `iframe` varchar(255) NOT NULL default '',
   `iframeThumb` char(1) NOT NULL default '',
+  `dataConfigHTML` text NULL,
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
