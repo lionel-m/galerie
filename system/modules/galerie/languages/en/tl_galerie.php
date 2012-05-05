@@ -98,6 +98,9 @@ $GLOBALS['TL_LANG']['tl_galerie']['dataSource'] = array('Data source', 'This is 
 $GLOBALS['TL_LANG']['tl_galerie']['dataSelector'] = array('Data selector', 'The selector Galleria should look for in the HTML source. If you are using other elements than images to store data in the HTML, you can set this option to configure Galleria to look for the right elements.');
 $GLOBALS['TL_LANG']['tl_galerie']['keepSource'] = array('Keep source', 'By default, Galleria clears the source container when rendering the gallery. Sometimes you need to apply the gallery some place else, like a lightbox, but still want to keep the thumbnails in the source. This option sets if the source HTML should be left intact. Setting this to true will also add click events inside the source code, to make your thumbnails clickable. Useful for building custom thumbnails and still have galleria control the gallery.');
 $GLOBALS['TL_LANG']['tl_galerie']['json'] = array('JSON', 'Another handy way to serve data is to provide a JSON array to Galleria. This method is preferred by many developers, since you gain more control over what is served to the client, and when. By serving HTML to the client and then let Galleria parse that HTML into Galleria data might be a performance downer if you don’t provide separate thumbnails, since the client has to download all images at once.');
+$GLOBALS['TL_LANG']['tl_galerie']['idleMode'] = array('Idle mode', 'Global option for turning on/off idle mode. Eache gallery enters idle mode after certain amount of time and themes behave differently when this happens, f.ex clears the stage from distractions. If you want to prevent idle mode from ever occuring, set this to false.');
+$GLOBALS['TL_LANG']['tl_galerie']['idleTime'] = array('Idle time', 'If you are adding elements into idle mode using the .addIdleState() method, you can control the delay before Galleria falls into Idle mode using this option. idleTime is set using milliseconds, so 3000 equals 3 full seconds.');
+$GLOBALS['TL_LANG']['tl_galerie']['idleSpeed'] = array('Idle speed', 'If you are adding elements into idle mode using the addIdleState() method, you can control the animation speed of the idle elements. idleSpeed is set using milliseconds.');
 
 // Flickr Options
 $GLOBALS['TL_LANG']['tl_galerie']['flickr'] = array('Flickr', 'Use the gallery with the Flickr API.');
@@ -225,6 +228,7 @@ $GLOBALS['TL_LANG']['tl_galerie']['error_legend'] = 'Error handling';
 $GLOBALS['TL_LANG']['tl_galerie']['fullscreen_legend'] = 'Fullscreen';
 $GLOBALS['TL_LANG']['tl_galerie']['picasa_legend'] = 'Picasa';
 $GLOBALS['TL_LANG']['tl_galerie']['video_legend'] = 'Video';
+$GLOBALS['TL_LANG']['tl_galerie']['idle_legend'] = 'Idle';
 
 
 /**

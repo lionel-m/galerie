@@ -298,6 +298,15 @@ class contentGalerie extends Module {
             if ($arrOptions[0]['youtube'] != NULL)
                 $options[56] = 'youtube: ' . $arrOptions[0]['youtube'];
             
+            if ($arrOptions[0]['idleMode'] == '')
+                $options[57] = 'idleMode: false';
+            
+            if ($arrOptions[0]['idleTime'] != 3000)
+                $options[58] = 'idleTime: ' . $arrOptions[0]['idleTime'];
+            
+            if ($arrOptions[0]['idleSpeed'] != 200)
+                $options[59] = 'idleSpeed: ' . $arrOptions[0]['idleSpeed'];
+            
             
             // Reindex the array
             $options = array_values($options);
