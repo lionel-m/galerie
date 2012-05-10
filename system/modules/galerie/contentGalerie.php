@@ -531,7 +531,7 @@ class contentGalerie extends Module {
                     'videoThumb'            => $objPictures->videoThumb,
                     'iframe'                => $objPictures->iframe,
                     'iframeThumb'           => $objPictures->iframeThumb,
-                    'codeHTML'              => $objPictures->dataConfigHTML
+                    'HTMLLayer'             => $objPictures->dataConfigHTML
                 );
             }
 
