@@ -21,28 +21,19 @@
  * Software Foundation website at <http://www.gnu.org/licenses/>.
  *
  * PHP version 5
- * @copyright  Lionel Maccaud
+ * @copyright  Lionel Maccaud 
  * @author     Lionel Maccaud (Galleria by Aino: http://galleria.aino.se)
- * @package    galerie 
+ * @package    galerie
  * @license    MIT 
  * @filesource
  */
 
 
 /**
- * Add palettes to tl_content
+ * tl_module fields
  */
-$GLOBALS['TL_DCA']['tl_content']['palettes']['galerie'] = '{type_legend},type,headline;{galerie_legend},galerie;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_LANG']['tl_module']['galerie']['0'] = "Galleria";
+$GLOBALS['TL_LANG']['tl_module']['galerie']['1'] = "Select your gallery";
 
-/**
- * Add fields to tl_content
- */
-$GLOBALS['TL_DCA']['tl_content']['fields']['galerie'] = array
-(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['galerie'],
-	'exclude'                 => true,
-	'inputType'               => 'radio',
-	'foreignKey'              => 'tl_galerie.title',
-	'eval'                    => array('mandatory'=>true)
-);
+$GLOBALS['TL_LANG']['tl_module']['galerie_legend'] = 'Select the gallery';
 ?>

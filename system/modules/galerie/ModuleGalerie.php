@@ -32,13 +32,13 @@ if (!defined('TL_ROOT'))
  */
 
 /**
- * Class ContentGalerie 
+ * Class ModuleGalerie 
  *
  * @copyright  Lionel Maccaud 
  * @author     Lionel Maccaud
  * @package    Controller
  */
-class ContentGalerie extends Module {
+class ModuleGalerie extends Module {
 
     /**
      * Template
@@ -47,6 +47,17 @@ class ContentGalerie extends Module {
     protected $strTemplate = 'ce_galerie';
 
     public function generate() {
+        
+        if (TL_MODE == 'BE') {
+            $objTemplate = new BackendTemplate('be_wildcard');
+            $objTemplate->wildcard = '### MODULE GALLERIA ###';
+            $objTemplate->title = $this->headline;
+            $objTemplate->id = $this->id;
+            $objTemplate->link = $this->name;
+            $objTemplate->href = 'contao/main.php?do=themes&amp;table=tl_module&amp;act=edit&amp;id=' . $this->id;
+
+            return $objTemplate->parse();
+        }
 
         return parent::generate();
     }

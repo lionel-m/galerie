@@ -30,16 +30,16 @@
 
 
 /**
- * Add palettes to tl_content
+ * Add palettes to tl_module
  */
-$GLOBALS['TL_DCA']['tl_content']['palettes']['galerie'] = '{type_legend},type,headline;{galerie_legend},galerie;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['galerie'] = '{title_legend},name,headline,type;{galerie_legend},galerie;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 
 /**
- * Add fields to tl_content
+ * Add fields to tl_module
  */
-$GLOBALS['TL_DCA']['tl_content']['fields']['galerie'] = array
+$GLOBALS['TL_DCA']['tl_module']['fields']['galerie'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['galerie'],
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['galerie'],
 	'exclude'                 => true,
 	'inputType'               => 'radio',
 	'foreignKey'              => 'tl_galerie.title',

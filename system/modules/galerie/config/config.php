@@ -80,7 +80,10 @@ $GLOBALS['BE_MOD']['content']['galerie'] = array (
  * 
  * Use function array_insert() to modify an existing CTE array.
  */
+ array_insert($GLOBALS['FE_MOD']['application'], 0, array (
  
+        'galerie' => 'ModuleGalerie'
+ ));
 
 /**
  * -------------------------------------------------------------------------
@@ -100,7 +103,7 @@ $GLOBALS['BE_MOD']['content']['galerie'] = array (
  * 
  * Use function array_insert() to modify an existing CTE array.
  */
- $GLOBALS['TL_CTE']['images']['galerie'] = 'contentGalerie';
+ $GLOBALS['TL_CTE']['images']['galerie'] = 'ContentGalerie';
 
 /**
  * -------------------------------------------------------------------------
