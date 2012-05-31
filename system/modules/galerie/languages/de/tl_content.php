@@ -17,6 +17,6 @@
  
 $GLOBALS['TL_LANG']['tl_content']['galerie']['0'] = "Galleria";
 $GLOBALS['TL_LANG']['tl_content']['galerie']['1'] = "Galerie auswählen";
-$GLOBALS['TL_LANG']['tl_content']['galerie_legend'] = "Wählen Sie die Galerie aus.";
+$GLOBALS['TL_LANG']['tl_content']['galerie_legend'] = "Wählen Sie Ihre Galerie aus.";
  
 ?>

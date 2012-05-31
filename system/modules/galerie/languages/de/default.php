@@ -15,7 +15,7 @@
  * permanent text corrections which are update-safe. 
  */
  
-$GLOBALS['TL_LANG']['MSC']['noImages'] = "Bisher keine Bilder verfügbar.";
+$GLOBALS['TL_LANG']['MSC']['noImages'] = "Bisher sind keine Bilder verfügbar.";
 $GLOBALS['TL_LANG']['CTE']['galerie']['0'] = "Galleria";
 $GLOBALS['TL_LANG']['CTE']['galerie']['1'] = "Professionelle Bildergalerien für Desktop und mobile Geräte.";
  
