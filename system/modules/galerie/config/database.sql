@@ -142,7 +142,8 @@ CREATE TABLE `tl_galerie_pictures` (
 --
 
 CREATE TABLE `tl_content` (
-  `galerie` int(10) unsigned NOT NULL default '0'
+  `galerie` int(10) unsigned NOT NULL default '0',
+  `imagesFolder` blob NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 

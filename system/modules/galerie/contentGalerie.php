@@ -536,12 +536,75 @@ class ContentGalerie extends Module {
             }
 
             $pictures = array_values($arrPictures);
+
+            // Add a group of pictures
+            if(count($this->getGroupOfPictures()) > 0)
+                $pictures = array_merge($pictures, $this->getGroupOfPictures());
+
             $this->Template->pictures = $pictures;
+        }
+        else if(count($this->getGroupOfPictures()) > 0) {
+            $this->Template->pictures = $this->getGroupOfPictures();
         }
         else {
             $this->Template->pictures = array();
             $this->Template->noImages = $GLOBALS['TL_LANG']['MSC']['noImages'];
         }
+    }
+    
+        /**
+     * Get a group of pictures (based on the ContentGallery)
+     *
+     * @access protected
+     * @return array
+     */
+    protected function getGroupOfPictures() {
+
+        $this->imagesFolder = deserialize($this->imagesFolder);
+        
+        $images = array();
+        $file = $this->imagesFolder;
+
+        // Single files
+        if (is_file(TL_ROOT . '/' . $file))
+        {
+            $objFile = new File($file);
+            $this->parseMetaFile(dirname($file), true);
+
+            if ($objFile->isGdImage)
+            {
+                $images[$file] = array
+                (
+                    'imageSRC' => $file
+                );
+            }
+            continue;
+        }
+
+        $subfiles = scan(TL_ROOT . '/' . $file);
+        $this->parseMetaFile($file);
+
+        // Folders
+        foreach ($subfiles as $subfile)
+        {
+            if (is_dir(TL_ROOT . '/' . $file . '/' . $subfile))
+            {
+                continue;
+            }
+
+            $objFile = new File($file . '/' . $subfile);
+
+            if ($objFile->isGdImage)
+            {
+                $images[$file . '/' . $subfile] = array
+                (
+                    'imageSRC' => $file . '/' . $subfile
+                );
+            }
+        }
+        $images = array_values($images);
+
+        return $images;
     }
 
     /**

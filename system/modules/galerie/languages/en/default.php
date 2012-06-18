@@ -32,7 +32,7 @@
 /**
  * Miscellaneous
  */
-$GLOBALS['TL_LANG']['MSC']['noImages'] = 'No pictures available yet.';
+$GLOBALS['TL_LANG']['MSC']['noImages'] = 'No image available yet.';
 
 
 /**

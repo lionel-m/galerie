@@ -32,7 +32,7 @@
 /**
  * Add palettes to tl_content
  */
-$GLOBALS['TL_DCA']['tl_content']['palettes']['galerie'] = '{type_legend},type,headline;{galerie_legend},galerie;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['galerie'] = '{type_legend},type,headline;{galerie_legend},galerie;{imagesFolder_legend},imagesFolder;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 
 /**
  * Add fields to tl_content
@@ -44,5 +44,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['galerie'] = array
 	'inputType'               => 'radio',
 	'foreignKey'              => 'tl_galerie.title',
 	'eval'                    => array('mandatory'=>true)
+);
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['imagesFolder'] = array
+(
+        'label'                   => &$GLOBALS['TL_LANG']['tl_content']['imagesFolder'],
+        'exclude'                 => true,
+        'inputType'               => 'fileTree',
+        'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr')
 );
 ?>
