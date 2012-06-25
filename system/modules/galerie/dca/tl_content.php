@@ -51,6 +51,6 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['imagesFolder'] = array
         'label'                   => &$GLOBALS['TL_LANG']['tl_content']['imagesFolder'],
         'exclude'                 => true,
         'inputType'               => 'fileTree',
-        'eval'                    => array('fieldType'=>'radio', 'files'=>true, 'tl_class'=>'clr')
+        'eval'                    => array('fieldType'=>'checkbox', 'files'=>true, 'tl_class'=>'clr')
 );
 ?>

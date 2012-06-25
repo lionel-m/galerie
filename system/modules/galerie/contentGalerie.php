@@ -552,7 +552,7 @@ class ContentGalerie extends Module {
         }
     }
     
-        /**
+    /**
      * Get a group of pictures (based on the ContentGallery)
      *
      * @access protected
@@ -563,43 +563,55 @@ class ContentGalerie extends Module {
         $this->imagesFolder = deserialize($this->imagesFolder);
         
         $images = array();
-        $file = $this->imagesFolder;
-
-        // Single files
-        if (is_file(TL_ROOT . '/' . $file))
+        
+        if (!is_array($this->imagesFolder) || empty($this->imagesFolder))
         {
-            $objFile = new File($file);
-            $this->parseMetaFile(dirname($file), true);
-
-            if ($objFile->isGdImage)
-            {
-                $images[$file] = array
-                (
-                    'imageSRC' => $file
-                );
-            }
-            continue;
+            $this->imagesFolder = array();
         }
-
-        $subfiles = scan(TL_ROOT . '/' . $file);
-        $this->parseMetaFile($file);
-
-        // Folders
-        foreach ($subfiles as $subfile)
-        {
-            if (is_dir(TL_ROOT . '/' . $file . '/' . $subfile))
+        
+        foreach ($this->imagesFolder as $file) {
+            
+            if (isset($images[$file]) || !file_exists(TL_ROOT . '/' . $file))
             {
                 continue;
             }
-
-            $objFile = new File($file . '/' . $subfile);
-
-            if ($objFile->isGdImage)
+            
+            // Single files
+            if (is_file(TL_ROOT . '/' . $file))
             {
-                $images[$file . '/' . $subfile] = array
-                (
-                    'imageSRC' => $file . '/' . $subfile
-                );
+                $objFile = new File($file);
+                $this->parseMetaFile(dirname($file), true);
+    
+                if ($objFile->isGdImage)
+                {
+                    $images[$file] = array
+                    (
+                        'imageSRC' => $file
+                    );
+                }
+                continue;
+            }
+    
+            $subfiles = scan(TL_ROOT . '/' . $file);
+            $this->parseMetaFile($file);
+    
+            // Folders
+            foreach ($subfiles as $subfile)
+            {
+                if (is_dir(TL_ROOT . '/' . $file . '/' . $subfile))
+                {
+                    continue;
+                }
+    
+                $objFile = new File($file . '/' . $subfile);
+    
+                if ($objFile->isGdImage)
+                {
+                    $images[$file . '/' . $subfile] = array
+                    (
+                        'imageSRC' => $file . '/' . $subfile
+                    );
+                }
             }
         }
         $images = array_values($images);
