@@ -872,8 +872,7 @@ class tl_galerie extends Backend {
             $arrVideo[] = $objVideo->row();
         }
         // Calculates the total number of videos 
-        $video = count(array_filter(array_map('array_filter', $arrVideo)));
-
+        $video = $this->countsNumberOfKeysWithoutEmptyValues($arrVideo);
         
         // Retrieve the current gallery iframes
         $objIframe = $this->Database->prepare("SELECT iframe FROM tl_galerie_pictures WHERE pid=?")
@@ -883,8 +882,7 @@ class tl_galerie extends Backend {
             $arrIframe[] = $objIframe->row();
         }
         // Calculates the total number of iframes 
-        $iframe = count(array_filter(array_map('array_filter', $arrIframe)));
-        
+        $iframe = $this->countsNumberOfKeysWithoutEmptyValues($arrIframe);
         
         // Calculates the total number of images 
         $image = $objTotal->count - $video - $iframe;
@@ -914,6 +912,23 @@ class tl_galerie extends Backend {
         $label .= ' <span style="color:#b3b3b3; padding-left:3px;">[' . $label_total  . " : " . $label_video . " - " . $label_image . " - " . $label_iframe . ']</span>';
        
         return $label;
+    }
+    
+    /**
+     * Counts the number of keys of an array without empty values
+     * @param array
+     * @return int
+     */
+    protected function countsNumberOfKeysWithoutEmptyValues($array) {
+        
+        if($array == NULL)
+            $countSum = 0;
+        else {
+            $result = array_map('array_filter', $array);
+            $count = array_map('count', $result);
+            $countSum = array_sum($count);
+        }
+        return $countSum;
     }
     
    /**

@@ -588,7 +588,7 @@ class ModuleGalerie extends Module {
      * @param String
      * @return String
      */
-    public function urlVerification($url) {
+    public static function urlVerification($url) {
         
         if(!empty($url)) {
             $urlPrefix = strpos($url, "http://");
