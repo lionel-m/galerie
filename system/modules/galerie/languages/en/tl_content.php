@@ -34,12 +34,12 @@
  */
 $GLOBALS['TL_LANG']['tl_content']['galerie']['0'] = "Galleria";
 $GLOBALS['TL_LANG']['tl_content']['galerie']['1'] = "Select your gallery";
-$GLOBALS['TL_LANG']['tl_content']['imagesFolder'] = array('Source files', 'Please select a folder from the files directory.');
+$GLOBALS['TL_LANG']['tl_content']['imagesFolder'] = array('Source files', 'Please select one or several folders from the files directory.');
 
 
 /**
  * Legends
  */
-$GLOBALS['TL_LANG']['tl_content']['imagesFolder_legend'] = 'Add several images from a folder';
+$GLOBALS['TL_LANG']['tl_content']['imagesFolder_legend'] = 'Add several images from one or several folders';
 $GLOBALS['TL_LANG']['tl_content']['galerie_legend'] = 'Select the gallery';
 ?>
