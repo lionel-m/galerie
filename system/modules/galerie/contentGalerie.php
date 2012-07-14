@@ -207,7 +207,7 @@ class ContentGalerie extends Module {
             if (($arrOptions[0]['imagePanSmoothness'] != 12) && ($arrOptions[0]['imagePan'] == '1'))
                 $options[28] = 'imagePanSmoothness: ' . $arrOptions[0]['imagePanSmoothness'];
             
-            if ($arrOptions[0]['easing'] != 'galleria')
+            if ($arrOptions[0]['easing'] != 'galleria' && $arrOptions[0]['easing'] != NULL)
                 $options[29] = 'easing: ' . "'" . $arrOptions[0]['easing'] . "'";
             
             if ($arrOptions[0]['transitionSpeed'] != 400)
