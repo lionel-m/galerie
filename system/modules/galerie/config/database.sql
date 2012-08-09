@@ -101,6 +101,7 @@ CREATE TABLE `tl_galerie` (
   `idleMode` char(1) NOT NULL default '',
   `idleTime` int(10) unsigned NOT NULL default '0',
   `idleSpeed` int(10) unsigned NOT NULL default '0',
+  `thumbDisplayOrder` char(1) NOT NULL default '1',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

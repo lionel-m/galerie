@@ -101,6 +101,7 @@ $GLOBALS['TL_LANG']['tl_galerie']['json'] = array('JSON', 'Another handy way to 
 $GLOBALS['TL_LANG']['tl_galerie']['idleMode'] = array('Idle mode', 'Global option for turning on/off idle mode. Eache gallery enters idle mode after certain amount of time and themes behave differently when this happens, f.ex clears the stage from distractions. If you want to prevent idle mode from ever occuring, set this to false.');
 $GLOBALS['TL_LANG']['tl_galerie']['idleTime'] = array('Idle time', 'If you are adding elements into idle mode using the .addIdleState() method, you can control the delay before Galleria falls into Idle mode using this option. idleTime is set using milliseconds, so 3000 equals 3 full seconds.');
 $GLOBALS['TL_LANG']['tl_galerie']['idleSpeed'] = array('Idle speed', 'If you are adding elements into idle mode using the addIdleState() method, you can control the animation speed of the idle elements. idleSpeed is set using milliseconds.');
+$GLOBALS['TL_LANG']['tl_galerie']['thumbDisplayOrder'] = array('Thumb display order', 'This defines if the gallery should display the loaded thumbnails in order. All thumbnails are loaded async regardless of this setting, but if you set this to false, it will pop up the thumbnails whenever they are ready, regardless of order.');
 
 // Flickr Options
 $GLOBALS['TL_LANG']['tl_galerie']['flickr'] = array('Flickr', 'Use the gallery with the Flickr API.');

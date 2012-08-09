@@ -318,6 +318,8 @@ class ModuleGalerie extends Module {
             if ($arrOptions[0]['idleSpeed'] != 200)
                 $options[59] = 'idleSpeed: ' . $arrOptions[0]['idleSpeed'];
             
+            if ($arrOptions[0]['thumbDisplayOrder'] == '')
+                $options[60] = 'thumbDisplayOrder: false';
             
             // Reindex the array
             $options = array_values($options);
