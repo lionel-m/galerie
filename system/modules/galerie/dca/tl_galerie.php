@@ -443,7 +443,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => 'true',
 			'inputType'               => 'select',
-                        'options'                 => array('true', 'false', 'empty', 'numbers'),
+                        'options'                 => array('true', 'false', 'empty', 'numbers', 'lazy'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
 		),
