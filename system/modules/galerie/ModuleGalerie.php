@@ -321,6 +321,9 @@ class ModuleGalerie extends Module {
             if ($arrOptions[0]['thumbDisplayOrder'] == '')
                 $options[60] = 'thumbDisplayOrder: false';
             
+            if ($arrOptions[0]['dataSort'] != NULL)
+                $options[61] = $arrOptions[0]['dataSort'];
+            
             // Reindex the array
             $options = array_values($options);
             

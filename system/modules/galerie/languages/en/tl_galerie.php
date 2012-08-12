@@ -102,6 +102,7 @@ $GLOBALS['TL_LANG']['tl_galerie']['idleMode'] = array('Idle mode', 'Global optio
 $GLOBALS['TL_LANG']['tl_galerie']['idleTime'] = array('Idle time', 'If you are adding elements into idle mode using the .addIdleState() method, you can control the delay before Galleria falls into Idle mode using this option. idleTime is set using milliseconds, so 3000 equals 3 full seconds.');
 $GLOBALS['TL_LANG']['tl_galerie']['idleSpeed'] = array('Idle speed', 'If you are adding elements into idle mode using the addIdleState() method, you can control the animation speed of the idle elements. idleSpeed is set using milliseconds.');
 $GLOBALS['TL_LANG']['tl_galerie']['thumbDisplayOrder'] = array('Thumb display order', 'This defines if the gallery should display the loaded thumbnails in order. All thumbnails are loaded async regardless of this setting, but if you set this to false, it will pop up the thumbnails whenever they are ready, regardless of order.');
+$GLOBALS['TL_LANG']['tl_galerie']['dataSort'] = array('Data sort', 'Function to sort the data before using it. You can use it the same way you would use Array.sort(). If you want to sort the images in a random order, you can set this to ‘random’.');
 
 // Flickr Options
 $GLOBALS['TL_LANG']['tl_galerie']['flickr'] = array('Flickr', 'Use the gallery with the Flickr API.');
