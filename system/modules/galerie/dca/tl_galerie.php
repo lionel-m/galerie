@@ -765,6 +765,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['responsive'],
 			'exclude'                 => true,
+                        'default'                 => true,
 			'inputType'               => 'checkbox',
 			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
 		),
