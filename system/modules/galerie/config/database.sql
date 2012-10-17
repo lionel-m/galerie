@@ -123,7 +123,7 @@ CREATE TABLE `tl_galerie_pictures` (
   `title` varchar(255) NOT NULL default '',
   `fullscreenSingleSRC` varchar(255) NOT NULL default '',
   `singleSRC` varchar(255) NOT NULL default '',
-  `alt` varchar(255) NOT NULL default '',
+  `alt` text NULL,
   `imageUrl` varchar(255) NOT NULL default '',
   `size` varchar(64) NOT NULL default '',
   `thumbSize` varchar(64) NOT NULL default '',

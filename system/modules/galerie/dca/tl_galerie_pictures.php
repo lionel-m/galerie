@@ -160,8 +160,8 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['alt'],
                         'exclude'                 => true,
-                        'inputType'               => 'text',
-                        'eval'                    => array('maxlength' => 255, 'tl_class' => 'w50')
+                        'inputType'               => 'textarea',
+                        'eval'                    => array('preserveTags'=>false, 'decodeEntities'=>true, 'tl_class' => 'clr')
                 ),
                 'imageUrl' => array
                 (
