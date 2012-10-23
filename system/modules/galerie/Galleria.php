@@ -552,7 +552,8 @@ class Galleria extends Frontend {
                 {
                     $images[$file] = array
                     (
-                        'imageSRC' => $file
+                        'imageSRC' => $file,
+                        'thumbnailSRC' => $this->getImage($this->urlEncode($file), '100px', NULL, 'crop')
                     );
                 }
                 continue;
@@ -575,7 +576,8 @@ class Galleria extends Frontend {
                 {
                     $images[$file . '/' . $subfile] = array
                     (
-                        'imageSRC' => $file . '/' . $subfile
+                        'imageSRC' => $file . '/' . $subfile,
+                        'thumbnailSRC' => $this->getImage($this->urlEncode($file . '/' . $subfile), '100px', NULL, 'crop')
                     );
                 }
             }
