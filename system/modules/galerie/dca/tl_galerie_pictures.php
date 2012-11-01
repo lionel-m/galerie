@@ -294,7 +294,7 @@ class tl_galerie_pictures extends Backend {
         
         $videoSharingWebsiteName = '';
         
-        $url = ContentGalerie::urlVerification($url);
+        $url = Galleria::urlVerification($url);
         
         // Extract the hostname of the url.
         $url_parsed = parse_url($url);
