@@ -41,5 +41,6 @@ $GLOBALS['TL_LANG']['tl_content']['imagesFolder'] = array('Source files', 'Pleas
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_content']['imagesFolder_legend'] = 'Add several images from one or more folders';
-$GLOBALS['TL_LANG']['tl_content']['galerie_legend'] = 'Select the gallery';
+$GLOBALS['TL_LANG']['tl_content']['galerie_legend']      = 'Select the gallery';
+$GLOBALS['TL_LANG']['tl_content']['imgSortBy_legend']    = 'Ordering';
 ?>

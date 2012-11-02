@@ -466,7 +466,98 @@ class Galleria extends Frontend {
      * @access public
      * @return null
      */
-    public function getPictures($database, $galerie, $template, $imagesFolder) {
+    public function getPictures($database, $galerie, $template, $imagesFolder, $imgSortBy) {
+
+        // Adds a group of images from a folder
+        $imagesFolder = deserialize($imagesFolder);
+
+        $images = array();
+        $auxDate = array();
+
+        if (!is_array($imagesFolder) || empty($imagesFolder))
+        {
+            $imagesFolder = array();
+        }
+
+        foreach ($imagesFolder as $file) {
+
+            if (isset($images[$file]) || !file_exists(TL_ROOT . '/' . $file))
+            {
+                continue;
+            }
+
+            // Single files
+            if (is_file(TL_ROOT . '/' . $file))
+            {
+                $objFile = new File($file);
+                $this->parseMetaFile(dirname($file), true);
+
+                if ($objFile->isGdImage)
+                {
+                    $images[$file] = array
+                    (
+                        'imageSRC' => $file,
+                        'thumbnailSRC' => $this->getImage($this->urlEncode($file), '100px', NULL, 'crop')
+                    );
+
+                    $auxDate[] = $objFile->mtime;
+                }
+                continue;
+            }
+
+            $subfiles = scan(TL_ROOT . '/' . $file);
+            $this->parseMetaFile($file);
+
+            // Folders
+            foreach ($subfiles as $subfile)
+            {
+                if (is_dir(TL_ROOT . '/' . $file . '/' . $subfile))
+                {
+                    continue;
+                }
+
+                $objFile = new File($file . '/' . $subfile);
+
+                if ($objFile->isGdImage)
+                {
+                    $images[$file . '/' . $subfile] = array
+                    (
+                        'imageSRC' => $file . '/' . $subfile,
+                        'thumbnailSRC' => $this->getImage($this->urlEncode($file . '/' . $subfile), '100px', NULL, 'crop')
+                    );
+
+                    $auxDate[] = $objFile->mtime;
+                }
+            }
+        }
+
+        // Sort array
+        switch ($imgSortBy)
+        {
+            default:
+            case 'name_asc':
+                uksort($images, 'basename_natcasecmp');
+                break;
+
+            case 'name_desc':
+                uksort($images, 'basename_natcasercmp');
+                break;
+
+            case 'date_asc':
+                array_multisort($images, SORT_NUMERIC, $auxDate, SORT_ASC);
+                break;
+
+            case 'date_desc':
+                array_multisort($images, SORT_NUMERIC, $auxDate, SORT_DESC);
+                break;
+
+            case 'random':
+                shuffle($images);
+                break;
+        }
+
+        $images = array_values($images);
+
 
         // Retrieve the current gallery pictures
         $objPictures = $database->prepare("SELECT * FROM tl_galerie_pictures WHERE pid=? AND published=1 ORDER BY sorting")
@@ -508,87 +599,18 @@ class Galleria extends Frontend {
             $pictures = array_values($arrPictures);
 
             // Add a group of pictures
-            if(count($this->getGroupOfPictures($imagesFolder)) > 0)
-                $pictures = array_merge($pictures, $this->getGroupOfPictures($imagesFolder));
+            if(count($images) > 0)
+                $pictures = array_merge($pictures, $images);
 
             $template->pictures = $pictures;
         }
-        else if(count($this->getGroupOfPictures($imagesFolder)) > 0) {
-            $template->pictures = $this->getGroupOfPictures($imagesFolder);
+        else if(count($images) > 0) {
+            $template->pictures = $images;
         }
         else {
             $template->pictures = array();
             $template->noImages = $GLOBALS['TL_LANG']['MSC']['noImages'];
         }
-    }
-
-    /**
-     * Get a group of pictures (based on the ContentGallery)
-     *
-     * @access public
-     * @return array
-     */
-    public function getGroupOfPictures($imagesFolder) {
-
-        $imagesFolder = deserialize($imagesFolder);
-
-        $images = array();
-
-        if (!is_array($imagesFolder) || empty($imagesFolder))
-        {
-            $imagesFolder = array();
-        }
-
-        foreach ($imagesFolder as $file) {
-
-            if (isset($images[$file]) || !file_exists(TL_ROOT . '/' . $file))
-            {
-                continue;
-            }
-
-            // Single files
-            if (is_file(TL_ROOT . '/' . $file))
-            {
-                $objFile = new File($file);
-                $this->parseMetaFile(dirname($file), true);
-
-                if ($objFile->isGdImage)
-                {
-                    $images[$file] = array
-                    (
-                        'imageSRC' => $file,
-                        'thumbnailSRC' => $this->getImage($this->urlEncode($file), '100px', NULL, 'crop')
-                    );
-                }
-                continue;
-            }
-
-            $subfiles = scan(TL_ROOT . '/' . $file);
-            $this->parseMetaFile($file);
-
-            // Folders
-            foreach ($subfiles as $subfile)
-            {
-                if (is_dir(TL_ROOT . '/' . $file . '/' . $subfile))
-                {
-                    continue;
-                }
-
-                $objFile = new File($file . '/' . $subfile);
-
-                if ($objFile->isGdImage)
-                {
-                    $images[$file . '/' . $subfile] = array
-                    (
-                        'imageSRC' => $file . '/' . $subfile,
-                        'thumbnailSRC' => $this->getImage($this->urlEncode($file . '/' . $subfile), '100px', NULL, 'crop')
-                    );
-                }
-            }
-        }
-        $images = array_values($images);
-
-        return $images;
     }
 
     /**

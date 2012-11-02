@@ -32,7 +32,7 @@
 /**
  * Add palettes to tl_module
  */
-$GLOBALS['TL_DCA']['tl_module']['palettes']['galerie'] = '{title_legend},name,headline,type;{galerie_legend},galerie;{imagesFolder_legend},imagesFolder;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['galerie'] = '{title_legend},name,headline,type;{galerie_legend},galerie;{imagesFolder_legend},imagesFolder;{imgSortBy_legend},imgSortBy;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 
 /**
  * Add fields to tl_module
@@ -52,5 +52,15 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['imagesFolder'] = array
         'exclude'                 => true,
         'inputType'               => 'fileTree',
         'eval'                    => array('fieldType'=>'checkbox', 'files'=>true, 'tl_class'=>'clr')
+);
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['imgSortBy'] = array
+(
+        'label'                   => &$GLOBALS['TL_LANG']['tl_content']['sortBy'],
+        'exclude'                 => true,
+        'inputType'               => 'select',
+        'options'                 => array('name_asc', 'name_desc', 'date_asc', 'date_desc', 'random'),
+        'reference'               => &$GLOBALS['TL_LANG']['tl_content'],
+        'eval'                    => array('tl_class'=>'w50')
 );
 ?>

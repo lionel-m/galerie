@@ -61,9 +61,8 @@ class ContentGalerie extends Module {
         $galleria = new Galleria();
 
         $galleria->getOptions($this->Database, $this->galerie, $this->Template);
-        $galleria->getPictures($this->Database, $this->galerie, $this->Template, $this->imagesFolder);
+        $galleria->getPictures($this->Database, $this->galerie, $this->Template, $this->imagesFolder, $this->imgSortBy);
         $galleria->getGalleriaTheme($this->Database, $this->galerie);
-        $galleria->getGroupOfPictures($this->imagesFolder);
 
         // Use specific CSS and JS when the CTE is loaded
         if (TL_MODE == 'FE') {
