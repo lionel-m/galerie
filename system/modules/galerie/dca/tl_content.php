@@ -32,7 +32,7 @@
 /**
  * Add palettes to tl_content
  */
-$GLOBALS['TL_DCA']['tl_content']['palettes']['galerie'] = '{type_legend},type,headline;{galerie_legend},galerie;{imagesFolder_legend},imagesFolder;{imgSortBy_legend},imgSortBy;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['galerie'] = '{type_legend},type,headline;{galerie_legend},galerie;{imagesFolder_legend},imagesFolder,galFileName;{imgSortBy_legend},imgSortBy;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 
 /**
  * Add fields to tl_content
@@ -62,5 +62,13 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['imgSortBy'] = array
         'options'                 => array('name_asc', 'name_desc', 'date_asc', 'date_desc', 'random'),
         'reference'               => &$GLOBALS['TL_LANG']['tl_content'],
         'eval'                    => array('tl_class'=>'w50')
+);
+
+$GLOBALS['TL_DCA']['tl_content']['fields']['galFileName'] = array
+(
+        'label'                   => &$GLOBALS['TL_LANG']['tl_content']['galFileName'],
+        'exclude'                 => true,
+        'inputType'               => 'checkbox',
+        'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
 );
 ?>

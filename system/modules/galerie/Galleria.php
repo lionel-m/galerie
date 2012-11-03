@@ -466,7 +466,7 @@ class Galleria extends Frontend {
      * @access public
      * @return null
      */
-    public function getPictures($database, $galerie, $template, $imagesFolder, $imgSortBy) {
+    public function getPictures($database, $galerie, $template, $imagesFolder, $imgSortBy, $fileName) {
 
         // Adds a group of images from a folder
         $imagesFolder = deserialize($imagesFolder);
@@ -494,9 +494,11 @@ class Galleria extends Frontend {
 
                 if ($objFile->isGdImage)
                 {
+                    $title = preg_replace("/\\.[^.\\s]{3,4}$/", "", $objFile->basename);
+                    
                     $images[$file] = array
                     (
-                        'title' => preg_replace("/\\.[^.\\s]{3,4}$/", "", $objFile->basename),
+                        'title' => ($fileName ? $title : ""),
                         'imageSRC' => $file,
                         'thumbnailSRC' => $this->getImage($this->urlEncode($file), '100px', NULL, 'crop')
                     );
@@ -521,9 +523,11 @@ class Galleria extends Frontend {
 
                 if ($objFile->isGdImage)
                 {
+                    $title = preg_replace("/\\.[^.\\s]{3,4}$/", "", $objFile->basename);
+                    
                     $images[$file . '/' . $subfile] = array
                     (
-                        'title' => preg_replace("/\\.[^.\\s]{3,4}$/", "", $objFile->basename),
+                        'title' => ($fileName ? $title : ""),
                         'imageSRC' => $file . '/' . $subfile,
                         'thumbnailSRC' => $this->getImage($this->urlEncode($file . '/' . $subfile), '100px', NULL, 'crop')
                     );
