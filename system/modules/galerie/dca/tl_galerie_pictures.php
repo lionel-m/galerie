@@ -235,7 +235,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'textarea',
-			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|html', 'tl_class'=>'clr')
+			'eval'                    => (version_compare(VERSION.'.'.BUILD, '2.10.0', '>=') ? array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|html', 'tl_class'=>'clr') : array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'tl_class'=>'clr'))
 		)
 	)
 );
