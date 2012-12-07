@@ -13,3 +13,6 @@ Choose “use jQuery and MooTools” if you want to use this two scripts simulta
 
 #### Contao 2.x
 If you want to use "galerie" with the insert tag {{insert_content::*}}, you must install the extension "inserttags_js_support" before (<http://www.contao.org/en/extension-list/view/inserttags_js_support.html>).
+
+#### Contao 3.x
+The master branch is used for the version compatible with Contao 3.
