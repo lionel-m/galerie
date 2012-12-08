@@ -150,7 +150,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['themesSRC'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'path'=>'tl_files/galleria/themes', 'mandatory'=>true)
+			'eval'                    => array('fieldType'=>'radio', 'path'=>'files/galleria/themes', 'mandatory'=>true)
 		),
                 'minifiedJS' => array
 		(
@@ -974,9 +974,9 @@ class tl_galerie extends Backend {
      */
     public function toggleIcon($row, $href, $label, $title, $icon, $attributes) {
 
-        if (strlen($this->Input->get('tid'))) {
+        if (strlen(Input::get('tid'))) {
 
-            $this->toggleVisibility($this->Input->get('tid'), ($this->Input->get('state') == 1));
+            $this->toggleVisibility(Input::get('tid'), (Input::get('state') == 1));
             $this->redirect($this->getReferer());
         }
 

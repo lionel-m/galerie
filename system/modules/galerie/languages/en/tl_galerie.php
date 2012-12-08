@@ -16,7 +16,7 @@
 $GLOBALS['TL_LANG']['tl_galerie']['title'] = array('Title', 'Please enter the gallery title.');
 $GLOBALS['TL_LANG']['tl_galerie']['alias'] = array('Alias', 'This alias is a unique reference to the gallery which can be called instead of its numeric ID.');
 $GLOBALS['TL_LANG']['tl_galerie']['published'] = array('Publish', 'Make the gallery publicly visible on the website.');
-$GLOBALS['TL_LANG']['tl_galerie']['themesSRC'] = array('Themes', 'Select the theme of the gallery. (Path: tl_files/galleria/themes/)');
+$GLOBALS['TL_LANG']['tl_galerie']['themesSRC'] = array('Themes', 'Select the theme of the gallery. (Path: files/galleria/themes/)');
 $GLOBALS['TL_LANG']['tl_galerie']['minifiedJS'] = array('Use minified javascript file', 'Use minified JS javascript if available.');
 
 // Options

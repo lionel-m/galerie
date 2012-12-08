@@ -11,13 +11,18 @@
  */
 
 /**
+ * Run in a custom namespace, so the class can be replaced
+ */
+namespace Contao;
+
+/**
  * Class ModuleGalerie
  *
  * @copyright  Lionel Maccaud
  * @author     Lionel Maccaud
  * @package    Controller
  */
-class ModuleGalerie extends Module {
+class ModuleGalerie extends \Module {
 
     /**
      * Template
@@ -28,7 +33,7 @@ class ModuleGalerie extends Module {
     public function generate() {
 
         if (TL_MODE == 'BE') {
-            $objTemplate = new BackendTemplate('be_wildcard');
+            $objTemplate = new \BackendTemplate('be_wildcard');
             $objTemplate->wildcard = '### MODULE GALLERIA ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
@@ -46,7 +51,7 @@ class ModuleGalerie extends Module {
      */
     protected function compile() {
 
-        $this->Template = new FrontendTemplate('ce_galerie');
+        $this->Template = new \FrontendTemplate('ce_galerie');
         $this->import('Database');
         $galleria = new Galleria();
 
