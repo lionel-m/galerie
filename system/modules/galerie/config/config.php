@@ -36,5 +36,5 @@ array_insert($GLOBALS['FE_MOD']['application'], 0, array (
  * CONTENT ELEMENTS
  * -------------------------------------------------------------------------
  */
-$GLOBALS['TL_CTE']['images']['galerie'] = 'ContentGalerie';
+$GLOBALS['TL_CTE']['media']['galerie'] = 'ContentGalerie';
 ?>

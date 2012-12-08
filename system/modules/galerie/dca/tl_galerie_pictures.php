@@ -239,7 +239,8 @@ class tl_galerie_pictures extends Backend {
 
         $type = '';
         $key = ($arrRow['published']) ? 'published' : 'unpublished';
-        $image = $this->getImage($arrRow['singleSRC'], 150, 150, 'box');
+        $objFile = FilesModel::findByPk($arrRow['singleSRC']);
+        $image = Image::get($objFile->path, 150, 150, 'center_center');
         
         if($arrRow['title'])
             $title = $arrRow['title'];

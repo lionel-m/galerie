@@ -548,8 +548,7 @@ class Galleria extends \Frontend {
 
         $images = array_values($images);
 
-
-        // Retrieve the current gallery pictures
+        // Retrieve the current gallery images
         $objPictures = $database->prepare("SELECT * FROM tl_galerie_pictures WHERE pid=? AND published=1 ORDER BY sorting")
                 ->execute($galerie);
 
@@ -557,18 +556,22 @@ class Galleria extends \Frontend {
 
             while ($objPictures->next()) {
 
+                // Standard image
                 $imgSize = deserialize($objPictures->size);
-                $imageSRC = $this->getImage($this->urlEncode($objPictures->singleSRC), $imgSize[0], $imgSize[1], $imgSize[2]);
+                $objImg = \FilesModel::findByPk($objPictures->singleSRC);
+                $imageSRC = \Image::get($this->urlEncode($objImg->path), $imgSize[0], $imgSize[1], $imgSize[2]);
 
-                // Create thumbnails separately with Contao.
-                // Test if there is an alternative thumbnail or not and adds the correct source.
-                ($objPictures->thumbSRC ? $thumbnail = $objPictures->thumbSRC : $thumbnail = $objPictures->singleSRC);
-
+                // Thumbnails are created separately.
                 $thumbSize = deserialize($objPictures->thumbSize);
+                $objThumb = \FilesModel::findByPk($objPictures->thumbSRC);
+                
+                // Is there an alternative thumbnail ? If not, we create the thumbnail from the main image.
+                ($objPictures->thumbSRC ? ($thumbnail = $objThumb->path) : ($thumbnail = $objThumb->path));
+
                 if($thumbSize[0] == NULL && $thumbSize[1] == NULL)
-                    $thumbnailSRC = $this->getImage($this->urlEncode($thumbnail), '100px', NULL, 'crop');
+                    $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), '100px', NULL, 'center_center');
                 else
-                    $thumbnailSRC = $this->getImage($this->urlEncode($thumbnail), $thumbSize[0], $thumbSize[1], $thumbSize[2]);
+                    $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), $thumbSize[0], $thumbSize[1], $thumbSize[2]);
 
 
                 $arrPictures[$objPictures->id] = array(
@@ -615,13 +618,13 @@ class Galleria extends \Frontend {
                 ->limit(1)
                 ->execute($galerie);
 
-        $path = $objThemesSRC->themesSRC;
+        $objThemes = \FilesModel::findByPk($objThemesSRC->themesSRC);
 
-        $theme = explode("/", $path);
+        $theme = explode("/", $objThemes->path);
 
         /* Example of results with default theme
          *
-         * $theme[0] = tl_files
+         * $theme[0] = files
          * $theme[1] = galleria
          * $theme[2] = themes
          * $theme[3] = classic

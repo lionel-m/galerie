@@ -292,11 +292,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['overlayBackground'],
                         'default'                 => '0b0b0b',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>6, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'w50 wizard'),
-			'wizard' => array
-			(
-				array('tl_galerie', 'colorPicker')
-			)
+			'eval'                    => array('maxlength'=>6, 'colorpicker'=>true, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'w50 wizard'),
 		),
                 'overlayOpacity' => array
 		(
@@ -837,15 +833,12 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 class tl_galerie extends Backend {
 
     /**
-     * Add the mooRainbow scripts to the page
+     * Import the back end user object
      */
     public function __construct()
     {
         parent::__construct();
         $this->import('BackendUser', 'User');
-
-        $GLOBALS['TL_CSS'][] = 'plugins/mootools/rainbow.css?'. MOO_RAINBOW . '|screen';
-        $GLOBALS['TL_JAVASCRIPT'][] = 'plugins/mootools/rainbow.js?' . MOO_RAINBOW;
     }
         
     /**
@@ -1015,17 +1008,6 @@ class tl_galerie extends Backend {
                 ->execute($intId);
 
         $this->createNewVersion('tl_galerie', $intId);
-
-    }
-
-    /**
-     * Return the color picker wizard
-     * @param object
-     * @return string
-     */
-    public function colorPicker(DataContainer $dc)
-    {
-            return ' ' . $this->generateImage('pickcolor.gif', $GLOBALS['TL_LANG']['MSC']['colorpicker'], 'style="vertical-align:top; cursor:pointer;" id="moo_'.$dc->field.'" class="mooRainbow"');
     }
     
     /**
@@ -1082,5 +1064,4 @@ class tl_galerie extends Backend {
         return $varValue;
     }
 }
-
 ?>
