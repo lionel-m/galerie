@@ -22,9 +22,6 @@ ClassLoader::addClasses(array
 	// Elements
 	'Contao\ContentGalerie' => 'system/modules/galerie/elements/ContentGalerie.php',
 
-	// Models
-	'Contao\FilesModel'     => 'system/modules/galerie/models/FilesModel.php',
-
 	// Modules
 	'Contao\ModuleGalerie'  => 'system/modules/galerie/modules/ModuleGalerie.php',
 ));

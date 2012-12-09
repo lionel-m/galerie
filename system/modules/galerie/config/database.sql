@@ -147,8 +147,6 @@ CREATE TABLE `tl_galerie_pictures` (
 CREATE TABLE `tl_content` (
   `galerie` int(10) unsigned NOT NULL default '0',
   `imagesFolder` blob NULL,
-  `imgSortBy` varchar(32) NOT NULL default '',
-  `galFileName` char(1) NOT NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
@@ -161,6 +159,4 @@ CREATE TABLE `tl_content` (
 CREATE TABLE `tl_module` (
   `galerie` int(10) unsigned NOT NULL default '0',
   `imagesFolder` blob NULL,
-  `imgSortBy` varchar(32) NOT NULL default '',
-  `galFileName` char(1) NOT NULL default '',
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

@@ -25,6 +25,12 @@ namespace Contao;
 class Galleria extends \Frontend {
 
     /**
+     * Files object
+     * @var \FilesModel
+     */
+    protected $objFiles;
+
+    /**
      * Get gallery options and build JS function for the template
      *
      * @access public
@@ -450,103 +456,180 @@ class Galleria extends \Frontend {
      * @access public
      * @return null
      */
-    public function getPictures($database, $galerie, $template, $imagesFolder, $imgSortBy, $fileName) {
+    public function getPictures($database, $galerie, $template, $imagesFolder, $sortBy) {
 
         // Adds a group of images from a folder
         $imagesFolder = deserialize($imagesFolder);
+        $this->objFiles = \FilesModel::findMultipleByIds($imagesFolder);
 
+        global $objPage;
         $images = array();
         $auxDate = array();
+        $auxId = array();
+        $objFiles = $this->objFiles;
 
-        if (!is_array($imagesFolder) || empty($imagesFolder))
-        {
-            $imagesFolder = array();
-        }
+        if ($this->objFiles !== null) {
 
-        foreach ($imagesFolder as $file) {
-
-            if (isset($images[$file]) || !file_exists(TL_ROOT . '/' . $file))
+            // Get all images
+            while ($objFiles->next())
             {
-                continue;
-            }
-
-            // Single files
-            if (is_file(TL_ROOT . '/' . $file))
-            {
-                $objFile = new File($file);
-                $this->parseMetaFile(dirname($file), true);
-
-                if ($objFile->isGdImage)
-                {
-                    $title = preg_replace("/\\.[^.\\s]{3,4}$/", "", $objFile->basename);
-                    
-                    $images[$file] = array
-                    (
-                        'title' => ($fileName ? $title : ""),
-                        'imageSRC' => $file,
-                        'thumbnailSRC' => $this->getImage($this->urlEncode($file), '100px', NULL, 'crop')
-                    );
-
-                    $auxDate[] = $objFile->mtime;
-                }
-                continue;
-            }
-
-            $subfiles = scan(TL_ROOT . '/' . $file);
-            $this->parseMetaFile($file);
-
-            // Folders
-            foreach ($subfiles as $subfile)
-            {
-                if (is_dir(TL_ROOT . '/' . $file . '/' . $subfile))
+                // Continue if the files has been processed or does not exist
+                if (isset($images[$objFiles->path]) || !file_exists(TL_ROOT . '/' . $objFiles->path))
                 {
                     continue;
                 }
 
-                $objFile = new File($file . '/' . $subfile);
-
-                if ($objFile->isGdImage)
+                // Single files
+                if ($objFiles->type == 'file')
                 {
-                    $title = preg_replace("/\\.[^.\\s]{3,4}$/", "", $objFile->basename);
-                    
-                    $images[$file . '/' . $subfile] = array
+                    $objFile = new \File($objFiles->path);
+
+                    if (!$objFile->isGdImage)
+                    {
+                        continue;
+                    }
+
+                    $arrMeta = $this->getMetaData($objFiles->meta, $objPage->language);
+
+                    // Use the file name as title if none is given
+                    if ($arrMeta['title'] == '')
+                    {
+                        $arrMeta['title'] = specialchars(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $objFile->filename)));
+                    }
+
+                    // Add the image
+                    $images[$objFiles->path] = array
                     (
-                        'title' => ($fileName ? $title : ""),
-                        'imageSRC' => $file . '/' . $subfile,
-                        'thumbnailSRC' => $this->getImage($this->urlEncode($file . '/' . $subfile), '100px', NULL, 'crop')
+                        'id'        => $objFiles->id,
+                        'name'      => $objFile->basename,
+                        'singleSRC' => $objFiles->path,
+                        'title'     => $arrMeta['title'],
+                        'imageUrl'  => $arrMeta['link'],
+                        'alt'       => $arrMeta['caption']
                     );
 
                     $auxDate[] = $objFile->mtime;
+                    $auxId[] = $objFiles->id;
+                }
+
+                // Folders
+                else
+                {
+                    $objSubfiles = \FilesModel::findByPid($objFiles->id);
+
+                    if ($objSubfiles === null)
+                    {
+                        continue;
+                    }
+
+                    while ($objSubfiles->next())
+                    {
+                        // Skip subfolders
+                        if ($objSubfiles->type == 'folder')
+                        {
+                            continue;
+                        }
+
+                        $objFile = new \File($objSubfiles->path);
+
+                        if (!$objFile->isGdImage)
+                        {
+                            continue;
+                        }
+
+                        $arrMeta = $this->getMetaData($objSubfiles->meta, $objPage->language);
+
+                        // Use the file name as title if none is given
+                        if ($arrMeta['title'] == '')
+                        {
+                            $arrMeta['title'] = specialchars(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $objFile->filename)));
+                        }
+
+                        // Add the image
+                        $images[$objSubfiles->path] = array
+                        (
+                            'id'        => $objSubfiles->id,
+                            'name'      => $objFile->basename,
+                            'singleSRC' => $objSubfiles->path,
+                            'title'     => $arrMeta['title'],
+                            'imageUrl'  => $arrMeta['link'],
+                            'alt'       => $arrMeta['caption']
+                        );
+
+                        $auxDate[] = $objFile->mtime;
+                        $auxId[] = $objSubfiles->id;
+                    }
                 }
             }
+
+            // Sort array
+            switch ($sortBy)
+            {
+                default:
+                case 'name_asc':
+                        uksort($images, 'basename_natcasecmp');
+                        break;
+
+                case 'name_desc':
+                        uksort($images, 'basename_natcasercmp');
+                        break;
+
+                case 'date_asc':
+                        array_multisort($images, SORT_NUMERIC, $auxDate, SORT_ASC);
+                        break;
+
+                case 'date_desc':
+                        array_multisort($images, SORT_NUMERIC, $auxDate, SORT_DESC);
+                        break;
+
+                case 'meta': // Backwards compatibility
+                case 'custom':
+                        if ($this->orderSRC != '')
+                        {
+                            // Turn the order string into an array
+                            $arrOrder = array_flip(array_map('intval', explode(',', $this->orderSRC)));
+
+                            // Move the matching elements to their position in $arrOrder
+                            foreach ($images as $k=>$v)
+                            {
+                                if (isset($arrOrder[$v['id']]))
+                                {
+                                    $arrOrder[$v['id']] = $v;
+                                    unset($images[$k]);
+                                }
+                            }
+
+                            // Append the left-over images at the end
+                            if (!empty($images))
+                            {
+                                $arrOrder = array_merge($arrOrder, $images);
+                            }
+
+                            // Remove empty or numeric (not replaced) entries
+                            foreach ($arrOrder as $k=>$v)
+                            {
+                                if ($v == '' || is_numeric($v))
+                                {
+                                    unset($arrOrder[$k]);
+                                }
+                            }
+
+                            $images = $arrOrder;
+                            unset($arrOrder);
+                        }
+                        break;
+
+                case 'random':
+                        shuffle($images);
+                        break;
+            }
+
+            $images = array_values($images);
+            $total = count($images);
         }
-
-        // Sort array
-        switch ($imgSortBy)
-        {
-            default:
-            case 'name_asc':
-                uksort($images, 'basename_natcasecmp');
-                break;
-
-            case 'name_desc':
-                uksort($images, 'basename_natcasercmp');
-                break;
-
-            case 'date_asc':
-                array_multisort($images, SORT_NUMERIC, $auxDate, SORT_ASC);
-                break;
-
-            case 'date_desc':
-                array_multisort($images, SORT_NUMERIC, $auxDate, SORT_DESC);
-                break;
-
-            case 'random':
-                shuffle($images);
-                break;
+        else {
+            $total = 0;
         }
-
-        $images = array_values($images);
 
         // Retrieve the current gallery images
         $objPictures = $database->prepare("SELECT * FROM tl_galerie_pictures WHERE pid=? AND published=1 ORDER BY sorting")
@@ -564,7 +647,7 @@ class Galleria extends \Frontend {
                 // Thumbnails are created separately.
                 $thumbSize = deserialize($objPictures->thumbSize);
                 $objThumb = \FilesModel::findByPk($objPictures->thumbSRC);
-                
+
                 // Is there an alternative thumbnail ? If not, we create the thumbnail from the main image.
                 ($objPictures->thumbSRC ? ($thumbnail = $objThumb->path) : ($thumbnail = $objThumb->path));
 
@@ -592,12 +675,12 @@ class Galleria extends \Frontend {
             $pictures = array_values($arrPictures);
 
             // Add a group of pictures
-            if(count($images) > 0)
+            if($total > 0)
                 $pictures = array_merge($pictures, $images);
 
             $template->pictures = $pictures;
         }
-        else if(count($images) > 0) {
+        else if($total > 0) {
             $template->pictures = $images;
         }
         else {
