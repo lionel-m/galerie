@@ -500,12 +500,13 @@ class Galleria extends \Frontend {
                     // Add the image
                     $images[$objFiles->path] = array
                     (
-                        'id'        => $objFiles->id,
-                        'name'      => $objFile->basename,
-                        'singleSRC' => $objFiles->path,
-                        'title'     => $arrMeta['title'],
-                        'imageUrl'  => $arrMeta['link'],
-                        'alt'       => $arrMeta['caption']
+                        'id'           => $objFiles->id,
+                        'name'         => $objFile->basename,
+                        'imageSRC'     => $objFiles->path,
+                        'thumbnailSRC' => \Image::get($this->urlEncode($objFiles->path), '100px', NULL, 'center_center'),
+                        'alt'          => $arrMeta['title'],
+                        'imageUrl'     => $arrMeta['link'],
+                        'title'        => $arrMeta['caption']
                     );
 
                     $auxDate[] = $objFile->mtime;
@@ -548,12 +549,13 @@ class Galleria extends \Frontend {
                         // Add the image
                         $images[$objSubfiles->path] = array
                         (
-                            'id'        => $objSubfiles->id,
-                            'name'      => $objFile->basename,
-                            'singleSRC' => $objSubfiles->path,
-                            'title'     => $arrMeta['title'],
-                            'imageUrl'  => $arrMeta['link'],
-                            'alt'       => $arrMeta['caption']
+                            'id'           => $objSubfiles->id,
+                            'name'         => $objFile->basename,
+                            'imageSRC'     => $objSubfiles->path,
+                            'thumbnailSRC' => \Image::get($this->urlEncode($objSubfiles->path), '100px', NULL, 'center_center'),
+                            'alt'          => $arrMeta['title'],
+                            'imageUrl'     => $arrMeta['link'],
+                            'title'        => $arrMeta['caption']
                         );
 
                         $auxDate[] = $objFile->mtime;
