@@ -504,9 +504,9 @@ class Galleria extends \Frontend {
                         'name'         => $objFile->basename,
                         'imageSRC'     => $objFiles->path,
                         'thumbnailSRC' => \Image::get($this->urlEncode($objFiles->path), '100px', NULL, 'center_center'),
-                        'alt'          => $arrMeta['title'],
+                        'title'        => $arrMeta['title'],
                         'imageUrl'     => $arrMeta['link'],
-                        'title'        => $arrMeta['caption']
+                        'alt'          => $arrMeta['caption']
                     );
 
                     $auxDate[] = $objFile->mtime;
@@ -553,9 +553,9 @@ class Galleria extends \Frontend {
                             'name'         => $objFile->basename,
                             'imageSRC'     => $objSubfiles->path,
                             'thumbnailSRC' => \Image::get($this->urlEncode($objSubfiles->path), '100px', NULL, 'center_center'),
-                            'alt'          => $arrMeta['title'],
+                            'title'        => $arrMeta['title'],
                             'imageUrl'     => $arrMeta['link'],
-                            'title'        => $arrMeta['caption']
+                            'alt'          => $arrMeta['caption']
                         );
 
                         $auxDate[] = $objFile->mtime;

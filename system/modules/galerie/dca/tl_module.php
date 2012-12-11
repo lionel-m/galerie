@@ -32,6 +32,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['imagesFolder'] = array
         'label'                   => &$GLOBALS['TL_LANG']['tl_module']['imagesFolder'],
         'exclude'                 => true,
         'inputType'               => 'fileTree',
-        'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox', 'orderField'=>'orderSRC', 'files'=>true, 'tl_class'=>'clr')
+        'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox', 'orderField'=>'orderSRC', 'files'=>true)
 );
 ?>
