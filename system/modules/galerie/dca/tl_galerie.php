@@ -481,14 +481,14 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['extend'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => (version_compare(VERSION.'.'.BUILD, '2.10.0', '>=') ? array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|javascript', 'tl_class'=>'clr') : array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'tl_class'=>'clr'))
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|javascript', 'tl_class'=>'clr')
                 ),
                 'dataConfig' => array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['dataConfig'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => (version_compare(VERSION.'.'.BUILD, '2.10.0', '>=') ? array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|javascript', 'tl_class'=>'clr') : array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'tl_class'=>'clr'))
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|javascript', 'tl_class'=>'clr')
                 ),
                 'preload' => array
 		(
@@ -707,7 +707,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'inputType'               => 'textarea',
                         'eval'                    => array('allowHtml'=>true, 'preserveTags'=>true,  'tl_class'=>'clr'),
                         'load_callback' => array (
-                                                     array('tl_galerie', 'getDefaultOptionsForDailymotion')
+                                                    array('tl_galerie', 'getDefaultOptionsForDailymotion')
                                                  )
                 ),
                 'vimeo' => array
@@ -717,7 +717,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'inputType'               => 'textarea',
                         'eval'                    => array('allowHtml'=>true, 'preserveTags'=>true,  'tl_class'=>'clr'),
                         'load_callback' => array (
-                                                     array('tl_galerie', 'getDefaultOptionsForVimeo')
+                                                    array('tl_galerie', 'getDefaultOptionsForVimeo')
                                                  )
                 ),
                 'youtube' => array
@@ -727,7 +727,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'inputType'               => 'textarea',
                         'eval'                    => array('allowHtml'=>true, 'preserveTags'=>true,  'tl_class'=>'clr'),
                         'load_callback' => array (
-                                                     array('tl_galerie', 'getDefaultOptionsForYouTube')
+                                                    array('tl_galerie', 'getDefaultOptionsForYouTube')
                                                  )
                 ),
                 'trueFullscreen' => array
@@ -780,7 +780,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['json'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => (version_compare(VERSION.'.'.BUILD, '2.10.0', '>=') ? array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|yaml', 'tl_class'=>'clr') : array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'tl_class'=>'clr'))
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|yaml', 'tl_class'=>'clr')
                 ),
                 'idleMode' => array
 		(
@@ -819,7 +819,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['dataSort'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => (version_compare(VERSION.'.'.BUILD, '2.10.0', '>=') ? array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|javascript', 'tl_class'=>'clr') : array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'tl_class'=>'clr'))
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|javascript', 'tl_class'=>'clr')
                 )
 	)
 );

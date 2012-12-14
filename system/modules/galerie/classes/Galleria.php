@@ -266,9 +266,10 @@ class Galleria extends \Frontend {
 
             // Reindex the array
             $options = array_values($options);
+            $totalOptions = count($options);
 
             // Add commas
-            for ($i = 0; $i < count($options)-1; $i++) {
+            for ($i = 0; $i < $totalOptions-1; $i++) {
                 $options[$i] = $options[$i] . ",\n";
             }
 
@@ -301,9 +302,10 @@ class Galleria extends \Frontend {
 
             // Reindex the array
             $flickrOptions = array_values($flickrOptions);
+            $totalFlickrOptions = count($flickrOptions);
 
             // Add commas
-            for ($i = 0; $i < count($flickrOptions)-1; $i++) {
+            for ($i = 0; $i < $totalFlickrOptions-1; $i++) {
                 $flickrOptions[$i] = $flickrOptions[$i] . ",\n";
             }
 
@@ -325,9 +327,10 @@ class Galleria extends \Frontend {
 
             // Reindex the array
             $picasaOptions = array_values($picasaOptions);
+            $totalPicasaOptions = count($picasaOptions);
 
             // Add commas
-            for ($i = 0; $i < count($picasaOptions)-1; $i++) {
+            for ($i = 0; $i < $totalPicasaOptions-1; $i++) {
                 $picasaOptions[$i] = $picasaOptions[$i] . ",\n";
             }
 
@@ -340,7 +343,7 @@ class Galleria extends \Frontend {
             $flickrFunction .= ",\n";
             $flickrFunction .= "flickrOptions: { \n";
 
-            for ($i = 0; $i < count($flickrOptions); $i++) {
+            for ($i = 0; $i < $totalFlickrOptions; $i++) {
                 $flickrFunction .= ( $flickrOptions[$i]);
             }
 
@@ -357,7 +360,7 @@ class Galleria extends \Frontend {
             $picasaFunction .= ",\n";
             $picasaFunction .= "picasaOptions: { \n";
 
-            for ($i = 0; $i < count($picasaOptions); $i++) {
+            for ($i = 0; $i < $totalPicasaOptions; $i++) {
                 $picasaFunction .= ( $picasaOptions[$i]);
             }
 
