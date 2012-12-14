@@ -167,7 +167,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['size'],
                         'exclude'                 => true,
                         'inputType'               => 'imageSize',
-                        'options'                 => (version_compare(VERSION.'.'.BUILD, '2.11.0', '>=') ? $GLOBALS['TL_CROP'] : array('crop', 'proportional', 'box')),
+                        'options'                 => $GLOBALS['TL_CROP'],
                         'reference'               => &$GLOBALS['TL_LANG']['MSC'],
                         'eval'                    => array('rgxp' => 'digit', 'nospace' => true, 'tl_class' => 'w50')
                 ),
@@ -176,7 +176,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['thumbSize'],
                         'exclude'                 => true,
                         'inputType'               => 'imageSize',
-                        'options'                 => (version_compare(VERSION.'.'.BUILD, '2.11.0', '>=') ? $GLOBALS['TL_CROP'] : array('crop', 'proportional', 'box')),
+                        'options'                 => $GLOBALS['TL_CROP'],
                         'reference'               => &$GLOBALS['TL_LANG']['MSC'],
                         'eval'                    => array('rgxp' => 'digit', 'nospace' => true, 'tl_class' => 'w50')
                 ),
@@ -216,7 +216,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'textarea',
-			'eval'                    => (version_compare(VERSION.'.'.BUILD, '2.10.0', '>=') ? array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|html', 'tl_class'=>'clr') : array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'tl_class'=>'clr'))
+			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|html', 'tl_class'=>'clr')
 		)
 	)
 );
