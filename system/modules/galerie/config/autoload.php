@@ -1,15 +1,14 @@
 <?php
 
 /**
- * Contao Open Source CMS
- * 
- * Copyright (C) 2005-2012 Leo Feyer
- * 
- * @package Galerie
- * @link    http://contao.org
- * @license http://www.gnu.org/licenses/lgpl-3.0.html LGPL
+ * Galerie
+ * Professional pictures galleries for the web and mobile devices.
+ *
+ * @author    Lionel Maccaud
+ * @copyright Lionel Maccaud
+ * @package   galerie
+ * @license   MIT
  */
-
 
 /**
  * Register the classes
@@ -25,7 +24,6 @@ ClassLoader::addClasses(array
 	// Modules
 	'Contao\ModuleGalerie'  => 'system/modules/galerie/modules/ModuleGalerie.php',
 ));
-
 
 /**
  * Register the templates
