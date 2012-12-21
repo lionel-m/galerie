@@ -7,7 +7,7 @@
  * @author    Lionel Maccaud
  * @copyright Lionel Maccaud
  * @package   galerie
- * @license   MIT
+ * @license   MIT (http://lionel-m.mit-license.org/)
  */
 
 /**

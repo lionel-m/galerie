@@ -7,7 +7,7 @@
  * German translation file 
  * 
  * Copyright : Lionel Maccaud 
- * License   : MIT 
+ * License   : MIT (http://lionel-m.mit-license.org/)
  * Author    : Lionel Maccaud (lionel), http://lionelmaccaud.ch
  * Translator: Carolina Koehn (lucina), http://kikmedia.de
  */

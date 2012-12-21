@@ -7,6 +7,6 @@ Galleria and the plugins History, Picasa and Flickr are free to use and licensed
 -----
 
 Contao extension by Lionel Maccaud (http://www.contao.org/en/extension-list/authors/lionel.html)
-License : MIT
+License : MIT (http://lionel-m.mit-license.org/)
 
 German translation : Carolina Koehn, http://kikmedia.de
