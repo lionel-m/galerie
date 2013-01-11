@@ -649,18 +649,20 @@ class Galleria extends \Frontend {
                 $objImg = \FilesModel::findByPk($objPictures->singleSRC);
                 $imageSRC = \Image::get($this->urlEncode($objImg->path), $imgSize[0], $imgSize[1], $imgSize[2]);
 
+                // Fullscreen image
+                $objFullscreenImgSRC = \FilesModel::findByPk($objPictures->fullscreenSingleSRC);
+
                 // Thumbnails are created separately.
                 $thumbSize = deserialize($objPictures->thumbSize);
                 $objThumb = \FilesModel::findByPk($objPictures->thumbSRC);
 
                 // Is there an alternative thumbnail ? If not, we create the thumbnail from the main image.
-                ($objPictures->thumbSRC ? ($thumbnail = $objThumb->path) : ($thumbnail = $objThumb->path));
+                ($objPictures->thumbSRC ? ($thumbnail = $objThumb->path) : ($thumbnail = $objImg->path));
 
                 if($thumbSize[0] == NULL && $thumbSize[1] == NULL)
                     $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), '100px', NULL, 'center_center');
                 else
                     $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), $thumbSize[0], $thumbSize[1], $thumbSize[2]);
-
 
                 $arrPictures[$objPictures->id] = array(
                     'alt'                   => $objPictures->alt,
@@ -668,12 +670,13 @@ class Galleria extends \Frontend {
                     'imageUrl'              => $objPictures->imageUrl,
                     'imageSRC'              => $imageSRC,
                     'thumbnailSRC'          => $thumbnailSRC,
-                    'imageFullscreenSRC'    => $this->urlEncode($objPictures->fullscreenSingleSRC),
+                    'imageFullscreenSRC'    => $this->urlEncode($objFullscreenImgSRC->path),
                     'video'                 => $this->urlVerification($objPictures->video),
                     'videoThumb'            => $objPictures->videoThumb,
                     'iframe'                => $objPictures->iframe,
                     'iframeThumb'           => $objPictures->iframeThumb,
-                    'HTMLLayer'             => $objPictures->dataConfigHTML
+                    'layer'                 => htmlentities($objPictures->layerHTML),
+                    'HTMLlayer'             => $objPictures->dataConfigHTML
                 );
             }
 

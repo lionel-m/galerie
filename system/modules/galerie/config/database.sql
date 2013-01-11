@@ -23,7 +23,7 @@ CREATE TABLE `tl_galerie` (
   `title` varchar(255) NOT NULL default '',
   `alias` varchar(128) NOT NULL default '',
   `themesSRC` varchar(255) NOT NULL default '',
-  `minifiedJS` char(1) NOT NULL default '',
+  `minifiedJS` char(1) NOT NULL default '1',
   `width` int(10) unsigned NOT NULL default '0',
   `height` double unsigned NOT NULL default '0',
   `transition` varchar(32) NOT NULL default '',
@@ -133,6 +133,7 @@ CREATE TABLE `tl_galerie_pictures` (
   `iframe` varchar(255) NOT NULL default '',
   `iframeThumb` char(1) NOT NULL default '',
   `dataConfigHTML` text NULL,
+  `layerHTML` text NULL,
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

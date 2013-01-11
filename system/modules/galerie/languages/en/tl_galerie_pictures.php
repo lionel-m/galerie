@@ -26,7 +26,8 @@ $GLOBALS['TL_LANG']['tl_galerie_pictures']['video']               = array('Video
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['videoThumb']          = array('Thumbnail from the provider', 'Fetches the thumbnail from the provider API\'s.');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['iframe']              = array('Iframe', 'Galleria also supports iframes to be displayed instead of an image.');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['iframeThumb']         = array('Skip the thumbnail', 'You can also skip the thumbnail by adding an element with the class "iframe".');
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML']      = array('HTML Layer', 'You can use the dataConfig option combined with HTML to obtain richer data from other sources to provide HTML captions or other custom data types. Don\'t forget to add the variable $pictures[\'HTMLLayer\'] in the template.');
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML']      = array('HTML layer with dataConfig', 'You can use the dataConfig option combined with HTML to obtain richer data from other sources to provide HTML captions or other custom data types. Don\'t forget to add the variable $pictures[\'HTMLLayer\'] in the template.');
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['layerHTML']           = array('HTML Layer', 'Galleria also supports a layer of HTML content that can will be placed above the image or video. The layer will follow the transitions (unless you disable it using the layerFollow option) and expand on fullscreen.');
 
 
 /**
@@ -40,8 +41,8 @@ $GLOBALS['TL_LANG']['tl_galerie_pictures']['altThumbnail_legend']     = 'Alterna
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['publish_legend']          = 'Publish';
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['video_legend']            = 'Video';
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['iframe_legend']           = 'Iframe';
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML_legend']   = 'HTML Layer with dataConfig';
-
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML_legend']   = 'Using HTML with dataConfig';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['layerHTML_legend']        = 'Adding a layer above the content';
 
 /**
  * Buttons

@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(''),
-		'default'                     => '{title_legend},title;{image_fullscreen_legend},fullscreenSingleSRC;{image_legend},singleSRC,alt,imageUrl,size;{thumbnail_legend},thumbSize;{altThumbnail_legend},thumbSRC;{video_legend},video,videoThumb;{iframe_legend},iframe,iframeThumb;{dataConfigHTML_legend},dataConfigHTML;{publish_legend},published'
+		'default'                     => '{title_legend},title;{image_fullscreen_legend},fullscreenSingleSRC;{image_legend},singleSRC,alt,imageUrl,size;{thumbnail_legend},thumbSize;{altThumbnail_legend},thumbSRC;{video_legend},video,videoThumb;{iframe_legend},iframe,iframeThumb;{layerHTML_legend},layerHTML;{dataConfigHTML_legend},dataConfigHTML;{publish_legend},published'
 	),
 
 	// Subpalettes
@@ -214,7 +214,13 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML'],
 			'exclude'                 => true,
-			'search'                  => true,
+			'inputType'               => 'textarea',
+			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|html', 'tl_class'=>'clr')
+		),
+                'layerHTML' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['layerHTML'],
+			'exclude'                 => true,
 			'inputType'               => 'textarea',
 			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|html', 'tl_class'=>'clr')
 		)
