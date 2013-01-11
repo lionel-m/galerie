@@ -52,7 +52,7 @@ class ContentGalerie extends \ContentElement {
         if (TL_MODE == 'FE') {
 
             // From the extension - Galleria script
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.2.8.min.js';
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.2.9.min.js';
 
             // Flickr Plugin
             if($galleria->isFlickrEnabled($this->Database, $this->galerie, $this->Template))
