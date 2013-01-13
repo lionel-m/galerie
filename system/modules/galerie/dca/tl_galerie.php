@@ -615,7 +615,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['dummy'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files' => true, 'filesOnly' => true, 'path'=>'tl_files')
+			'eval'                    => array('fieldType'=>'radio', 'files' => true, 'filesOnly' => true)
 		),
                 'layerFollow' => array
 		(

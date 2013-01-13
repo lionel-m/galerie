@@ -234,8 +234,8 @@ class Galleria extends \Frontend {
             if ($arrOptions[0]['trueFullscreen'] == '')
                 $options[51] = 'trueFullscreen: false';
 
-            if ($arrOptions[0]['responsive'] == '1')
-                $options[52] = 'responsive: true';
+            if ($arrOptions[0]['responsive'] == '')
+                $options[52] = 'responsive: false';
 
             if (($arrOptions[0]['wait'] != '5000') && ($arrOptions[0]['wait'] != NULL))
                 $options[53] = 'wait: ' . $arrOptions[0]['wait'];
