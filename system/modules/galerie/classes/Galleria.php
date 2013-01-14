@@ -296,11 +296,16 @@ class Galleria extends \Frontend {
                 $options[$i] = $options[$i] . ",\n";
             }
 
+            // Create the list of options as a String
+            for ($i = 0; $i < $totalOptions; $i++) {
+                $strOptions .= ( $options[$i]);
+            }
+            
+            // add the options in the template
+            $template->options = $strOptions;
+
             // Add JSON if exist
             ($arrOptions[0]['json'] != NULL ? ($template->json = $arrOptions[0]['json']) : ($template->json = ""));
-
-            $template->options = $options;
-
 
             /* Flickr options *
              ******************/

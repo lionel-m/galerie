@@ -48,11 +48,7 @@
     Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>')
     Galleria.configure(<?php if($this->options) echo '{'; ?>
 
-    <?php
-        for ($i = 0; $i < count($this->options); $i++) {
-            echo($this->options[$i]);
-        }
-    ?>
+    <?php echo $this->options; ?>
 
     <?php if ($this->flickr == TRUE): echo ',' ?>
 
