@@ -53,214 +53,237 @@ class Galleria extends \Frontend {
             /* Standard options *
              ********************/
 
-            // If the tested values ​​are not the default values, then it saves.
             $options = array();
 
-            if ($arrOptions[0]['width'] > 0)
+            // type: Number or String
+            if (is_numeric($arrOptions[0]['width']))
                 $options[0] = 'width: ' . $arrOptions[0]['width'];
+            else
+                $options[0] = 'width: ' . "'" . $arrOptions[0]['width'] . "'";
 
-            if ($arrOptions[0]['height'] > 0)
-                $options[1] = 'height: ' . $arrOptions[0]['height'];
+            // type: Number
+            $options[1] = 'height: ' . $arrOptions[0]['height'];
 
-            if ($arrOptions[0]['transition'] != 'fade')
+            // type: String
+            if($arrOptions[0]['transition'] != NULL)
                 $options[2] = 'transition: ' . "'" . $arrOptions[0]['transition'] . "'";
 
-            if ($arrOptions[0]['initialTransition'] != 'undefined')
+            // type: String
+            if($arrOptions[0]['initialTransition'] != NULL)
                 $options[3] = 'initialTransition: ' . "'" . $arrOptions[0]['initialTransition'] . "'";
 
-            if ($arrOptions[0]['clicknext'] == '1')
-                $options[4] = 'clicknext: true';
+            // type: Boolean
+            ($arrOptions[0]['clicknext'] == '' ? $options[4] = 'clicknext: false' : $options[4] = 'clicknext: true');
 
-            if ($arrOptions[0]['showImagenav'] == '')
-                $options[5] = 'showImagenav: false';
+            // type: Boolean
+            ($arrOptions[0]['showImagenav'] == '' ? $options[5] = 'showImagenav: false' : $options[5] = 'showImagenav: true');
 
-            if ($arrOptions[0]['showCounter'] == '')
-                $options[6] = 'showCounter: false';
+            // type: Boolean
+            ($arrOptions[0]['showCounter'] == '' ? $options[6] = 'showCounter: false' : $options[6] = 'showCounter: true');
 
+            // type: Boolean
+            ($arrOptions[0]['lightbox'] == '' ? $options[7] = 'lightbox: false' : $options[7] = 'lightbox: true');
+
+            // type: String
             if ($arrOptions[0]['lightbox'] == '1')
-                $options[7] = 'lightbox: true';
-
-            if (($arrOptions[0]['overlayBackground'] != '0b0b0b') && ($arrOptions[0]['lightbox'] == '1'))
                 $options[8] = 'overlayBackground: ' . "'#" . $arrOptions[0]['overlayBackground'] . "'";
 
-            if (($arrOptions[0]['overlayOpacity'] != 0.85) && ($arrOptions[0]['lightbox'] == '1'))
+            // type: Number
+            if ($arrOptions[0]['lightbox'] == '1')
                 $options[9] = 'overlayOpacity: ' . $arrOptions[0]['overlayOpacity'];
 
-            if (($arrOptions[0]['imageCrop'] != 'false') && ($arrOptions[0]['imageCrop'] == 'true'))
+            // type: Boolean or String
+            if (($arrOptions[0]['imageCrop'] == 'false') || ($arrOptions[0]['imageCrop'] == 'true'))
                 $options[10] = 'imageCrop: ' . $arrOptions[0]['imageCrop'];
-
-            elseif (($arrOptions[0]['imageCrop'] != 'false') && ($arrOptions[0]['imageCrop'] != 'true'))
+            else
                 $options[10] = 'imageCrop: ' . "'" . $arrOptions[0]['imageCrop'] . "'";
 
-            if ($arrOptions[0]['imageMargin'] != 0)
-                $options[11] = 'imageMargin: ' . $arrOptions[0]['imageMargin'];
+            // type: Number
+            $options[11] = 'imageMargin: ' . $arrOptions[0]['imageMargin'];
 
-            if ($arrOptions[0]['imagePan'] == '1')
-                $options[12] = 'imagePan: true';
+            // type: Boolean
+            ($arrOptions[0]['imagePan'] == '' ? $options[12] = 'imagePan: false' : $options[12] = 'imagePan: true');
 
-            if (($arrOptions[0]['autoplay'] == '1') && ($arrOptions[0]['autoplayInterval'] == 5000))
-                $options[13] = 'autoplay: true';
+            // type: Boolean or Number
+            if ($arrOptions[0]['autoplay'] == '1') {
+                if(is_numeric($arrOptions[0]['autoplayInterval']))
+                    $options[13] = 'autoplay: ' . $arrOptions[0]['autoplayInterval'];
+            }
 
-            elseif (($arrOptions[0]['autoplayInterval'] != 5000) && ($arrOptions[0]['autoplayInterval'] > 0) && ($arrOptions[0]['autoplay'] == '1'))
-                $options[13] = 'autoplay: ' . $arrOptions[0]['autoplayInterval'];
+            // type: Boolean
+            ($arrOptions[0]['carousel'] == '' ? $options[14] = 'carousel: false' : $options[14] = 'carousel: true');
 
-            if ($arrOptions[0]['carousel'] == '')
-                $options[14] = 'carousel: false';
+            // type: Number
+            $options[16] = 'carouselSpeed: ' . $arrOptions[0]['carouselSpeed'];
 
-            if ($arrOptions[0]['carouselFollow'] == '')
-                $options[15] = 'carouselFollow: false';
-
-            if ($arrOptions[0]['carouselSpeed'] != 200)
-                $options[16] = 'carouselSpeed: ' . $arrOptions[0]['carouselSpeed'];
-
-            if ($arrOptions[0]['carouselSteps'] != 'auto')
+            // type: Number or String
+            if (is_numeric($arrOptions[0]['carouselSteps']))
                 $options[17] = 'carouselSteps: ' . $arrOptions[0]['carouselSteps'];
+            else
+                $options[17] = 'carouselSteps: ' . "'" . $arrOptions[0]['carouselSteps'] ."'";
 
-            if (($arrOptions[0]['lightboxFadeSpeed'] != 200) && ($arrOptions[0]['lightbox'] == '1'))
+            // type: Number
+            if ($arrOptions[0]['lightbox'] == '1')
                 $options[18] = 'lightboxFadeSpeed: ' . $arrOptions[0]['lightboxFadeSpeed'];
 
-            if (($arrOptions[0]['lightboxTransitionSpeed'] != 300) && ($arrOptions[0]['lightbox'] == '1'))
+            // type: Number
+            if ($arrOptions[0]['lightbox'] == '1')
                 $options[19] = 'lightboxTransitionSpeed: ' . $arrOptions[0]['lightboxTransitionSpeed'];
 
-            if ($arrOptions[0]['pauseOnInteraction'] == '')
-                $options[20] = 'pauseOnInteraction: false';
+            // type: Boolean
+            ($arrOptions[0]['pauseOnInteraction'] == '' ? $options[20] = 'pauseOnInteraction: false' : $options[20] = 'pauseOnInteraction: true');
 
-            if ($arrOptions[0]['gShow'] > 0)
-                $options[21] = 'show: ' . $arrOptions[0]['gShow'];
+            // type: Number
+            $options[21] = 'show: ' . $arrOptions[0]['gShow'];
 
-            if ($arrOptions[0]['showInfo'] == '')
-                $options[22] = 'showInfo: false';
+            // type: Boolean
+            ($arrOptions[0]['showInfo'] == '' ? $options[22] = 'showInfo: false' : $options[22] = 'showInfo: true');
 
-            if (($arrOptions[0]['thumbnails'] != 'true') && ($arrOptions[0]['thumbnails'] == 'false'))
+            // type: Boolean or String
+            if (($arrOptions[0]['thumbnails'] == 'true') || ($arrOptions[0]['thumbnails'] == 'false'))
                 $options[23] = 'thumbnails: ' . $arrOptions[0]['thumbnails'];
-
-            elseif (($arrOptions[0]['thumbnails'] != 'true') && ($arrOptions[0]['thumbnails'] != 'false'))
+            else
                 $options[23] = 'thumbnails: ' . "'" . $arrOptions[0]['thumbnails'] . "'";
 
-            if (($arrOptions[0]['thumbCrop'] != 'true') && ($arrOptions[0]['thumbCrop'] == 'false'))
+            // type: Boolean or String
+            if (($arrOptions[0]['thumbCrop'] == 'true') || ($arrOptions[0]['thumbCrop'] == 'false'))
                 $options[24] = 'thumbCrop: ' . $arrOptions[0]['thumbCrop'];
-
-            elseif (($arrOptions[0]['thumbCrop'] != 'true') && ($arrOptions[0]['thumbCrop'] != 'false'))
+            else
                 $options[24] = 'thumbCrop: ' . "'" . $arrOptions[0]['thumbCrop'] . "'";
 
-            if ($arrOptions[0]['thumbMargin'] != 0)
-                $options[25] = 'thumbMargin: ' . $arrOptions[0]['thumbMargin'];
+            // type: Number
+            $options[25] = 'thumbMargin: ' . $arrOptions[0]['thumbMargin'];
 
-            if ($arrOptions[0]['thumbFit'] == '')
-                $options[26] = 'thumbFit: false';
-
-            if (($arrOptions[0]['thumbQuality'] != 'true') && ($arrOptions[0]['thumbQuality'] == 'false'))
+            // type: Boolean or String
+            if (($arrOptions[0]['thumbQuality'] == 'true') || ($arrOptions[0]['thumbQuality'] == 'false'))
                 $options[27] = 'thumbQuality: ' . $arrOptions[0]['thumbQuality'];
-
-            elseif (($arrOptions[0]['thumbQuality'] != 'true') && ($arrOptions[0]['thumbQuality'] != 'false'))
+            else
                 $options[27] = 'thumbQuality: ' . "'" . $arrOptions[0]['thumbQuality'] . "'";
 
-            if (($arrOptions[0]['imagePanSmoothness'] != 12) && ($arrOptions[0]['imagePan'] == '1'))
+            // type: Number
+            // Only works if "image_pan" is set to true
+            if ($arrOptions[0]['imagePan'] == '1')
                 $options[28] = 'imagePanSmoothness: ' . $arrOptions[0]['imagePanSmoothness'];
 
-            if ($arrOptions[0]['easing'] != 'galleria' && $arrOptions[0]['easing'] != NULL)
+            // type: String
+            if ($arrOptions[0]['easing'] != NULL)
                 $options[29] = 'easing: ' . "'" . $arrOptions[0]['easing'] . "'";
 
-            if ($arrOptions[0]['transitionSpeed'] != 400)
-                $options[30] = 'transitionSpeed: ' . $arrOptions[0]['transitionSpeed'];
+            // type: Number
+            $options[30] = 'transitionSpeed: ' . $arrOptions[0]['transitionSpeed'];
 
-            if ($arrOptions[0]['popupLinks'] == '1')
-                $options[31] = 'popupLinks: true';
+            // type: Boolean
+            ($arrOptions[0]['popupLinks'] == '' ? $options[31] = 'popupLinks: false' : $options[31] = 'popupLinks: true');
 
-            if (($arrOptions[0]['preload'] != '2') && ($arrOptions[0]['preload'] == 'all'))
+            // type: String or Number
+            if (is_numeric($arrOptions[0]['preload']))
+                $options[32] = 'preload: ' . $arrOptions[0]['preload'];
+            else
                 $options[32] = 'preload: ' . "'" . $arrOptions[0]['preload'] . "'";
 
-            elseif (($arrOptions[0]['preload'] != '2') && ($arrOptions[0]['preload'] != 'all'))
-                $options[32] = 'preload: ' . $arrOptions[0]['preload'];
-
+            // type: Function
             if ($arrOptions[0]['extend'] != NULL)
                 $options[33] = $arrOptions[0]['extend'];
 
-            if ($arrOptions[0]['debug'] == '')
-                $options[34] = 'debug: false';
+            // type: Boolean
+            ($arrOptions[0]['debug'] == '' ? $options[34] = 'debug: false' : $options[34] = 'debug: true');
 
-            if ($arrOptions[0]['queue'] == '')
-                $options[35] = 'queue: false';
+            // type: Boolean
+            ($arrOptions[0]['queue'] == '' ? $options[35] = 'queue: false' : $options[35] = 'queue: true');
 
-            if ($arrOptions[0]['imagePosition'] != 'center')
+            // type: String
+            if ($arrOptions[0]['imagePosition'] != NULL)
                 $options[36] = 'imagePosition: ' . "'" . $arrOptions[0]['imagePosition'] . "'";
 
-            if ($arrOptions[0]['minScaleRatio'] != 0)
-                $options[37] = 'minScaleRatio: ' . $arrOptions[0]['minScaleRatio'];
+            // type: Number
+            $options[38] = 'maxScaleRatio: ' . $arrOptions[0]['maxScaleRatio'];
 
-            if ($arrOptions[0]['maxScaleRatio'] != 0)
-                $options[38] = 'maxScaleRatio: ' . $arrOptions[0]['maxScaleRatio'];
+            // type: Boolean
+            ($arrOptions[0]['swipe'] == '' ? $options[39] = 'swipe: false' : $options[39] = 'swipe: true');
 
-            if ($arrOptions[0]['swipe'] == '')
-                $options[39] = 'swipe: false';
+            // type: Boolean
+            ($arrOptions[0]['fullscreenDoubleTap'] == '' ? $options[40] = 'fullscreenDoubleTap: false' : $options[40] = 'fullscreenDoubleTap: true');
 
-            if ($arrOptions[0]['fullscreenDoubleTap'] == '')
-                $options[40] = 'fullscreenDoubleTap: false';
+            // type: Boolean
+            ($arrOptions[0]['layerFollow'] == '' ? $options[41] = 'layerFollow: false' : $options[41] = 'layerFollow: true');
 
-            if ($arrOptions[0]['layerFollow'] == '')
-                $options[41] = 'layerFollow: false';
-
+            // type: String
             $dummy = deserialize($arrOptions[0]['dummy']);
-            if ($arrOptions[0]['dummy'] != '')
+            if ($arrOptions[0]['dummy'] != NULL)
                 $options[42] = 'dummy: ' . "'" . $dummy . "'";
 
-            if ($arrOptions[0]['imageTimeout'] != 30000)
-                $options[43] = 'imageTimeout: ' . $arrOptions[0]['imageTimeout'];
+            // type: Number
+            $options[43] = 'imageTimeout: ' . $arrOptions[0]['imageTimeout'];
 
+            // type: Boolean or String
             if (($arrOptions[0]['fullscreenCrop'] == 'false') || ($arrOptions[0]['fullscreenCrop'] == 'true'))
                 $options[44] = 'fullscreenCrop: ' . $arrOptions[0]['fullscreenCrop'];
-
-            elseif (($arrOptions[0]['fullscreenCrop'] != 'undefined') && ($arrOptions[0]['fullscreenCrop'] != 'false') && ($arrOptions[0]['fullscreenCrop'] != 'true'))
+            else
                 $options[44] = 'fullscreenCrop: ' . "'" . $arrOptions[0]['fullscreenCrop'] . "'";
 
-            if ($arrOptions[0]['fullscreenTransition'] != 'undefined')
+            // type: String
+            if ($arrOptions[0]['fullscreenTransition'] != NULL)
                 $options[45] = 'fullscreenTransition: ' . "'" . $arrOptions[0]['fullscreenTransition'] . "'";
 
-            if ($arrOptions[0]['touchTransition'] != 'undefined')
+            // type: String
+            if ($arrOptions[0]['touchTransition'] != NULL)
                 $options[46] = 'touchTransition: ' . "'" . $arrOptions[0]['touchTransition'] . "'";
 
+            // type: String or Array
             if ($arrOptions[0]['dataSource'] != NULL)
                 $options[47] = 'dataSource: ' . $arrOptions[0]['dataSource'];
 
+            // type: String
             if ($arrOptions[0]['dataSelector'] != NULL)
                 $options[48] = 'dataSelector: ' . $arrOptions[0]['dataSelector'];
 
-            if ($arrOptions[0]['keepSource'] == '1')
-                $options[49] = 'keepSource: true';
+            // type: Boolean
+            if ($arrOptions[0]['keepSource'] == '' ? $options[49] = 'keepSource: false' : $options[49] = 'keepSource: true');
 
+            // type: Function
             if ($arrOptions[0]['dataConfig'] != NULL)
                 $options[50] = $arrOptions[0]['dataConfig'];
 
-            if ($arrOptions[0]['trueFullscreen'] == '')
-                $options[51] = 'trueFullscreen: false';
+            // type: Boolean
+            ($arrOptions[0]['trueFullscreen'] == '' ? $options[51] = 'trueFullscreen: false' : $options[51] = 'trueFullscreen: true');
 
-            if ($arrOptions[0]['responsive'] == '')
-                $options[52] = 'responsive: false';
+            // type: Boolean
+            ($arrOptions[0]['responsive'] == '' ? $options[52] = 'responsive: false' : $options[52] = 'responsive: true');
 
-            if (($arrOptions[0]['wait'] != '5000') && ($arrOptions[0]['wait'] != NULL))
+            // type: Number or Boolean
+            if (is_numeric($arrOptions[0]['wait']))
                 $options[53] = 'wait: ' . $arrOptions[0]['wait'];
+            else
+                $options[53] = 'wait: ' . "'" . $arrOptions[0]['wait'] . "'";
 
+            // type: Object
             if ($arrOptions[0]['dailymotion'] != NULL)
                 $options[54] = 'dailymotion: ' . $arrOptions[0]['dailymotion'];
 
+            // type: Object
             if ($arrOptions[0]['vimeo'] != NULL)
                 $options[55] = 'vimeo: ' . $arrOptions[0]['vimeo'];
 
+            // type: Object
             if ($arrOptions[0]['youtube'] != NULL)
                 $options[56] = 'youtube: ' . $arrOptions[0]['youtube'];
 
-            if ($arrOptions[0]['idleMode'] == '')
-                $options[57] = 'idleMode: false';
+            // type: Boolean or String
+            if (($arrOptions[0]['idleMode'] == 'false') || ($arrOptions[0]['idleMode'] == 'true'))
+                $options[57] = 'idleMode: ' . $arrOptions[0]['idleMode'];
+            else
+                $options[57] = 'idleMode: ' . "'" . $arrOptions[0]['idleMode'] . "'";
 
-            if ($arrOptions[0]['idleTime'] != 3000)
-                $options[58] = 'idleTime: ' . $arrOptions[0]['idleTime'];
+            // type: Number
+            $options[58] = 'idleTime: ' . $arrOptions[0]['idleTime'];
 
-            if ($arrOptions[0]['idleSpeed'] != 200)
-                $options[59] = 'idleSpeed: ' . $arrOptions[0]['idleSpeed'];
+            // type: Number
+            $options[59] = 'idleSpeed: ' . $arrOptions[0]['idleSpeed'];
 
-            if ($arrOptions[0]['thumbDisplayOrder'] == '')
-                $options[60] = 'thumbDisplayOrder: false';
+            // type: Boolean
+            ($arrOptions[0]['thumbDisplayOrder'] == '' ? $options[60] = 'thumbDisplayOrder: false' : $options[60] = 'thumbDisplayOrder: true');
 
+            // type: Function or String
             if ($arrOptions[0]['dataSort'] != NULL)
                 $options[61] = $arrOptions[0]['dataSort'];
 

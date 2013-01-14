@@ -2,38 +2,38 @@
     <?php if ($this->headline): ?>
         <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
     <?php endif; ?>
-    
+
     <?php if (($this->noImages == TRUE) && ($this->flickr == FALSE) && ($this->picasa == FALSE)): echo '<p>'.$this->noImages.'</p></section>'; ?>
     <?php else: ?>
-    
+
         <?php if (($this->flickr == FALSE) && ($this->picasa == FALSE)): ?>
-        
+
             <div id="<?php echo $this->alias.'-'.$this->moduleID; ?>">
 
                 <?php foreach ($this->pictures as $pictures):
-		
-		    if (($pictures['video'] != NULL) && ($pictures['iframe'] == NULL)):
-			if ($pictures['videoThumb']):
-			    echo '<a href="' . $pictures['video'] . '"><span class="video"></span></a>';
-			else:
-			    echo '<a href="' . $pictures['video'] . '"><img src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
-			endif;
-		    elseif (($pictures['iframe'] != NULL) && ($pictures['video'] == NULL)):
-			if ($pictures['iframeThumb']):
-			    echo '<a href="' . $pictures['iframe'] . '"><span class="iframe"></span></a>';
-			else:
-			    echo '<a href="' . $pictures['iframe'] . '"><img class="iframe" src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
-			endif;
-		    else:
-			echo '<a href="'.$pictures['imageSRC'].'"><img src="'.$pictures['thumbnailSRC'].'" ' . ($pictures['alt'] ? 'data-description="'.$pictures['alt'].'" ' : '') . ($pictures['title'] ? 'data-title="'.$pictures['title'].'" ' : '') . ($pictures['imageUrl'] ? 'data-link="'.$pictures['imageUrl'].'" ' : '') . ($pictures['imageFullscreenSRC'] ? ' data-big="'.$pictures['imageFullscreenSRC'].'" ' : '') . ($pictures['layer'] ? 'data-layer="'.$pictures['layer'].'" ' : '') . '/></a>' . "\n";
-		    endif;
+
+                    if (($pictures['video'] != NULL) && ($pictures['iframe'] == NULL)):
+                        if ($pictures['videoThumb']):
+                            echo '<a href="' . $pictures['video'] . '"><span class="video"></span></a>';
+                        else:
+                            echo '<a href="' . $pictures['video'] . '"><img src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
+                        endif;
+                    elseif (($pictures['iframe'] != NULL) && ($pictures['video'] == NULL)):
+                        if ($pictures['iframeThumb']):
+                            echo '<a href="' . $pictures['iframe'] . '"><span class="iframe"></span></a>';
+                        else:
+                            echo '<a href="' . $pictures['iframe'] . '"><img class="iframe" src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
+                        endif;
+                    else:
+                        echo '<a href="'.$pictures['imageSRC'].'"><img src="'.$pictures['thumbnailSRC'].'" ' . ($pictures['alt'] ? 'data-description="'.$pictures['alt'].'" ' : '') . ($pictures['title'] ? 'data-title="'.$pictures['title'].'" ' : '') . ($pictures['imageUrl'] ? 'data-link="'.$pictures['imageUrl'].'" ' : '') . ($pictures['imageFullscreenSRC'] ? ' data-big="'.$pictures['imageFullscreenSRC'].'" ' : '') . ($pictures['layer'] ? 'data-layer="'.$pictures['layer'].'" ' : '') . '/></a>' . "\n";
+                    endif;
 
                 endforeach; ?>
 
             </div>
 
         <?php else: echo '<div id='.$this->alias.'-'.$this->moduleID.'></div>'; ?>
-        
+
         <?php endif; ?>
 </section>
 
@@ -41,28 +41,28 @@
     <!--//--><![CDATA[//><!--
     // Load JS file theme
     Galleria.loadTheme('<?php echo $this->pathJS; ?>');
-    
+
     <?php echo $this->json; ?>
-    
+
     // Initialize Galleria
     Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>')
     Galleria.configure(<?php if($this->options) echo '{'; ?>
 
     <?php
-	for ($i = 0; $i < count($this->options); $i++) {
-	    echo($this->options[$i]);
-	}
+        for ($i = 0; $i < count($this->options); $i++) {
+            echo($this->options[$i]);
+        }
     ?>
-	  
+
     <?php if ($this->flickr == TRUE): echo ',' ?>
-	
-	<?php echo $this->flickrFunction; ?>
+
+        <?php echo $this->flickrFunction; ?>
 
     <?php endif; ?>
 
     <?php if ($this->picasa == TRUE): echo ',' ?>
-	
-	<?php echo $this->picasaFunction; ?>
+
+        <?php echo $this->picasaFunction; ?>
 
     <?php endif; ?>
 

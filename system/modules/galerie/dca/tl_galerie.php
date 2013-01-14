@@ -100,7 +100,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('autoplay', 'lightbox', 'flickr', 'picasa'),
-		'default'                     => '{title_legend},title,alias;{themes_legend},themesSRC,minifiedJS;{dimensions_legend},width,height,responsive;{effects_legend},initialTransition,transition,fullscreenTransition,touchTransition,transitionSpeed,easing,queue;{navigation_legend},clicknext,popupLinks,swipe;{fullscreen_legend},fullscreenCrop,fullscreenDoubleTap,trueFullscreen;{show_legend},gShow,showInfo,showImagenav,showCounter;{autoplay_legend},autoplay,pauseOnInteraction;{lightbox_legend},lightbox;{images_legend},imageCrop,imageMargin,imagePosition,imagePan,imagePanSmoothness,preload,minScaleRatio,maxScaleRatio,layerFollow;{carousel_legend},carousel,carouselFollow,carouselSpeed,carouselSteps;{thumbnails_legend},thumbnails,thumbCrop,thumbMargin,thumbFit,thumbQuality,thumbDisplayOrder;{idle_legend},idleMode,idleTime,idleSpeed;{video_legend},dailymotion,vimeo,youtube;{flickr_legend},flickr;{picasa_legend},picasa;{history_legend},history;{error_legend},dummy,imageTimeout,wait;{extend_legend},extend,dataConfig,dataSort,json,dataSource,dataSelector,keepSource,debug;{publish_legend},published'
+		'default'                     => '{title_legend},title,alias;{themes_legend},themesSRC,minifiedJS;{dimensions_legend},width,height,responsive;{effects_legend},initialTransition,transition,fullscreenTransition,touchTransition,transitionSpeed,easing,queue;{navigation_legend},clicknext,popupLinks,swipe;{fullscreen_legend},fullscreenCrop,fullscreenDoubleTap,trueFullscreen;{show_legend},gShow,showInfo,showImagenav,showCounter;{autoplay_legend},autoplay,pauseOnInteraction;{lightbox_legend},lightbox;{images_legend},imageCrop,imageMargin,imagePosition,imagePan,imagePanSmoothness,preload,maxScaleRatio,layerFollow;{carousel_legend},carousel,carouselFollow,carouselSpeed,carouselSteps;{thumbnails_legend},thumbnails,thumbCrop,thumbMargin,thumbQuality,thumbDisplayOrder;{idle_legend},idleMode,idleTime,idleSpeed;{video_legend},dailymotion,vimeo,youtube;{flickr_legend},flickr;{picasa_legend},picasa;{history_legend},history;{error_legend},dummy,imageTimeout,wait;{extend_legend},extend,dataConfig,dataSort,json,dataSource,dataSelector,keepSource,debug;{publish_legend},published'
 	),
 
 	// Subpalettes
@@ -344,13 +344,6 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
 		),
-                'minScaleRatio' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['minScaleRatio'],
-			'exclude'                 => true,
-			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
-		),
                 'maxScaleRatio' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['maxScaleRatio'],
@@ -385,14 +378,6 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                 'carousel' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['carousel'],
-			'exclude'                 => true,
-                        'default'                 => true,
-			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
-		),
-                'carouselFollow' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['carouselFollow'],
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
@@ -442,14 +427,6 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'default'                 => '0',
 			'inputType'               => 'text',
 			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
-		),
-                'thumbFit' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['thumbFit'],
-			'exclude'                 => true,
-                        'default'                 => true,
-			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
 		),
                 'thumbQuality' => array
 		(
