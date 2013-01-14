@@ -20,7 +20,7 @@ $GLOBALS['TL_LANG']['tl_galerie']['themesSRC'] = array('Themes', 'Select the the
 $GLOBALS['TL_LANG']['tl_galerie']['minifiedJS'] = array('Use minified javascript file', 'Use minified JS javascript if available.');
 
 // Options
-$GLOBALS['TL_LANG']['tl_galerie']['width'] = array('Width', 'By default, Galleria fetches the width from the containing element. But you can use this option to set a gallery width manually.');
+$GLOBALS['TL_LANG']['tl_galerie']['width'] = array('Width (Number or \'auto\')', 'By default, Galleria fetches the width from the containing element. But you can use this option to set a gallery width manually.');
 $GLOBALS['TL_LANG']['tl_galerie']['height'] = array('Height', 'Galleria need a height to work properly. You can set the height using this option to make sure it has the correct height. If no height is set, Galleria will try to find the height of the parent container. You can set an exact value, f.ex 200, and it will apply this exact height in pixels. You can also set a relative ratio value which is anything below 2. If you set a relative ratio value, the gallery height will be calculated by multiplying this value with the width at any given scaling process. This is very useful when programming responsive layouts.');
 $GLOBALS['TL_LANG']['tl_galerie']['transition'] = array('Transition', 'The transition that is used when displaying the images.');
 $GLOBALS['TL_LANG']['tl_galerie']['initialTransition'] = array('Initial transition', 'Defines a different transition to show on the first image. F.ex, if you are using a slide transition, you might want the first image to fade. You can then set this option to \'fade\'.');

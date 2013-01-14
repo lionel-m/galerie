@@ -93,10 +93,12 @@ class Galleria extends \Frontend {
                 $options[9] = 'overlayOpacity: ' . $arrOptions[0]['overlayOpacity'];
 
             // type: Boolean or String
-            if (($arrOptions[0]['imageCrop'] == 'false') || ($arrOptions[0]['imageCrop'] == 'true'))
-                $options[10] = 'imageCrop: ' . $arrOptions[0]['imageCrop'];
-            else
-                $options[10] = 'imageCrop: ' . "'" . $arrOptions[0]['imageCrop'] . "'";
+            if($arrOptions[0]['imageCrop'] != NULL) {
+                if (($arrOptions[0]['imageCrop'] == 'false') || ($arrOptions[0]['imageCrop'] == 'true'))
+                    $options[10] = 'imageCrop: ' . $arrOptions[0]['imageCrop'];
+                else
+                    $options[10] = 'imageCrop: ' . "'" . $arrOptions[0]['imageCrop'] . "'";
+            }
 
             // type: Number
             $options[11] = 'imageMargin: ' . $arrOptions[0]['imageMargin'];
@@ -140,25 +142,31 @@ class Galleria extends \Frontend {
             ($arrOptions[0]['showInfo'] == '' ? $options[22] = 'showInfo: false' : $options[22] = 'showInfo: true');
 
             // type: Boolean or String
-            if (($arrOptions[0]['thumbnails'] == 'true') || ($arrOptions[0]['thumbnails'] == 'false'))
-                $options[23] = 'thumbnails: ' . $arrOptions[0]['thumbnails'];
-            else
-                $options[23] = 'thumbnails: ' . "'" . $arrOptions[0]['thumbnails'] . "'";
+            if ($arrOptions[0]['thumbnails'] != NULL) {
+                if (($arrOptions[0]['thumbnails'] == 'true') || ($arrOptions[0]['thumbnails'] == 'false'))
+                    $options[23] = 'thumbnails: ' . $arrOptions[0]['thumbnails'];
+                else
+                    $options[23] = 'thumbnails: ' . "'" . $arrOptions[0]['thumbnails'] . "'";
+            }
 
             // type: Boolean or String
-            if (($arrOptions[0]['thumbCrop'] == 'true') || ($arrOptions[0]['thumbCrop'] == 'false'))
-                $options[24] = 'thumbCrop: ' . $arrOptions[0]['thumbCrop'];
-            else
-                $options[24] = 'thumbCrop: ' . "'" . $arrOptions[0]['thumbCrop'] . "'";
+            if ($arrOptions[0]['thumbCrop'] != NULL) {
+                if (($arrOptions[0]['thumbCrop'] == 'true') || ($arrOptions[0]['thumbCrop'] == 'false'))
+                    $options[24] = 'thumbCrop: ' . $arrOptions[0]['thumbCrop'];
+                else
+                    $options[24] = 'thumbCrop: ' . "'" . $arrOptions[0]['thumbCrop'] . "'";
+            }
 
             // type: Number
             $options[25] = 'thumbMargin: ' . $arrOptions[0]['thumbMargin'];
 
             // type: Boolean or String
-            if (($arrOptions[0]['thumbQuality'] == 'true') || ($arrOptions[0]['thumbQuality'] == 'false'))
-                $options[27] = 'thumbQuality: ' . $arrOptions[0]['thumbQuality'];
-            else
-                $options[27] = 'thumbQuality: ' . "'" . $arrOptions[0]['thumbQuality'] . "'";
+            if ($arrOptions[0]['thumbQuality'] != NULL) {
+                if (($arrOptions[0]['thumbQuality'] == 'true') || ($arrOptions[0]['thumbQuality'] == 'false'))
+                    $options[27] = 'thumbQuality: ' . $arrOptions[0]['thumbQuality'];
+                else
+                    $options[27] = 'thumbQuality: ' . "'" . $arrOptions[0]['thumbQuality'] . "'";
+            }
 
             // type: Number
             // Only works if "image_pan" is set to true
@@ -216,10 +224,12 @@ class Galleria extends \Frontend {
             $options[43] = 'imageTimeout: ' . $arrOptions[0]['imageTimeout'];
 
             // type: Boolean or String
-            if (($arrOptions[0]['fullscreenCrop'] == 'false') || ($arrOptions[0]['fullscreenCrop'] == 'true'))
-                $options[44] = 'fullscreenCrop: ' . $arrOptions[0]['fullscreenCrop'];
-            else
-                $options[44] = 'fullscreenCrop: ' . "'" . $arrOptions[0]['fullscreenCrop'] . "'";
+            if ($arrOptions[0]['fullscreenCrop'] != NULL) {
+                if (($arrOptions[0]['fullscreenCrop'] == 'false') || ($arrOptions[0]['fullscreenCrop'] == 'true'))
+                    $options[44] = 'fullscreenCrop: ' . $arrOptions[0]['fullscreenCrop'];
+                else
+                    $options[44] = 'fullscreenCrop: ' . "'" . $arrOptions[0]['fullscreenCrop'] . "'";
+            }
 
             // type: String
             if ($arrOptions[0]['fullscreenTransition'] != NULL)
@@ -251,10 +261,12 @@ class Galleria extends \Frontend {
             ($arrOptions[0]['responsive'] == '' ? $options[52] = 'responsive: false' : $options[52] = 'responsive: true');
 
             // type: Number or Boolean
-            if (is_numeric($arrOptions[0]['wait']))
-                $options[53] = 'wait: ' . $arrOptions[0]['wait'];
-            else
-                $options[53] = 'wait: ' . "'" . $arrOptions[0]['wait'] . "'";
+            if ($arrOptions[0]['wait'] != NULL) {
+                if (is_numeric($arrOptions[0]['wait']))
+                    $options[53] = 'wait: ' . $arrOptions[0]['wait'];
+                else
+                    $options[53] = 'wait: ' . "'" . $arrOptions[0]['wait'] . "'";
+            }
 
             // type: Object
             if ($arrOptions[0]['dailymotion'] != NULL)
@@ -269,10 +281,12 @@ class Galleria extends \Frontend {
                 $options[56] = 'youtube: ' . $arrOptions[0]['youtube'];
 
             // type: Boolean or String
-            if (($arrOptions[0]['idleMode'] == 'false') || ($arrOptions[0]['idleMode'] == 'true'))
-                $options[57] = 'idleMode: ' . $arrOptions[0]['idleMode'];
-            else
-                $options[57] = 'idleMode: ' . "'" . $arrOptions[0]['idleMode'] . "'";
+            if ($arrOptions[0]['idleMode'] != NULL) {
+                if (($arrOptions[0]['idleMode'] == 'false') || ($arrOptions[0]['idleMode'] == 'true'))
+                    $options[57] = 'idleMode: ' . $arrOptions[0]['idleMode'];
+                else
+                    $options[57] = 'idleMode: ' . "'" . $arrOptions[0]['idleMode'] . "'";
+            }
 
             // type: Number
             $options[58] = 'idleTime: ' . $arrOptions[0]['idleTime'];
@@ -300,7 +314,7 @@ class Galleria extends \Frontend {
             for ($i = 0; $i < $totalOptions; $i++) {
                 $strOptions .= ( $options[$i]);
             }
-            
+
             // add the options in the template
             $template->options = $strOptions;
 
@@ -361,7 +375,6 @@ class Galleria extends \Frontend {
             for ($i = 0; $i < $totalPicasaOptions-1; $i++) {
                 $picasaOptions[$i] = $picasaOptions[$i] . ",\n";
             }
-
         }
 
         // Build Flickr JS function

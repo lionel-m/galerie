@@ -95,7 +95,7 @@ CREATE TABLE `tl_galerie` (
   `dataSelector` varchar(32) NOT NULL default '',
   `keepSource` char(1) NOT NULL default '',
   `json` text NULL,
-  `idleMode` char(1) NOT NULL default '',
+  `idleMode` varchar(32) NOT NULL default '',
   `idleTime` int(10) unsigned NOT NULL default '0',
   `idleSpeed` int(10) unsigned NOT NULL default '0',
   `thumbDisplayOrder` char(1) NOT NULL default '1',
