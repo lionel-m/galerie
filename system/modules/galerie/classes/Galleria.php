@@ -56,12 +56,13 @@ class Galleria extends \Frontend {
             $options = array();
 
             // type: Number or String
-            if (is_numeric($arrOptions[0]['width']))
+            if (is_numeric($arrOptions[0]['width']) && $arrOptions[0]['width'] > 0)
                 $options[0] = 'width: ' . $arrOptions[0]['width'];
-            else
+            elseif(!is_numeric($arrOptions[0]['width']))
                 $options[0] = 'width: ' . "'" . $arrOptions[0]['width'] . "'";
 
             // type: Number
+            if($arrOptions[0]['height'] > 0)
             $options[1] = 'height: ' . $arrOptions[0]['height'];
 
             // type: String

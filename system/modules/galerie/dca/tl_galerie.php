@@ -165,7 +165,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '650',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
 		),
 		'height' => array
 		(
