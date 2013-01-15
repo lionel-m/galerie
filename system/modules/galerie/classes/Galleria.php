@@ -217,8 +217,9 @@ class Galleria extends \Frontend {
 
             // type: String
             $dummy = deserialize($arrOptions[0]['dummy']);
+            $objDummy = \FilesModel::findByPk($dummy);
             if ($arrOptions[0]['dummy'] != NULL)
-                $options[42] = 'dummy: ' . "'" . $dummy . "'";
+                $options[42] = 'dummy: ' . "'" . $objDummy->path . "'";
 
             // type: Number
             $options[43] = 'imageTimeout: ' . $arrOptions[0]['imageTimeout'];
