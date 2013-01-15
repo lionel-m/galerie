@@ -95,11 +95,12 @@ CREATE TABLE `tl_galerie` (
   `dataSelector` varchar(32) NOT NULL default '',
   `keepSource` char(1) NOT NULL default '',
   `json` text NULL,
-  `idleMode` varchar(32) NOT NULL default '',
+  `idleMode` varchar(32) NOT NULL default 'true',
   `idleTime` int(10) unsigned NOT NULL default '0',
   `idleSpeed` int(10) unsigned NOT NULL default '0',
   `thumbDisplayOrder` char(1) NOT NULL default '1',
   `dataSort` text NULL,
+  `maxVideoSize` int(10) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `pid` (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;

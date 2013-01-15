@@ -301,18 +301,24 @@ class Galleria extends \Frontend {
             if ($arrOptions[0]['dataSort'] != NULL)
                 $options[61] = $arrOptions[0]['dataSort'];
 
+            // type: Number
+            if ($arrOptions[0]['maxVideoSize'] == 0)
+                $options[62] = 'maxVideoSize: ' . "'undefined'";
+            else
+                $options[62] = 'maxVideoSize: ' . $arrOptions[0]['maxVideoSize'];
+
             // Reindex the array
             $options = array_values($options);
             $totalOptions = count($options);
 
             // Add commas
             for ($i = 0; $i < $totalOptions-1; $i++) {
-                $options[$i] = $options[$i] . ",\n";
+                $options[$i] = $options[$i] . ",\n\t";
             }
 
             // Create the list of options as a String
             for ($i = 0; $i < $totalOptions; $i++) {
-                $strOptions .= ( $options[$i]);
+                $strOptions .= ($options[$i]);
             }
 
             // add the options in the template
@@ -385,7 +391,7 @@ class Galleria extends \Frontend {
             $flickrFunction .= "flickrOptions: { \n";
 
             for ($i = 0; $i < $totalFlickrOptions; $i++) {
-                $flickrFunction .= ( $flickrOptions[$i]);
+                $flickrFunction .= ($flickrOptions[$i]);
             }
 
             $flickrFunction .= ' }';
@@ -402,7 +408,7 @@ class Galleria extends \Frontend {
             $picasaFunction .= "picasaOptions: { \n";
 
             for ($i = 0; $i < $totalPicasaOptions; $i++) {
-                $picasaFunction .= ( $picasaOptions[$i]);
+                $picasaFunction .= ($picasaOptions[$i]);
             }
 
             $picasaFunction .= ' }';
