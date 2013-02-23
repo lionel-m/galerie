@@ -508,11 +508,13 @@ class Galleria extends \Frontend {
      * @access public
      * @return null
      */
-    public function getPictures($database, $galerie, $template, $imagesFolder, $sortBy) {
+    public function getPictures($database, $galerie, $template, $imagesFolder, $sortBy, $size) {
 
         // Adds a group of images from a folder
         $imagesFolder = deserialize($imagesFolder);
         $this->objFiles = \FilesModel::findMultipleByIds($imagesFolder);
+
+        $size = deserialize($size);
 
         global $objPage;
         $images = array();
@@ -554,7 +556,7 @@ class Galleria extends \Frontend {
                     (
                         'id'           => $objFiles->id,
                         'name'         => $objFile->basename,
-                        'imageSRC'     => $objFiles->path,
+                        'imageSRC'     => (($size[0] == NULL && $size[1] == NULL) ? $objFiles->path : (\Image::get($this->urlEncode($objFiles->path), $size[0], $size[1], $size[2]))),
                         'thumbnailSRC' => \Image::get($this->urlEncode($objFiles->path), '100px', NULL, 'center_center'),
                         'title'        => $arrMeta['title'],
                         'imageUrl'     => $arrMeta['link'],
@@ -603,7 +605,7 @@ class Galleria extends \Frontend {
                         (
                             'id'           => $objSubfiles->id,
                             'name'         => $objFile->basename,
-                            'imageSRC'     => $objSubfiles->path,
+                            'imageSRC'     => (($size[0] == NULL && $size[1] == NULL) ? $objSubfiles->path : (\Image::get($this->urlEncode($objSubfiles->path), $size[0], $size[1], $size[2]))),
                             'thumbnailSRC' => \Image::get($this->urlEncode($objSubfiles->path), '100px', NULL, 'center_center'),
                             'title'        => $arrMeta['title'],
                             'imageUrl'     => $arrMeta['link'],
@@ -640,13 +642,15 @@ class Galleria extends \Frontend {
                 case 'custom':
                         if ($this->orderSRC != '')
                         {
-                            // Turn the order string into an array
-                            $arrOrder = array_flip(array_map('intval', explode(',', $this->orderSRC)));
+                            // Turn the order string into an array and remove all values
+                            $arrOrder = explode(',', $this->orderSRC);
+                            $arrOrder = array_flip(array_map('intval', $arrOrder));
+                            $arrOrder = array_map(function(){}, $arrOrder);
 
                             // Move the matching elements to their position in $arrOrder
                             foreach ($images as $k=>$v)
                             {
-                                if (isset($arrOrder[$v['id']]))
+                                if (array_key_exists($v['id'], $arrOrder))
                                 {
                                     $arrOrder[$v['id']] = $v;
                                     unset($images[$k]);
@@ -656,19 +660,11 @@ class Galleria extends \Frontend {
                             // Append the left-over images at the end
                             if (!empty($images))
                             {
-                                $arrOrder = array_merge($arrOrder, $images);
+                                $arrOrder = array_merge($arrOrder, array_values($images));
                             }
 
-                            // Remove empty or numeric (not replaced) entries
-                            foreach ($arrOrder as $k=>$v)
-                            {
-                                if ($v == '' || is_numeric($v))
-                                {
-                                    unset($arrOrder[$k]);
-                                }
-                            }
-
-                            $images = $arrOrder;
+                            // Remove empty (unreplaced) entries
+                            $images = array_filter($arrOrder);
                             unset($arrOrder);
                         }
                         break;

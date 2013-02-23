@@ -13,7 +13,7 @@
 /**
  * Add palettes to tl_content
  */
-$GLOBALS['TL_DCA']['tl_content']['palettes']['galerie'] = '{type_legend},type,headline;{galerie_legend},galerie;{imagesFolder_legend},imagesFolder;{imgSortBy_legend},sortBy;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['galerie'] = '{type_legend},type,headline;{galerie_legend},galerie;{imagesFolder_legend},imagesFolder,sortBy,size;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 
 /**
  * Add fields to tl_content
