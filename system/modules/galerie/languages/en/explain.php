@@ -43,7 +43,7 @@ $GLOBALS['TL_LANG']['XPL']['picasaMethods'] = array
 (
     array('Search', 'Search Picasa for public photos using a search string.'),
     array('User', 'Fetch a user’s public photos using the username like displayed in the URL (not user ID).'),
-    array('User album', 'Get photos from a user album.')
+    array('User album', 'Get photos from a user album. Notation: username/albumID')
 );
 
 /**
