@@ -13,13 +13,13 @@
                 <?php foreach ($this->pictures as $pictures):
 
                     if (($pictures['video'] != NULL) && ($pictures['iframe'] == NULL)):
-                        if ($pictures['videoThumb']):
+                        if ($pictures['videoThumb'] == 1):
                             echo '<a href="' . $pictures['video'] . '"><span class="video"></span></a>';
                         else:
                             echo '<a href="' . $pictures['video'] . '"><img src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
                         endif;
                     elseif (($pictures['iframe'] != NULL) && ($pictures['video'] == NULL)):
-                        if ($pictures['iframeThumb']):
+                        if ($pictures['iframeThumb'] == 1):
                             echo '<a href="' . $pictures['iframe'] . '"><span class="iframe"></span></a>';
                         else:
                             echo '<a href="' . $pictures['iframe'] . '"><img class="iframe" src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';

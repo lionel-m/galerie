@@ -716,7 +716,7 @@ class Galleria extends \Frontend {
                     'imageSRC'              => $imageSRC,
                     'thumbnailSRC'          => $thumbnailSRC,
                     'imageFullscreenSRC'    => $this->urlEncode($objFullscreenImgSRC->path),
-                    'video'                 => $this->urlVerification($objPictures->video),
+                    'video'                 => self::urlVerification($objPictures->video),
                     'videoThumb'            => $objPictures->videoThumb,
                     'iframe'                => $objPictures->iframe,
                     'iframeThumb'           => $objPictures->iframeThumb,
