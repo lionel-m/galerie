@@ -18,6 +18,8 @@ $GLOBALS['TL_DCA']['tl_content']['palettes']['galerie'] = '{type_legend},type,he
 /**
  * Add fields to tl_content
  */
+$GLOBALS['TL_DCA']['tl_content']['fields']['type']['eval']['gallery_types'][] = 'galerie';
+
 $GLOBALS['TL_DCA']['tl_content']['fields']['galerie'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['galerie'],

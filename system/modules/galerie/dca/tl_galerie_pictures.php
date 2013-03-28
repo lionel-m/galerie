@@ -215,14 +215,14 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML'],
 			'exclude'                 => true,
 			'inputType'               => 'textarea',
-			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|html', 'tl_class'=>'clr')
+			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|html', 'tl_class'=>'clr')
 		),
                 'layerHTML' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['layerHTML'],
 			'exclude'                 => true,
 			'inputType'               => 'textarea',
-			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'codeMirror|html', 'tl_class'=>'clr')
+			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|html', 'tl_class'=>'clr')
 		)
 	)
 );
