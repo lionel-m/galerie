@@ -45,7 +45,7 @@ class ContentGalerie extends \ContentElement {
         $galleria = new Galleria();
 
         $galleria->getOptions($this->Database, $this->galerie, $this->Template);
-        $galleria->getPictures($this->Database, $this->galerie, $this->Template, $this->imagesFolder, $this->sortBy, $this->size);
+        $galleria->getPictures($this->Database, $this->galerie, $this->Template, $this->imagesFolder, $this->sortBy, $this->size, $this->orderSRC);
         $galleria->getGalleriaTheme($this->Database, $this->galerie);
 
         // Use specific CSS and JS when the CTE is loaded

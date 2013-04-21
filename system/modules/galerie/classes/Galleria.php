@@ -508,11 +508,11 @@ class Galleria extends \Frontend {
      * @access public
      * @return null
      */
-    public function getPictures($database, $galerie, $template, $imagesFolder, $sortBy, $size) {
+    public function getPictures($database, $galerie, $template, $imagesFolder, $sortBy, $size, $orderSRC) {
 
         // Adds a group of images from a folder
         $imagesFolder = deserialize($imagesFolder);
-        $this->objFiles = \FilesModel::findMultipleByIds($imagesFolder);
+        $objFiles = \FilesModel::findMultipleByIds($imagesFolder);
 
         $size = deserialize($size);
 
@@ -520,9 +520,8 @@ class Galleria extends \Frontend {
         $images = array();
         $auxDate = array();
         $auxId = array();
-        $objFiles = $this->objFiles;
 
-        if ($this->objFiles !== null) {
+        if ($objFiles !== null) {
 
             // Get all images
             while ($objFiles->next())
@@ -640,10 +639,10 @@ class Galleria extends \Frontend {
 
                 case 'meta': // Backwards compatibility
                 case 'custom':
-                        if ($this->orderSRC != '')
+                        if ($orderSRC != '')
                         {
                             // Turn the order string into an array and remove all values
-                            $arrOrder = explode(',', $this->orderSRC);
+                            $arrOrder = explode(',', $orderSRC);
                             $arrOrder = array_flip(array_map('intval', $arrOrder));
                             $arrOrder = array_map(function(){}, $arrOrder);
 

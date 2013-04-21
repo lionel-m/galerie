@@ -18,6 +18,8 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['galerie'] = '{title_legend},name,he
 /**
  * Add fields to tl_module
  */
+$GLOBALS['TL_DCA']['tl_module']['fields']['type']['eval']['gallery_types'][] = 'galerie';
+
 $GLOBALS['TL_DCA']['tl_module']['fields']['galerie'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['galerie'],
