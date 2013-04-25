@@ -217,8 +217,8 @@ $GLOBALS['TL_LANG']['tl_galerie']['idle_legend'] = 'Idle';
  * Buttons
  */
 $GLOBALS['TL_LANG']['tl_galerie']['new']        = array('New gallery', 'Create a new gallery');
-$GLOBALS['TL_LANG']['tl_galerie']['edit']       = array('Edit pictures from this gallery', 'Edit pictures from the gallery ID %s');
-$GLOBALS['TL_LANG']['tl_galerie']['editheader'] = array('Edit settings from this gallery', 'Edit settings from the gallery ID %s');
+$GLOBALS['TL_LANG']['tl_galerie']['edit']       = array('Edit the gallery', 'Edit the gallery ID %s');
+$GLOBALS['TL_LANG']['tl_galerie']['editheader'] = array('Edit settings for this gallery', 'Edit settings for the gallery ID %s');
 $GLOBALS['TL_LANG']['tl_galerie']['copy']       = array('Duplicate', 'Duplicate the gallery ID %s');
 $GLOBALS['TL_LANG']['tl_galerie']['delete']     = array('Delete', 'Delete the gallery ID %s');
 $GLOBALS['TL_LANG']['tl_galerie']['toggle']     = array('Publish/unpublish', 'Publish/unpublish the gallery ID %s');
