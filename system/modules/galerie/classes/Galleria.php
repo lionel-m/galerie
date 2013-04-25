@@ -720,7 +720,7 @@ class Galleria extends \Frontend {
                     'iframe'                => $objPictures->iframe,
                     'iframeThumb'           => $objPictures->iframeThumb,
                     'layer'                 => htmlentities($objPictures->layerHTML, ENT_COMPAT, 'UTF-8'),
-                    'HTMLlayer'             => $objPictures->dataConfigHTML
+                    'dataConfig'            => $objPictures->dataConfigHTML
                 );
             }
 
