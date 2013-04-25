@@ -719,7 +719,7 @@ class Galleria extends \Frontend {
                     'videoThumb'            => $objPictures->videoThumb,
                     'iframe'                => $objPictures->iframe,
                     'iframeThumb'           => $objPictures->iframeThumb,
-                    'layer'                 => htmlentities($objPictures->layerHTML),
+                    'layer'                 => htmlentities($objPictures->layerHTML, ENT_COMPAT, 'UTF-8'),
                     'HTMLlayer'             => $objPictures->dataConfigHTML
                 );
             }

@@ -25,7 +25,7 @@
                             echo '<a href="' . $pictures['iframe'] . '"><img class="iframe" src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
                         endif;
                     else:
-                        echo '<a href="'.$pictures['imageSRC'].'"><img src="'.$pictures['thumbnailSRC'].'" ' . ($pictures['alt'] ? 'data-description="'.$pictures['alt'].'" ' : '') . ($pictures['title'] ? 'data-title="'.$pictures['title'].'" ' : '') . ($pictures['imageUrl'] ? 'data-link="'.$pictures['imageUrl'].'" ' : '') . ($pictures['imageFullscreenSRC'] ? ' data-big="'.$pictures['imageFullscreenSRC'].'" ' : '') . ($pictures['layer'] ? 'data-layer="'.$pictures['layer'].'" ' : '') . '/></a>' . "\n";
+                        echo '<a href="'.$pictures['imageSRC'].'"><img src="'.$pictures['thumbnailSRC'].'" alt="'.$pictures['alt'].'" ' . ($pictures['alt'] ? 'data-description="'.$pictures['alt'].'" ' : '') . ($pictures['title'] ? 'data-title="'.$pictures['title'].'" ' : '') . ($pictures['imageUrl'] ? 'data-link="'.$pictures['imageUrl'].'" ' : '') . ($pictures['imageFullscreenSRC'] ? ' data-big="'.$pictures['imageFullscreenSRC'].'" ' : '') . ($pictures['layer'] ? 'data-layer="'.$pictures['layer'].'" ' : '') . '/></a>' . "\n";
                     endif;
 
                 endforeach; ?>
