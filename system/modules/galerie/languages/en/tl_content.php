@@ -16,7 +16,6 @@
 $GLOBALS['TL_LANG']['tl_content']['galerie']['0'] = "Galleria";
 $GLOBALS['TL_LANG']['tl_content']['galerie']['1'] = "Select your gallery";
 $GLOBALS['TL_LANG']['tl_content']['imagesFolder'] = array('Source files', 'Please select one or more folders from the files directory.');
-$GLOBALS['TL_LANG']['tl_content']['galFileName'] = array('Title', 'Add title from the file name.');
 
 
 /**
