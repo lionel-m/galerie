@@ -906,33 +906,33 @@ class tl_galerie extends Backend {
     }
     
    /**
-     * Autogenerate a news alias if it has not been set yet
+     * Autogenerate a galerie alias if it has not been set yet
      * @param mixed
      * @param object
      * @return string
      */
     public function generateAlias($varValue, DataContainer $dc) {
+
         $autoAlias = false;
 
         // Generate alias if there is none
-        if (!strlen($varValue)) {
+        if ($varValue == '')
+        {
             $autoAlias = true;
-            $key = $dc->activeRecord->title;
-            if(strlen($dc->activeRecord->title) > 0) {
-                $keyAlias = $key;
-            }
-            $varValue = standardize($keyAlias);
+            $varValue = standardize(String::restoreBasicEntities($dc->activeRecord->title));
         }
 
-        $objAlias = $this->Database->prepare("SELECT id FROM tl_galerie WHERE id=? OR alias=?")
-                ->execute($dc->id, $varValue);
+        $objAlias = $this->Database->prepare("SELECT id FROM tl_galerie WHERE alias=?")->execute($varValue);
 
-        // Check whether the page alias exists
-        if ($objAlias->numRows > 1) {
-            if (!$autoAlias) {
-                throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
-            }
+        // Check whether the galerie alias exists
+        if ($objAlias->numRows > 1 && !$autoAlias)
+        {
+            throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['aliasExists'], $varValue));
+        }
 
+        // Add ID to alias
+        if ($objAlias->numRows && $autoAlias)
+        {
             $varValue .= '-' . $dc->id;
         }
 
