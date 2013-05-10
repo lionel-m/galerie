@@ -28,7 +28,7 @@ $GLOBALS['BE_MOD']['content']['galerie'] = array (
  */
 array_insert($GLOBALS['FE_MOD']['application'], 0, array (
 
-    'galerie' => 'ModuleGalerie'
+    'galerie' => 'Galleria\ModuleGalerie'
 ));
 
 /**
@@ -36,5 +36,5 @@ array_insert($GLOBALS['FE_MOD']['application'], 0, array (
  * CONTENT ELEMENTS
  * -------------------------------------------------------------------------
  */
-$GLOBALS['TL_CTE']['media']['galerie'] = 'ContentGalerie';
+$GLOBALS['TL_CTE']['media']['galerie'] = 'Galleria\ContentGalerie';
 ?>

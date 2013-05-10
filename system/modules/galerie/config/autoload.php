@@ -10,20 +10,31 @@
  * @license   MIT (http://lionel-m.mit-license.org/)
  */
 
+
+/**
+ * Register the namespaces
+ */
+ClassLoader::addNamespaces(array
+(
+	'Galleria',
+));
+
+
 /**
  * Register the classes
  */
 ClassLoader::addClasses(array
 (
 	// Classes
-	'Contao\Galleria'       => 'system/modules/galerie/classes/Galleria.php',
+	'Galleria\Galleria'       => 'system/modules/galerie/classes/Galleria.php',
 
 	// Elements
-	'Contao\ContentGalerie' => 'system/modules/galerie/elements/ContentGalerie.php',
+	'Galleria\ContentGalerie' => 'system/modules/galerie/elements/ContentGalerie.php',
 
 	// Modules
-	'Contao\ModuleGalerie'  => 'system/modules/galerie/modules/ModuleGalerie.php',
+	'Galleria\ModuleGalerie'  => 'system/modules/galerie/modules/ModuleGalerie.php',
 ));
+
 
 /**
  * Register the templates
