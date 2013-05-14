@@ -36,7 +36,7 @@ class GalleriaModel extends \Model
     /**
      * Find a published gallery by its ID
      *
-     * @param integer $intId      The Gallery ID
+     * @param integer $intId      The gallery ID
      * @param array   $arrOptions An optional options array
      *
      * @return \Model|null The model or null if there is no published gallery
