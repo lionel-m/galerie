@@ -36,19 +36,14 @@ class Galleria extends \Frontend {
      * @access public
      * @return null
      */
-    public function getOptions($database, $galerie, $template) {
+    public function getOptions($galerie, $template) {
 
         // Retrieve the current gallery options
-        $objOptions = $database->prepare("SELECT * FROM tl_galerie WHERE id=? AND published=1")
-                ->limit(1)
-                ->execute($galerie);
+        $objOptions = GalleriaModel::findPublishedById($galerie, array('*'));
 
-        if ($objOptions->numRows > 0) {
-
-            while ($objOptions->next()) {
+        if ($objOptions !== null) {
 
                 $arrOptions[] = $objOptions->row();
-            }
 
             /* Standard options *
              ********************/
@@ -420,7 +415,7 @@ class Galleria extends \Frontend {
 
 
         // Path for the function loadTheme() included in the template
-        $foldersName = self::getGalleriaTheme($database, $galerie);
+        $foldersName = $this->getGalleriaTheme($galerie);
         $path = implode("/", $foldersName);
 
         if($arrOptions[0]['minifiedJS'] != '1')
@@ -429,7 +424,6 @@ class Galleria extends \Frontend {
             $pathJS = $path . '/' . $foldersName[1] . '.' . $foldersName[3] . '.min.js';
 
         $template->pathJS = $pathJS;
-
 
         // Use alias and module ID for the ID container (id="{alias}-{moduleID}")
         $template->alias = $objOptions->alias;
@@ -442,11 +436,9 @@ class Galleria extends \Frontend {
      * @access public
      * @return boolean
      */
-    public function isFlickrEnabled($database, $galerie, $template) {
+    public function isFlickrEnabled($galerie, $template) {
 
-        $objFlickr = $database->prepare("SELECT flickr FROM tl_galerie WHERE id=? AND published=1")
-                ->limit(1)
-                ->execute($galerie);
+        $objFlickr = GalleriaModel::findPublishedById($galerie, array('flickr'));
 
         if ($objFlickr->flickr == NULL)
             $isFlickrEnabled = FALSE;
@@ -465,11 +457,9 @@ class Galleria extends \Frontend {
      * @access public
      * @return boolean
      */
-    public function isPicasaEnabled($database, $galerie, $template) {
+    public function isPicasaEnabled($galerie, $template) {
 
-        $objPicasa = $database->prepare("SELECT picasa FROM tl_galerie WHERE id=? AND published=1")
-                ->limit(1)
-                ->execute($galerie);
+        $objPicasa = GalleriaModel::findPublishedById($galerie, array('picasa'));
 
         if ($objPicasa->picasa == NULL)
             $isPicasaEnabled = FALSE;
@@ -488,11 +478,9 @@ class Galleria extends \Frontend {
      * @access public
      * @return boolean
      */
-    public function isHistoryEnabled($database, $galerie) {
+    public function isHistoryEnabled($galerie) {
 
-        $objHistory = $database->prepare("SELECT history FROM tl_galerie WHERE id=? AND published=1")
-                ->limit(1)
-                ->execute($galerie);
+        $objHistory = GalleriaModel::findPublishedById($galerie, array('history'));
 
         if ($objHistory->history == NULL)
             $isHistoryEnabled = FALSE;
@@ -747,11 +735,9 @@ class Galleria extends \Frontend {
      * @access public
      * @return array
      */
-    public function getGalleriaTheme($database, $galerie) {
+    public function getGalleriaTheme($galerie) {
 
-        $objThemesSRC = $database->prepare("SELECT themesSRC FROM tl_galerie WHERE id=? AND published=1")
-                ->limit(1)
-                ->execute($galerie);
+        $objThemesSRC = GalleriaModel::findPublishedById($galerie, array('themesSRC'));
 
         $objThemes = \FilesModel::findByPk($objThemesSRC->themesSRC);
 

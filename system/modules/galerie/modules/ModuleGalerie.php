@@ -55,9 +55,9 @@ class ModuleGalerie extends \Module {
         $this->import('Database');
         $galleria = new Galleria();
 
-        $galleria->getOptions($this->Database, $this->galerie, $this->Template);
+        $galleria->getOptions($this->galerie, $this->Template);
         $galleria->getPictures($this->Database, $this->galerie, $this->Template, $this->imagesFolder, $this->sortBy, $this->groupImgSize, $this->orderSRC);
-        $galleria->getGalleriaTheme($this->Database, $this->galerie);
+        $galleria->getGalleriaTheme($this->galerie);
 
         // Use specific CSS and JS when the CTE is loaded
         if (TL_MODE == 'FE') {
@@ -66,15 +66,15 @@ class ModuleGalerie extends \Module {
             $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.2.9.min.js';
 
             // Flickr Plugin
-            if($galleria->isFlickrEnabled($this->Database, $this->galerie, $this->Template))
+            if($galleria->isFlickrEnabled($this->galerie, $this->Template))
             $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/flickr/galleria.flickr.min.js';
 
             // History Plugin
-            if($galleria->isHistoryEnabled($this->Database, $this->galerie))
+            if($galleria->isHistoryEnabled($this->galerie))
             $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/history/galleria.history.min.js';
 
             // Picasa Plugin
-            if($galleria->isPicasaEnabled($this->Database, $this->galerie, $this->Template))
+            if($galleria->isPicasaEnabled($this->galerie, $this->Template))
             $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/picasa/galleria.picasa.min.js';
         }
     }
