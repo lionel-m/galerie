@@ -22,7 +22,14 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 		'dataContainer'               => 'Table',
                 'ctable'                      => array('tl_galerie_pictures'),
                 'switchToEdit'                => true,
-		'enableVersioning'            => true
+		'enableVersioning'            => true,
+                'sql' => array
+		(
+			'keys' => array
+			(
+				'id' => 'primary'
+			)
+		)
 	),
 
 	// List
@@ -115,6 +122,14 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 	// Fields
 	'fields' => array
 	(
+                'id' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+		),
+		'tstamp' => array
+		(
+			'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		),
                 'published' => array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['published'],
@@ -122,7 +137,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'filter'                  => true,
                         'flag'                    => 2,
                         'inputType'               => 'checkbox',
-                        'eval'                    => array('doNotCopy'=>true, 'tl_class'=>'w50 m12')
+                        'eval'                    => array('doNotCopy'=>true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
                 ),    
                 'title' => array
 		(
@@ -132,7 +148,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'sorting'                 => true,
 			'flag'                    => 1,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(255) NOT NULL default ''"
 		),
                 'alias' => array
                 (
@@ -140,24 +157,26 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'exclude'                 => true,
                         'inputType'               => 'text',
                         'eval'                    => array('rgxp'=>'alnum', 'doNotCopy'=>true, 'spaceToUnderscore'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
-                        'save_callback' => array
-                        (
-                                array('tl_galerie', 'generateAlias')
-                        )
+                        'save_callback' => array (
+                                                    array('tl_galerie', 'generateAlias')
+                                                 ),
+                        'sql'                     => "varchar(128) NOT NULL default ''"
                 ),
                 'themesSRC' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['themesSRC'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'path'=>'files/galleria/themes', 'mandatory'=>true)
+			'eval'                    => array('fieldType'=>'radio', 'path'=>'files/galleria/themes', 'mandatory'=>true),
+                        'sql'                     => "varchar(255) NOT NULL default ''"
 		),
                 'minifiedJS' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['minifiedJS'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default '1'"
 		),
 		'width' => array
 		(
@@ -165,7 +184,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '650',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default 'auto'"
 		),
 		'height' => array
 		(
@@ -173,7 +193,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '300',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "double unsigned NOT NULL default '0'"
 		),
                 'transition' => array
 		(
@@ -183,7 +204,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'inputType'               => 'select',
                         'options'                 => array('fade', 'flash', 'pulse', 'slide', 'fadeslide', 'doorslide'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'fullscreenTransition' => array
 		(
@@ -193,7 +215,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'inputType'               => 'select',
                         'options'                 => array('undefined', 'fade', 'flash', 'pulse', 'slide', 'fadeslide', 'doorslide'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'touchTransition' => array
 		(
@@ -203,7 +226,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'inputType'               => 'select',
                         'options'                 => array('undefined', 'fade', 'flash', 'pulse', 'slide', 'fadeslide', 'doorslide'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'initialTransition' => array
 		(
@@ -213,7 +237,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'inputType'               => 'select',
                         'options'                 => array('undefined', 'fade', 'flash', 'pulse', 'slide', 'fadeslide', 'doorslide'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'transitionSpeed' => array
 		(
@@ -221,14 +246,16 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '400',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'clicknext' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['clicknext'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 // The real name of the function is "show" but this name is already used in the language files so it's replaced by "gShow"
                 'gShow' => array
@@ -237,7 +264,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '0',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'showInfo' => array
 		(
@@ -245,7 +273,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'showImagenav' => array
 		(
@@ -253,7 +282,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'showCounter' => array
 		(
@@ -261,7 +291,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'lightbox' => array
 		(
@@ -269,7 +300,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'filter'                  => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'lightboxFadeSpeed' => array
 		(
@@ -277,7 +309,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '200',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'lightboxTransitionSpeed' => array
 		(
@@ -285,7 +318,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '300',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'overlayBackground' => array
 		(
@@ -293,6 +327,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'default'                 => '0b0b0b',
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>6, 'colorpicker'=>true, 'isHexColor'=>true, 'decodeEntities'=>true, 'tl_class'=>'w50 wizard'),
+                        'sql'                     => "varchar(6) NOT NULL default ''"
 		),
                 'overlayOpacity' => array
 		(
@@ -300,7 +335,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '0.85',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "float unsigned NOT NULL default '0'"
 		),
                 'imageCrop' => array
 		(
@@ -311,7 +347,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'options'                 => array('false', 'true', 'height', 'width', 'landscape', 'portrait'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50', 'helpwizard'=>true),
-                        'explanation'             => 'cropMethods'
+                        'explanation'             => 'cropMethods',
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'imageMargin' => array
 		(
@@ -319,14 +356,16 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '0',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'imagePan' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['imagePan'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'imagePanSmoothness' => array
 		(
@@ -334,7 +373,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '12',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'imagePosition' => array
 		(
@@ -342,14 +382,16 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => 'center',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'maxScaleRatio' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['maxScaleRatio'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "float unsigned NOT NULL default '0'"
 		),
                 'autoplay' => array
 		(
@@ -357,7 +399,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'filter'                  => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('submitOnChange'=>true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'autoplayInterval' => array
 		(
@@ -365,7 +408,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '5000',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'pauseOnInteraction' => array
 		(
@@ -373,7 +417,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'carousel' => array
 		(
@@ -381,7 +426,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'carouselSpeed' => array
 		(
@@ -389,7 +435,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '200',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'carouselSteps' => array
 		(
@@ -397,7 +444,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
 			'default'                 => 'auto',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'thumbnails' => array
 		(
@@ -407,7 +455,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'inputType'               => 'select',
                         'options'                 => array('true', 'false', 'empty', 'numbers', 'lazy'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'thumbCrop' => array
 		(
@@ -418,7 +467,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'options'                 => array('false', 'true', 'height', 'width', 'landscape', 'portrait'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50', 'helpwizard'=>true),
-                        'explanation'             => 'cropMethods'
+                        'explanation'             => 'cropMethods',
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'thumbMargin' => array
 		(
@@ -426,7 +476,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '0',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'thumbQuality' => array
 		(
@@ -436,7 +487,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'inputType'               => 'select',
                         'options'                 => array('true', 'false', 'auto'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'easing' => array
 		(
@@ -444,28 +496,32 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => 'galleria',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'popupLinks' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['popupLinks'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'extend' => array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['extend'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|javascript', 'tl_class'=>'clr')
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|javascript', 'tl_class'=>'clr'),
+                        'sql'                     => "text NULL"
                 ),
                 'dataConfig' => array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['dataConfig'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|javascript', 'tl_class'=>'clr')
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|javascript', 'tl_class'=>'clr'),
+                        'sql'                     => "text NULL"
                 ),
                 'preload' => array
 		(
@@ -473,7 +529,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '2',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'debug' => array
 		(
@@ -481,7 +538,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'queue' => array
 		(
@@ -489,7 +547,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'swipe' => array
 		(
@@ -497,7 +556,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'fullscreenDoubleTap' => array
 		(
@@ -505,7 +565,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'flickr' => array
 		(
@@ -513,7 +574,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'filter'                  => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'flickrMethods' => array
 		(
@@ -524,14 +586,16 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'options'                 => array('search', 'tags', 'user', 'set', 'gallery', 'groupsearch', 'group'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50', 'helpwizard'=>true),
-                        'explanation'             => 'flickrMethods'
+                        'explanation'             => 'flickrMethods',
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'flickrMethodsValue' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['flickrMethodsValue'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'flickrOptMax' => array
 		(
@@ -539,7 +603,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '30',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'flickrOptImageSize' => array
 		(
@@ -550,7 +615,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'options'                 => array('small', 'thumb', 'medium', 'big', 'original'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50','helpwizard'=>true),
-                        'explanation'             => 'flickrOptImageSize'
+                        'explanation'             => 'flickrOptImageSize',
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'flickrOptThumbSize' => array
 		(
@@ -561,7 +627,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'options'                 => array('small', 'thumb', 'medium', 'big', 'original'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50','helpwizard'=>true),
-                        'explanation'             => 'flickrOptImageSize'
+                        'explanation'             => 'flickrOptImageSize',
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'flickrOptSort' => array
 		(
@@ -571,28 +638,32 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'inputType'               => 'select',
                         'options'                 => array('date-posted-asc', 'date-posted-desc', 'date-taken-asc', 'date-taken-desc', 'interestingness-desc', 'interestingness-asc', 'relevance'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
-			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50')
+			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'flickrOptDescription' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['flickrOptDescription'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'history' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['history'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'dummy' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['dummy'],
 			'exclude'                 => true,
 			'inputType'               => 'fileTree',
-			'eval'                    => array('fieldType'=>'radio', 'files' => true, 'filesOnly' => true)
+			'eval'                    => array('fieldType'=>'radio', 'files' => true, 'filesOnly' => true),
+                        'sql'                     => "varchar(255) NOT NULL default ''"
 		),
                 'layerFollow' => array
 		(
@@ -600,7 +671,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'imageTimeout' => array
 		(
@@ -608,7 +680,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '30000',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'fullscreenCrop' => array
 		(
@@ -619,7 +692,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'options'                 => array('undefined', 'false', 'true', 'height', 'width', 'landscape', 'portrait'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50', 'helpwizard'=>true),
-                        'explanation'             => 'cropMethods'
+                        'explanation'             => 'cropMethods',
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'picasa' => array
 		(
@@ -627,7 +701,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'filter'                  => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('submitOnChange'=>true)
+			'eval'                    => array('submitOnChange'=>true),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'picasaMethods' => array
 		(
@@ -638,14 +713,16 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'options'                 => array('search', 'user', 'useralbum'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50','helpwizard'=>true),
-                        'explanation'             => 'picasaMethods'
+                        'explanation'             => 'picasaMethods',
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'picasaMethodsValue' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['picasaMethodsValue'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'picasaOptMax' => array
 		(
@@ -653,7 +730,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '30',
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'picasaOptImageSize' => array
 		(
@@ -664,7 +742,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'options'                 => array('small', 'thumb', 'medium', 'big', 'original'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50','helpwizard'=>true),
-                        'explanation'             => 'flickrOptImageSize'
+                        'explanation'             => 'flickrOptImageSize',
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'picasaOptThumbSize' => array
 		(
@@ -675,7 +754,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'options'                 => array('small', 'thumb', 'medium', 'big', 'original'),
 			'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
 			'eval'                    => array('includeBlankOption'=>false, 'tl_class'=>'w50','helpwizard'=>true),
-                        'explanation'             => 'flickrOptImageSize'
+                        'explanation'             => 'flickrOptImageSize',
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'dailymotion' => array
                 (
@@ -685,7 +765,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'eval'                    => array('allowHtml'=>true, 'preserveTags'=>true,  'tl_class'=>'clr'),
                         'load_callback' => array (
                                                     array('tl_galerie', 'getDefaultOptionsForDailymotion')
-                                                 )
+                                                 ),
+                        'sql'                     => "text NULL"
                 ),
                 'vimeo' => array
                 (
@@ -695,7 +776,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'eval'                    => array('allowHtml'=>true, 'preserveTags'=>true,  'tl_class'=>'clr'),
                         'load_callback' => array (
                                                     array('tl_galerie', 'getDefaultOptionsForVimeo')
-                                                 )
+                                                 ),
+                        'sql'                     => "text NULL"
                 ),
                 'youtube' => array
                 (
@@ -705,7 +787,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'eval'                    => array('allowHtml'=>true, 'preserveTags'=>true,  'tl_class'=>'clr'),
                         'load_callback' => array (
                                                     array('tl_galerie', 'getDefaultOptionsForYouTube')
-                                                 )
+                                                 ),
+                        'sql'                     => "text NULL"
                 ),
                 'trueFullscreen' => array
 		(
@@ -713,7 +796,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'responsive' => array
 		(
@@ -721,7 +805,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'wait' => array
 		(
@@ -729,35 +814,40 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '5000',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'dataSource' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['dataSource'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'dataSelector' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['dataSelector'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default ''"
 		),
                 'keepSource' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['keepSource'],
 			'exclude'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default ''"
 		),
                 'json' => array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['json'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace', 'tl_class'=>'clr')
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace', 'tl_class'=>'clr'),
+                        'sql'                     => "text NULL"
                 ),
                 'idleMode' => array
 		(
@@ -765,7 +855,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => 'true',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>32, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>32, 'tl_class'=>'w50'),
+                        'sql'                     => "varchar(32) NOT NULL default 'true'"
 		),
                 'idleTime' => array
 		(
@@ -773,7 +864,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '3000',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'idleSpeed' => array
 		(
@@ -781,7 +873,8 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => '200',
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
                 'thumbDisplayOrder' => array
 		(
@@ -789,21 +882,24 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
 			'exclude'                 => true,
                         'default'                 => true,
 			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12')
+			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default '1'"
 		),
                 'dataSort' => array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['dataSort'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|javascript', 'tl_class'=>'clr')
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|javascript', 'tl_class'=>'clr'),
+                        'sql'                     => "text NULL"
                 ),
                 'maxVideoSize' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['maxVideoSize'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
-			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50')
+			'eval'                    => array('rgxp'=>'digit', 'maxlength'=>255, 'tl_class'=>'w50'),
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
 	)
 );

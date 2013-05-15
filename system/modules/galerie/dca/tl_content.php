@@ -22,18 +22,20 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['type']['eval']['gallery_types'][] = 
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['galerie'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['galerie'],
-	'exclude'                 => true,
-	'inputType'               => 'radio',
-	'foreignKey'              => 'tl_galerie.title',
-	'eval'                    => array('mandatory'=>true)
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['galerie'],
+    'exclude'                 => true,
+    'inputType'               => 'radio',
+    'foreignKey'              => 'tl_galerie.title',
+    'eval'                    => array('mandatory'=>true),
+    'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );
 
 $GLOBALS['TL_DCA']['tl_content']['fields']['imagesFolder'] = array
 (
-        'label'                   => &$GLOBALS['TL_LANG']['tl_content']['imagesFolder'],
-        'exclude'                 => true,
-        'inputType'               => 'fileTree',
-        'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox', 'orderField'=>'orderSRC', 'files'=>true)
+    'label'                   => &$GLOBALS['TL_LANG']['tl_content']['imagesFolder'],
+    'exclude'                 => true,
+    'inputType'               => 'fileTree',
+    'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox', 'orderField'=>'orderSRC', 'files'=>true),
+    'sql'                     => "blob NULL"
 );
 ?>
