@@ -11,77 +11,77 @@
  */
 
 /**
- * Table tl_galerie_pictures 
+ * Table tl_galerie_pictures
  */
 $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
 (
 
-	// Config
-	'config' => array
-	(
-		'dataContainer'               => 'Table',
-		'enableVersioning'            => true,
+        // Config
+        'config' => array
+        (
+                'dataContainer'               => 'Table',
+                'enableVersioning'            => true,
                 'ptable'                      => 'tl_galerie',
                 'sql' => array
-		(
-			'keys' => array
-			(
-				'id' => 'primary',
-				'pid' => 'index'
-			)
-		)
-	),
+                (
+                        'keys' => array
+                        (
+                                'id' => 'primary',
+                                'pid' => 'index'
+                        )
+                )
+        ),
 
-	// List
-	'list' => array
-	(
-		'sorting' => array
-		(
-			'mode' => 4,
+        // List
+        'list' => array
+        (
+                'sorting' => array
+                (
+                        'mode' => 4,
                         'fields' => array('sorting'),
                         'filter' => true,
                         'flag' => 11,
                         'panelLayout' => 'filter,search,limit',
                         'headerFields' => array('title', 'width', 'height'),
                         'child_record_callback' => array('tl_galerie_pictures', 'listPictures')
-		),
-		'global_operations' => array
-		(
-			'all' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
-				'href'                => 'act=select',
-				'class'               => 'header_edit_all',
-				'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
-			)
-		),
-		'operations' => array
-		(
-			'edit' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['edit'],
-				'href'                => 'act=edit',
-				'icon'                => 'edit.gif'
-			),
-			'copy' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['copy'],
-				'href'                => 'act=copy',
-				'icon'                => 'copy.gif'
-			),
+                ),
+                'global_operations' => array
+                (
+                        'all' => array
+                        (
+                                'label'               => &$GLOBALS['TL_LANG']['MSC']['all'],
+                                'href'                => 'act=select',
+                                'class'               => 'header_edit_all',
+                                'attributes'          => 'onclick="Backend.getScrollOffset();" accesskey="e"'
+                        )
+                ),
+                'operations' => array
+                (
+                        'edit' => array
+                        (
+                                'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['edit'],
+                                'href'                => 'act=edit',
+                                'icon'                => 'edit.gif'
+                        ),
+                        'copy' => array
+                        (
+                                'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['copy'],
+                                'href'                => 'act=copy',
+                                'icon'                => 'copy.gif'
+                        ),
                         'cut' => array
                         (
                                 'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['cut'],
                                 'href'                => 'act=paste&amp;mode=cut',
                                 'icon'                => 'cut.gif'
                         ),
-			'delete' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['delete'],
-				'href'                => 'act=delete',
-				'icon'                => 'delete.gif',
-				'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
-			),
+                        'delete' => array
+                        (
+                                'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['delete'],
+                                'href'                => 'act=delete',
+                                'icon'                => 'delete.gif',
+                                'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+                        ),
                         'toggle' => array
                         (
                                 'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['toggle'],
@@ -89,46 +89,46 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                                 'attributes'          => 'onclick="Backend.getScrollOffset(); return AjaxRequest.toggleVisibility(this, %s);"',
                                 'button_callback'     => array('tl_galerie_pictures', 'toggleIcon')
                         ),
-			'show' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['show'],
-				'href'                => 'act=show',
-				'icon'                => 'show.gif'
-			)
-		)
-	),
+                        'show' => array
+                        (
+                                'label'               => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['show'],
+                                'href'                => 'act=show',
+                                'icon'                => 'show.gif'
+                        )
+                )
+        ),
 
-	// Palettes
-	'palettes' => array
-	(
-		'default'                     => '{title_legend},title;{image_fullscreen_legend},fullscreenSingleSRC;{image_legend},singleSRC,alt,imageUrl,size;{thumbnail_legend},thumbSize;{altThumbnail_legend},thumbSRC;{video_legend},video,videoThumb;{iframe_legend},iframe,iframeThumb;{layerHTML_legend},layerHTML;{dataConfigHTML_legend},dataConfigHTML;{publish_legend},published'
-	),
+        // Palettes
+        'palettes' => array
+        (
+                'default'                     => '{title_legend},title;{image_fullscreen_legend},fullscreenSingleSRC;{image_legend},singleSRC,alt,imageUrl,size;{thumbnail_legend},thumbSize;{altThumbnail_legend},thumbSRC;{video_legend},video,videoThumb;{iframe_legend},iframe,iframeThumb;{layerHTML_legend},layerHTML;{dataConfigHTML_legend},dataConfigHTML;{publish_legend},published'
+        ),
 
-	// Fields
-	'fields' => array
-	(
+        // Fields
+        'fields' => array
+        (
                 'id' => array
-		(
-			'sql'                     => "int(10) unsigned NOT NULL auto_increment"
-		),
-		'pid' => array
-		(
-			'foreignKey'              => 'tl_galerie.title',
-			'sql'                     => "int(10) unsigned NOT NULL default '0'",
-			'relation'                => array('type'=>'belongsTo', 'load'=>'eager')
-		),
-		'sorting' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['MSC']['sorting'],
-			'sorting'                 => true,
-			'flag'                    => 2,
-			'sql'                     => "int(10) unsigned NOT NULL default '0'"
-		),
-		'tstamp' => array
-		(
-			'sql'                     => "int(10) unsigned NOT NULL default '0'"
-		),
-		'published' => array
+                (
+                        'sql'                     => "int(10) unsigned NOT NULL auto_increment"
+                ),
+                'pid' => array
+                (
+                        'foreignKey'              => 'tl_galerie.title',
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'",
+                        'relation'                => array('type'=>'belongsTo', 'load'=>'eager')
+                ),
+                'sorting' => array
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['MSC']['sorting'],
+                        'sorting'                 => true,
+                        'flag'                    => 2,
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
+                ),
+                'tstamp' => array
+                (
+                        'sql'                     => "int(10) unsigned NOT NULL default '0'"
+                ),
+                'published' => array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['published'],
                         'exclude'                 => true,
@@ -220,13 +220,13 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'sql'                     => "varchar(255) NOT NULL default ''"
                 ),
                 'videoThumb' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['videoThumb'],
-			'exclude'                 => true,
-			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['videoThumb'],
+                        'exclude'                 => true,
+                        'inputType'               => 'checkbox',
+                        'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
                         'sql'                     => "char(1) NOT NULL default ''"
-		),
+                ),
                 'iframe' => array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['iframe'],
@@ -237,30 +237,30 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'sql'                     => "varchar(255) NOT NULL default ''"
                 ),
                 'iframeThumb' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['iframeThumb'],
-			'exclude'                 => true,
-			'inputType'               => 'checkbox',
-			'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['iframeThumb'],
+                        'exclude'                 => true,
+                        'inputType'               => 'checkbox',
+                        'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
                         'sql'                     => "char(1) NOT NULL default ''"
-		),
+                ),
                 'dataConfigHTML' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML'],
-			'exclude'                 => true,
-			'inputType'               => 'textarea',
-			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|html', 'tl_class'=>'clr'),
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML'],
+                        'exclude'                 => true,
+                        'inputType'               => 'textarea',
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|html', 'tl_class'=>'clr'),
                         'sql'                     => "text NULL"
-		),
+                ),
                 'layerHTML' => array
-		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['layerHTML'],
-			'exclude'                 => true,
-			'inputType'               => 'textarea',
-			'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|html', 'tl_class'=>'clr'),
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['layerHTML'],
+                        'exclude'                 => true,
+                        'inputType'               => 'textarea',
+                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|html', 'tl_class'=>'clr'),
                         'sql'                     => "text NULL"
-		)
-	)
+                )
+        )
 );
 
 /**
@@ -283,12 +283,12 @@ class tl_galerie_pictures extends Backend {
         $key = ($arrRow['published']) ? 'published' : 'unpublished';
         $objFile = FilesModel::findByPk($arrRow['singleSRC']);
         $image = Image::get($objFile->path, 150, 150, 'center_center');
-        
+
         if($arrRow['title'])
             $title = $arrRow['title'];
         else
             $title = $GLOBALS['TL_LANG']['tl_galerie_pictures']['untitled'];
-        
+
         if($arrRow['video']) {
             $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_video'];
             $type .= " " . $GLOBALS['TL_LANG']['tl_galerie_pictures']['from'] . " " . $this->videoSharingWebsiteName($arrRow['video']);
@@ -297,7 +297,7 @@ class tl_galerie_pictures extends Backend {
             $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_iframe'];
         else
             $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_image'];
-        
+
         return '
           <div class="cte_type ' . $key . '" style="color:#444;"> ' . '<span style="color:#777;">[' . $type . ']</span> - ' . $title . '</div>
           <div class="limit_height h64 block' . (!$GLOBALS['TL_CONFIG']['doNotCollapse'] ? ' h52' : '') . ' block">
@@ -306,26 +306,26 @@ class tl_galerie_pictures extends Backend {
           .'</div>'
         . '</div>' . "\n";
     }
-    
+
     /**
      * Return the name of the video sharing website
-     * 
+     *
      * @access protected
      * @param String
      * @return String
      */
     protected function videoSharingWebsiteName($url) {
-        
+
         $videoSharingWebsiteName = '';
-        
+
         $url = Galleria::urlVerification($url);
-        
+
         // Extract the hostname of the url.
         $url_parsed = parse_url($url);
         $domain = $url_parsed['host'];
         // Delete the prefix www.
         $domain = preg_replace('/www./', '', $domain);
-        
+
         switch($domain) {
             case $domain == 'dai.ly'  || $domain == 'dailymotion.com' :
                 $videoSharingWebsiteName = 'dailymotion';
@@ -338,7 +338,7 @@ class tl_galerie_pictures extends Backend {
                 break;
             default : $videoSharingWebsiteName = 'undefined';
         }
-        
+
         return $videoSharingWebsiteName;
     }
 
@@ -395,7 +395,7 @@ class tl_galerie_pictures extends Backend {
 
         $this->createNewVersion('tl_galerie_pictures', $intId);
     }
-    
+
     /**
      * Return the link picker wizard
      * @param \DataContainer
