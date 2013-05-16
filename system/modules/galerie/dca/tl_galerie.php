@@ -167,7 +167,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['themesSRC'],
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
-                        'eval'                    => array('fieldType'=>'radio', 'mandatory'=>true),
+                        'eval'                    => array('fieldType'=>'radio', 'path'=>'files/galleria/themes', 'mandatory'=>true),
                         'sql'                     => "varchar(255) NOT NULL default ''"
                 ),
                 'minifiedJS' => array
