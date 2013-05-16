@@ -18,13 +18,13 @@ namespace Galleria;
 
 
 /**
- * Reads Galleria
+ * Reads a gallery
  *
  * @package   Models
  * @author    Lionel Maccaud
  * @copyright Lionel Maccaud
  */
-class GalleriaModel extends \Model
+class GalerieModel extends \Model
 {
 
     /**

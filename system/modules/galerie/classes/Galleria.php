@@ -39,7 +39,7 @@ class Galleria extends \Frontend {
     public function getOptions($galerie, $template) {
 
         // Retrieve the current gallery options
-        $objOptions = GalleriaModel::findPublishedById($galerie, array('*'));
+        $objOptions = GalerieModel::findPublishedById($galerie, array('*'));
 
         if ($objOptions !== null) {
 
@@ -414,14 +414,13 @@ class Galleria extends \Frontend {
         $template->picasaFunction = $picasaFunction;
 
 
-        // Path for the function loadTheme() included in the template
-        $foldersName = $this->getGalleriaTheme($galerie);
-        $path = implode("/", $foldersName);
+        // Path of the JavaScript file for the function loadTheme() included in the template
+        $theme = $this->getGalleriaTheme($galerie);
 
         if($arrOptions['minifiedJS'] != '1')
-            $pathJS = $path . '/' . $foldersName[1] . '.' . $foldersName[3] . '.js';
+            $pathJS = $theme[0] . '/galleria' . '.' . $theme[1] . '.js';
         else
-            $pathJS = $path . '/' . $foldersName[1] . '.' . $foldersName[3] . '.min.js';
+            $pathJS = $theme[0] . '/galleria' . '.' . $theme[1] . '.min.js';
 
         $template->pathJS = $pathJS;
 
@@ -438,7 +437,7 @@ class Galleria extends \Frontend {
      */
     public function isFlickrEnabled($galerie, $template) {
 
-        $objFlickr = GalleriaModel::findPublishedById($galerie, array('flickr'));
+        $objFlickr = GalerieModel::findPublishedById($galerie, array('flickr'));
 
         if ($objFlickr->flickr == NULL)
             $isFlickrEnabled = FALSE;
@@ -459,7 +458,7 @@ class Galleria extends \Frontend {
      */
     public function isPicasaEnabled($galerie, $template) {
 
-        $objPicasa = GalleriaModel::findPublishedById($galerie, array('picasa'));
+        $objPicasa = GalerieModel::findPublishedById($galerie, array('picasa'));
 
         if ($objPicasa->picasa == NULL)
             $isPicasaEnabled = FALSE;
@@ -480,7 +479,7 @@ class Galleria extends \Frontend {
      */
     public function isHistoryEnabled($galerie) {
 
-        $objHistory = GalleriaModel::findPublishedById($galerie, array('history'));
+        $objHistory = GalerieModel::findPublishedById($galerie, array('history'));
 
         if ($objHistory->history == NULL)
             $isHistoryEnabled = FALSE;
@@ -491,7 +490,7 @@ class Galleria extends \Frontend {
     }
 
     /**
-     * Get gallery pictures
+     * Get gallery images
      *
      * @access public
      * @return null
@@ -714,7 +713,7 @@ class Galleria extends \Frontend {
 
             $pictures = array_values($arrPictures);
 
-            // Add a group of pictures
+            // Add a group of images
             if($total > 0)
                 $pictures = array_merge($pictures, $images);
 
@@ -737,18 +736,22 @@ class Galleria extends \Frontend {
      */
     public function getGalleriaTheme($galerie) {
 
-        $objThemesSRC = GalleriaModel::findPublishedById($galerie, array('themesSRC'));
+        $theme = array();
+
+        $objThemesSRC = GalerieModel::findPublishedById($galerie, array('themesSRC'));
 
         $objThemes = \FilesModel::findByPk($objThemesSRC->themesSRC);
 
-        $theme = explode("/", $objThemes->path);
-
-        /* Example of results with default theme
+        $theme[0] = $objThemes->path;
+        $theme[1] = end(explode("/", $objThemes->path));
+        
+        /* Example of results with the default theme
          *
-         * $theme[0] = files
-         * $theme[1] = galleria
-         * $theme[2] = themes
-         * $theme[3] = classic
+         * The path :
+         * $theme[0] = files/galleria/themes/classic
+         *
+         * The name of the theme
+         * $theme[1] = classic
          */
         return $theme;
     }

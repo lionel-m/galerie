@@ -32,7 +32,7 @@ ClassLoader::addClasses(array
 	'Galleria\ContentGalerie' => 'system/modules/galerie/elements/ContentGalerie.php',
 
 	// Models
-	'Galleria\GalleriaModel'  => 'system/modules/galerie/models/GalleriaModel.php',
+	'Galleria\GalerieModel'   => 'system/modules/galerie/models/GalerieModel.php',
 
 	// Modules
 	'Galleria\ModuleGalerie'  => 'system/modules/galerie/modules/ModuleGalerie.php',
