@@ -742,8 +742,11 @@ class Galleria extends \Frontend {
 
         $objThemes = \FilesModel::findByPk($objThemesSRC->themesSRC);
 
+        // Retrieve the name of the theme
+        $themeName = substr(strrchr($objThemes->path, '/'), 1);
+
         $theme[0] = $objThemes->path;
-        $theme[1] = end(explode("/", $objThemes->path));
+        $theme[1] = $themeName;
         
         /* Example of results with the default theme
          *
