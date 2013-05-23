@@ -23,6 +23,10 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                 'ctable'                      => array('tl_galerie_pictures'),
                 'switchToEdit'                => true,
                 'enableVersioning'            => true,
+                'onload_callback'             => array
+                (
+                        array('tl_galerie', 'checkPermission'),
+                ),
                 'sql' => array
                 (
                         'keys' => array
@@ -78,14 +82,16 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         (
                                 'label'               => &$GLOBALS['TL_LANG']['tl_galerie']['copy'],
                                 'href'                => 'act=copy',
-                                'icon'                => 'copy.gif'
+                                'icon'                => 'copy.gif',
+                                'button_callback'     => array('tl_galerie', 'copyGalleria')
                         ),
                         'delete' => array
                         (
                                 'label'               => &$GLOBALS['TL_LANG']['tl_galerie']['delete'],
                                 'href'                => 'act=delete',
                                 'icon'                => 'delete.gif',
-                                'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"'
+                                'attributes'          => 'onclick="if (!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\')) return false; Backend.getScrollOffset();"',
+                                'button_callback'     => array('tl_galerie', 'deleteGalleria')
                         ),
                         'toggle' => array
                         (
@@ -1053,14 +1059,20 @@ class tl_galerie extends Backend {
             $this->redirect($this->getReferer());
         }
 
-        $href .= '&amp;tid='.$row['id'].'&amp;state='.($row['published'] ? '' : 1);
+        // Check permissions AFTER checking the tid, so hacking attempts are logged
+        if (!$this->User->isAdmin && !$this->User->hasAccess('tl_galerie::published', 'alexf'))
+        {
+            return '';
+        }
+
+        $href .= '&amp;tid=' . $row['id'] . '&amp;state=' . ($row['published'] ? '' : 1);
 
         if (!$row['published']) {
 
             $icon = 'invisible.gif';
         }
 
-        return '<a href="'.$this->addToUrl($href).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ';
+        return '<a href="' . $this->addToUrl($href) . '" title="' . specialchars($title) . '"' . $attributes . '>' . Image::getHtml($icon, $label) . '</a> ';
     }
 
 
@@ -1071,23 +1083,37 @@ class tl_galerie extends Backend {
      */
     public function toggleVisibility($intId, $blnVisible) {
 
-        $this->createInitialVersion('tl_galerie', $intId);
+        // Check permissions to edit
+        Input::setGet('id', $intId);
+        Input::setGet('act', 'toggle');
+        $this->checkPermission();
+
+        // Check permissions to publish
+        if (!$this->User->isAdmin && !$this->User->hasAccess('tl_galerie::published', 'alexf'))
+        {
+            $this->log('Not enough permissions to publish/unpublish gallery ID "'.$intId.'"', 'tl_galerie toggleVisibility', TL_ERROR);
+            $this->redirect('contao/main.php?act=error');
+        }
+
+        $objVersions = new Versions('tl_galerie', $intId);
+        $objVersions->initialize();
 
         // Trigger the save_callback
-        if (is_array($GLOBALS['TL_DCA']['tl_galerie']['fields']['published']['save_callback'])) {
-
-            foreach ($GLOBALS['TL_DCA']['tl_galerie']['fields']['published']['save_callback'] as $callback) {
-
+        if (is_array($GLOBALS['TL_DCA']['tl_galerie']['fields']['published']['save_callback']))
+        {
+            foreach ($GLOBALS['TL_DCA']['tl_galerie']['fields']['published']['save_callback'] as $callback)
+            {
                 $this->import($callback[0]);
                 $blnVisible = $this->$callback[0]->$callback[1]($blnVisible, $this);
             }
         }
 
         // Update the database
-        $this->Database->prepare("UPDATE tl_galerie SET published='" . ($blnVisible ? 1 : '') . "' WHERE id=?")
-                ->execute($intId);
+        $this->Database->prepare("UPDATE tl_galerie SET tstamp=". time() .", published='" . ($blnVisible ? 1 : '') . "' WHERE id=?")
+                        ->execute($intId);
 
-        $this->createNewVersion('tl_galerie', $intId);
+        $objVersions->create();
+        $this->log('A new version of record "tl_galerie.id='.$intId.'" has been created'.$this->getParentEntries('tl_galerie', $intId), 'tl_galerie toggleVisibility()', TL_GENERAL);
     }
 
     /**
@@ -1100,9 +1126,9 @@ class tl_galerie extends Backend {
      * @param string
      * @return string
      */
-    public function editHeader($row, $href, $label, $title, $icon, $attributes)
-    {
-            return ($this->User->isAdmin || count(preg_grep('/^tl_galerie::/', $this->User->alexf)) > 0) ? '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.$this->generateImage($icon, $label).'</a> ' : '';
+    public function editHeader($row, $href, $label, $title, $icon, $attributes) {
+
+        return ($this->User->isAdmin || count(preg_grep('/^tl_galerie::/', $this->User->alexf)) > 0) ? '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ' : Image::getHtml(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
     }
 
     /**
@@ -1142,6 +1168,155 @@ class tl_galerie extends Backend {
         }
 
         return $varValue;
+    }
+
+    /**
+     * Check permissions to edit table tl_galerie
+     */
+   public function checkPermission()
+   {
+
+        if ($this->User->isAdmin) {
+            return;
+        }
+
+        // Set root IDs
+        if (!is_array($this->User->galleria) || empty($this->User->galleria)) {
+            $root = array(0);
+        }
+        else {
+            $root = $this->User->galleria;
+        }
+
+        $GLOBALS['TL_DCA']['tl_galerie']['list']['sorting']['root'] = $root;
+
+        // Check permissions to add galleries
+        if (!$this->User->hasAccess('create', 'galleria_permission')) {
+            $GLOBALS['TL_DCA']['tl_galerie']['config']['closed'] = true;
+        }
+
+        // Check current action
+        switch (Input::get('act')) {
+            case 'create':
+            case 'select':
+                // Allow
+                break;
+
+            case 'edit':
+                // Dynamically add the record to the user profile
+                if (!in_array(Input::get('id'), $root))
+                {
+                    $arrGalleria = $this->Session->get('new_records');
+
+                    if (is_array($arrGalleria['tl_galerie']) && in_array(Input::get('id'), $arrGalleria['tl_galerie']))
+                    {
+                        // Add permissions on user level
+                        if ($this->User->inherit == 'custom' || !$this->User->groups[0])
+                        {
+                            $objUser = $this->Database->prepare("SELECT galleria, galleria_permission FROM tl_user WHERE id=?")
+                                            ->limit(1)
+                                            ->execute($this->User->id);
+
+                            $arrGalleriaPermission = deserialize($objUser->galleria_permission);
+
+                            if (is_array($arrGalleriaPermission) && in_array('create', $arrGalleriaPermission))
+                            {
+                                $arrGallerias = deserialize($objUser->galleria);
+                                $arrGallerias[] = Input::get('id');
+
+                                $this->Database->prepare("UPDATE tl_user SET galleria=? WHERE id=?")
+                                                ->execute(serialize($arrGallerias), $this->User->id);
+                            }
+                        }
+
+                        // Add permissions on group level
+                        elseif ($this->User->groups[0] > 0)
+                        {
+                                $objGroup = $this->Database->prepare("SELECT galleria, galleria_permission FROM tl_user_group WHERE id=?")
+                                                            ->limit(1)
+                                                            ->execute($this->User->groups[0]);
+
+                                $arrGalleriaPermission = deserialize($objGroup->galleria_permission);
+
+                                if (is_array($arrGalleriaPermission) && in_array('create', $arrGalleriaPermission))
+                                {
+                                    $arrGallerias = deserialize($objGroup->galleria);
+                                    $arrGallerias[] = Input::get('id');
+
+                                    $this->Database->prepare("UPDATE tl_user_group SET galleria=? WHERE id=?")
+                                                    ->execute(serialize($arrGallerias), $this->User->groups[0]);
+                                }
+                        }
+
+                        // Add new element to the user object
+                        $root[] = Input::get('id');
+                        $this->User->galleria = $root;
+                    }
+                }
+                // No break;
+
+            case 'copy':
+            case 'delete':
+            case 'toggle':
+            case 'show':
+                if (!in_array(Input::get('id'), $root) || (Input::get('act') == 'delete' && !$this->User->hasAccess('delete', 'galleria_permission')))
+                {
+                    $this->log('Not enough permissions to '.Input::get('act').' gallery ID "'.Input::get('id').'"', 'tl_galerie checkPermission', TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                }
+                break;
+
+            case 'editAll':
+            case 'deleteAll':
+            case 'overrideAll':
+                $session = $this->Session->getData();
+                if (Input::get('act') == 'deleteAll' && !$this->User->hasAccess('delete', 'galleria_permission'))
+                {
+                    $session['CURRENT']['IDS'] = array();
+                }
+                else
+                {
+                    $session['CURRENT']['IDS'] = array_intersect($session['CURRENT']['IDS'], $root);
+                }
+                $this->Session->setData($session);
+                break;
+
+            default:
+                if (strlen(Input::get('act')))
+                {
+                    $this->log('Not enough permissions to '.Input::get('act').' galleries', 'tl_galerie checkPermission', TL_ERROR);
+                    $this->redirect('contao/main.php?act=error');
+                }
+                break;
+        }
+    }
+
+    /**
+    * Return the copy Galleria button
+    * @param array
+    * @param string
+    * @param string
+    * @param string
+    * @param string
+    * @param string
+    * @return string
+    */
+   public function copyGalleria($row, $href, $label, $title, $icon, $attributes) {
+        return ($this->User->isAdmin || $this->User->hasAccess('create', 'galleria_permission')) ? '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ' : Image::getHtml(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
+    }
+
+    /**
+     * Return the delete Galleria button
+     * @param array
+     * @param string
+     * @param string
+     * @param string
+     * @param string
+     * @param string
+     * @return string
+     */
+    public function deleteGalleria($row, $href, $label, $title, $icon, $attributes) {
+        return ($this->User->isAdmin || $this->User->hasAccess('delete', 'galleria_permission')) ? '<a href="'.$this->addToUrl($href.'&amp;id='.$row['id']).'" title="'.specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label).'</a> ' : Image::getHtml(preg_replace('/\.gif$/i', '_.gif', $icon)).' ';
     }
 }
 ?>
