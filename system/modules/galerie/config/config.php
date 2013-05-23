@@ -37,4 +37,12 @@ array_insert($GLOBALS['FE_MOD']['application'], 0, array (
  * -------------------------------------------------------------------------
  */
 $GLOBALS['TL_CTE']['media']['galerie'] = 'Galleria\ContentGalerie';
+
+/**
+ * -------------------------------------------------------------------------
+ * PERMISSIONS
+ * -------------------------------------------------------------------------
+ */
+$GLOBALS['TL_PERMISSIONS'][] = 'galleria';
+$GLOBALS['TL_PERMISSIONS'][] = 'galleria_permission';
 ?>

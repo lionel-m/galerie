@@ -25,7 +25,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['galerie'] = array
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['galerie'],
     'exclude'                 => true,
     'inputType'               => 'radio',
-    'foreignKey'              => 'tl_galerie.title',
+    'options_callback'        => array('tl_module_galerie', 'getGalleries'),
     'eval'                    => array('mandatory'=>true),
     'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );
@@ -60,4 +60,42 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['groupImgSize'] = array
     'eval'                    => array('rgxp'=>'digit', 'nospace'=>true, 'helpwizard'=>true, 'tl_class'=>'w50'),
     'sql'                     => "varchar(64) NOT NULL default ''"
 );
+
+
+class tl_module_galerie extends Backend {
+
+    /**
+     * Import the back end user object
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->import('BackendUser', 'User');
+    }
+
+    /**
+     * Get all galleries and return them as array
+     * @return array
+     */
+    public function getGalleries()
+    {
+        if (!$this->User->isAdmin && !is_array($this->User->galleria))
+        {
+            return array();
+        }
+
+        $arrGalleries = array();
+        $objGalleries = $this->Database->execute("SELECT id, title FROM tl_galerie ORDER BY title");
+
+        while ($objGalleries->next())
+        {
+            if ($this->User->isAdmin || $this->User->hasAccess($objGalleries->id, 'galleria'))
+            {
+                $arrGalleries[$objGalleries->id] = $objGalleries->title;
+            }
+        }
+
+        return $arrGalleries;
+    }
+}
 ?>
