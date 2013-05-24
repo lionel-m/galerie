@@ -61,7 +61,6 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['groupImgSize'] = array
     'sql'                     => "varchar(64) NOT NULL default ''"
 );
 
-
 class tl_module_galerie extends Backend {
 
     /**
