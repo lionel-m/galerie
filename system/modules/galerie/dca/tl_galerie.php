@@ -693,7 +693,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['fullscreenCrop'],
                         'exclude'                 => true,
-                        'default'                 => 'undefined',
+                        'default'                 => 'landscape',
                         'inputType'               => 'select',
                         'options'                 => array('undefined', 'false', 'true', 'height', 'width', 'landscape', 'portrait'),
                         'reference'               => &$GLOBALS['TL_LANG']['tl_galerie'],
