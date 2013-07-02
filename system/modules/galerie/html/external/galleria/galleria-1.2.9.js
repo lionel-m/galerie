@@ -1,5 +1,5 @@
 /**
- * Galleria v 1.2.9 2013-01-10
+ * Galleria v 1.2.9 2013-02-14
  * http://galleria.io
  *
  * Licensed under the MIT license
@@ -913,11 +913,11 @@ var undef,
                             $loader.remove();
 
                             // If failed, tell the dev to download the latest theme
-                            Galleria.raise( 'Theme CSS could not load after 20 sec. ' + Galleria.QUIRK ?
+                            Galleria.raise( 'Theme CSS could not load after 20 sec. ' + ( Galleria.QUIRK ?
                                 'Your browser is in Quirks Mode, please add a correct doctype.' :
-                                'Please download the latest theme at http://galleria.io/customer/.', true );
+                                'Please download the latest theme at http://galleria.io/customer/.' ), true );
                         },
-                        timeout: 20000
+                        timeout: 5000
                     });
                 }
                 return link;
@@ -1607,7 +1607,7 @@ Galleria = function() {
                 self.rescale();
 
                 if ( Galleria.MAC ) {
-                    if ( Galleria.WEBKIT ) {
+                    if ( Galleria.WEBKIT && !( Galleria.SAFARI && /version\/[1-5]/.test(NAV)) ) {
                         self.$('container').css('opacity', 0).addClass('fullscreen');
                         window.setTimeout(function() {
                             fullscreen.scale();
