@@ -38,16 +38,14 @@
 </section>
 
 <script>
-    <!--//--><![CDATA[//><!--
-    // Load JS file theme
-    Galleria.loadTheme('<?php echo $this->pathJS; ?>');
+<!--//--><![CDATA[//><!--
+// Load JS file theme
+Galleria.loadTheme('<?php echo $this->pathJS; ?>');
 
-    <?php echo $this->json; ?>
+<?php if($this->json) echo $this->json; ?>
 
-    // Initialize Galleria
-    Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>')
-    Galleria.configure(<?php if($this->options) echo '{'; ?>
-
+// Initialize Galleria
+Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>' , {
     <?php echo $this->options; ?>
 
     <?php if ($this->flickr == TRUE): echo ',' ?>
@@ -61,10 +59,8 @@
         <?php echo $this->picasaFunction; ?>
 
     <?php endif; ?>
-
-    <?php if($this->options) echo '}'; ?>);
-
-    //--><!]]>
+});
+//--><!]]>
 </script>
 
 <?php endif; ?>
