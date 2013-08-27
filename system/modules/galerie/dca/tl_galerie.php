@@ -173,7 +173,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['themesSRC'],
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
-                        'eval'                    => array('fieldType'=>'radio', 'mandatory'=>true, 'files'=>false),
+                        'eval'                    => array('fieldType'=>'radio', 'path'=>$GLOBALS['TL_CONFIG']['uploadPath'], 'mandatory'=>true, 'files'=>false),
                         'sql'                     => "varchar(255) NOT NULL default ''"
                 ),
                 'minifiedJS' => array
