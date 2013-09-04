@@ -258,12 +258,8 @@ class Galleria extends \Frontend {
             ($arrOptions['responsive'] == '' ? $options[52] = 'responsive: false' : $options[52] = 'responsive: true');
 
             // type: Number or Boolean
-            if ($arrOptions['wait'] != NULL) {
-                if (is_numeric($arrOptions['wait']))
-                    $options[53] = 'wait: ' . $arrOptions['wait'];
-                else
-                    $options[53] = 'wait: ' . "'" . $arrOptions['wait'] . "'";
-            }
+            if ($arrOptions['wait'] != NULL)
+                $options[53] = 'wait: ' . $arrOptions['wait'];
 
             // type: Object
             if ($arrOptions['dailymotion'] != NULL)
