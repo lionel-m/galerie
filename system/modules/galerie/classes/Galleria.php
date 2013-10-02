@@ -621,15 +621,15 @@ class Galleria extends \Frontend {
 
                 case 'meta': // Backwards compatibility
                 case 'custom':
-                        if ($this->orderSRC != '')
+                        if ($orderSRC != '')
                         {
-                                $tmp = deserialize($this->orderSRC);
-                                
+                                $tmp = deserialize($orderSRC);
+
                                 if (!empty($tmp) && is_array($tmp))
                                 {
                                         // Remove all values
                                         $arrOrder = array_map(function(){}, array_flip($tmp));
-                                        
+
                                         // Move the matching elements to their position in $arrOrder
                                         foreach ($images as $k=>$v)
                                         {
@@ -639,13 +639,13 @@ class Galleria extends \Frontend {
                                                         unset($images[$k]);
                                                 }
                                         }
-                                        
+
                                         // Append the left-over images at the end
                                         if (!empty($images))
                                         {
                                                 $arrOrder = array_merge($arrOrder, array_values($images));
                                         }
-                                        
+
                                         // Remove empty (unreplaced) entries
                                         $images = array_values(array_filter($arrOrder));
                                         unset($arrOrder);
@@ -745,7 +745,7 @@ class Galleria extends \Frontend {
 
         $theme[0] = $objThemes->path;
         $theme[1] = $themeName;
-        
+
         /* Example of results with the default theme
          *
          * The path :
