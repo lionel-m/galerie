@@ -213,7 +213,7 @@ class Galleria extends \Frontend {
 
             // type: String
             $dummy = deserialize($arrOptions['dummy']);
-            $objDummy = \FilesModel::findByPk($dummy);
+            $objDummy = \FilesModel::findByUuid($dummy);
             if ($arrOptions['dummy'] != NULL)
                 $options[42] = 'dummy: ' . "'" . $objDummy->path . "'";
 
@@ -495,14 +495,13 @@ class Galleria extends \Frontend {
 
         // Adds a group of images from a folder
         $imagesFolder = deserialize($imagesFolder);
-        $objFiles = \FilesModel::findMultipleByIds($imagesFolder);
+        $objFiles = \FilesModel::findMultipleByUuids($imagesFolder);
 
         $size = deserialize($size);
 
         global $objPage;
         $images = array();
         $auxDate = array();
-        $auxId = array();
 
         if ($objFiles !== null) {
 
@@ -518,7 +517,7 @@ class Galleria extends \Frontend {
                 // Single files
                 if ($objFiles->type == 'file')
                 {
-                    $objFile = new \File($objFiles->path);
+                    $objFile = new \File($objFiles->path, true);
 
                     if (!$objFile->isGdImage)
                     {
@@ -530,13 +529,14 @@ class Galleria extends \Frontend {
                     // Use the file name as title if none is given
                     if ($arrMeta['title'] == '')
                     {
-                        $arrMeta['title'] = specialchars(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $objFile->filename)));
+                        $arrMeta['title'] = specialchars(str_replace('_', ' ', $objFile->filename));
                     }
 
                     // Add the image
                     $images[$objFiles->path] = array
                     (
                         'id'           => $objFiles->id,
+                        'uuid'         => $objFiles->uuid,
                         'name'         => $objFile->basename,
                         'imageSRC'     => (($size[0] == NULL && $size[1] == NULL) ? $objFiles->path : (\Image::get($this->urlEncode($objFiles->path), $size[0], $size[1], $size[2]))),
                         'thumbnailSRC' => \Image::get($this->urlEncode($objFiles->path), '100px', NULL, 'center_center'),
@@ -546,13 +546,12 @@ class Galleria extends \Frontend {
                     );
 
                     $auxDate[] = $objFile->mtime;
-                    $auxId[] = $objFiles->id;
                 }
 
                 // Folders
                 else
                 {
-                    $objSubfiles = \FilesModel::findByPid($objFiles->id);
+                    $objSubfiles = \FilesModel::findByPid($objFiles->uuid);
 
                     if ($objSubfiles === null)
                     {
@@ -567,7 +566,7 @@ class Galleria extends \Frontend {
                             continue;
                         }
 
-                        $objFile = new \File($objSubfiles->path);
+                        $objFile = new \File($objSubfiles->path, true);
 
                         if (!$objFile->isGdImage)
                         {
@@ -579,13 +578,14 @@ class Galleria extends \Frontend {
                         // Use the file name as title if none is given
                         if ($arrMeta['title'] == '')
                         {
-                            $arrMeta['title'] = specialchars(str_replace('_', ' ', preg_replace('/^[0-9]+_/', '', $objFile->filename)));
+                            $arrMeta['title'] = specialchars(str_replace('_', ' ', $objFile->filename));
                         }
 
                         // Add the image
                         $images[$objSubfiles->path] = array
                         (
                             'id'           => $objSubfiles->id,
+                            'uuid'         => $objSubfiles->uuid,
                             'name'         => $objFile->basename,
                             'imageSRC'     => (($size[0] == NULL && $size[1] == NULL) ? $objSubfiles->path : (\Image::get($this->urlEncode($objSubfiles->path), $size[0], $size[1], $size[2]))),
                             'thumbnailSRC' => \Image::get($this->urlEncode($objSubfiles->path), '100px', NULL, 'center_center'),
@@ -595,7 +595,6 @@ class Galleria extends \Frontend {
                         );
 
                         $auxDate[] = $objFile->mtime;
-                        $auxId[] = $objSubfiles->id;
                     }
                 }
             }
@@ -622,32 +621,35 @@ class Galleria extends \Frontend {
 
                 case 'meta': // Backwards compatibility
                 case 'custom':
-                        if ($orderSRC != '')
+                        if ($this->orderSRC != '')
                         {
-                            // Turn the order string into an array and remove all values
-                            $arrOrder = explode(',', $orderSRC);
-                            $arrOrder = array_flip(array_map('intval', $arrOrder));
-                            $arrOrder = array_map(function(){}, $arrOrder);
-
-                            // Move the matching elements to their position in $arrOrder
-                            foreach ($images as $k=>$v)
-                            {
-                                if (array_key_exists($v['id'], $arrOrder))
+                                $tmp = deserialize($this->orderSRC);
+                                
+                                if (!empty($tmp) && is_array($tmp))
                                 {
-                                    $arrOrder[$v['id']] = $v;
-                                    unset($images[$k]);
+                                        // Remove all values
+                                        $arrOrder = array_map(function(){}, array_flip($tmp));
+                                        
+                                        // Move the matching elements to their position in $arrOrder
+                                        foreach ($images as $k=>$v)
+                                        {
+                                                if (array_key_exists($v['uuid'], $arrOrder))
+                                                {
+                                                        $arrOrder[$v['uuid']] = $v;
+                                                        unset($images[$k]);
+                                                }
+                                        }
+                                        
+                                        // Append the left-over images at the end
+                                        if (!empty($images))
+                                        {
+                                                $arrOrder = array_merge($arrOrder, array_values($images));
+                                        }
+                                        
+                                        // Remove empty (unreplaced) entries
+                                        $images = array_values(array_filter($arrOrder));
+                                        unset($arrOrder);
                                 }
-                            }
-
-                            // Append the left-over images at the end
-                            if (!empty($images))
-                            {
-                                $arrOrder = array_merge($arrOrder, array_values($images));
-                            }
-
-                            // Remove empty (unreplaced) entries
-                            $images = array_filter($arrOrder);
-                            unset($arrOrder);
                         }
                         break;
 
@@ -673,15 +675,15 @@ class Galleria extends \Frontend {
 
                 // Standard image
                 $imgSize = deserialize($objPictures->size);
-                $objImg = \FilesModel::findByPk($objPictures->singleSRC);
+                $objImg = \FilesModel::findByUuid($objPictures->singleSRC);
                 $imageSRC = \Image::get($this->urlEncode($objImg->path), $imgSize[0], $imgSize[1], $imgSize[2]);
 
                 // Fullscreen image
-                $objFullscreenImgSRC = \FilesModel::findByPk($objPictures->fullscreenSingleSRC);
+                $objFullscreenImgSRC = \FilesModel::findByUuid($objPictures->fullscreenSingleSRC);
 
                 // Thumbnails are created separately.
                 $thumbSize = deserialize($objPictures->thumbSize);
-                $objThumb = \FilesModel::findByPk($objPictures->thumbSRC);
+                $objThumb = \FilesModel::findByUuid($objPictures->thumbSRC);
 
                 // Is there an alternative thumbnail ? If not, we create the thumbnail from the main image.
                 ($objPictures->thumbSRC ? ($thumbnail = $objThumb->path) : ($thumbnail = $objImg->path));
@@ -736,7 +738,7 @@ class Galleria extends \Frontend {
 
         $objThemesSRC = GalerieModel::findPublishedById($galerie, array('themesSRC'));
 
-        $objThemes = \FilesModel::findByPk($objThemesSRC->themesSRC);
+        $objThemes = \FilesModel::findByUuid($objThemesSRC->themesSRC);
 
         // Retrieve the name of the theme
         $themeName = substr(strrchr($objThemes->path, '/'), 1);

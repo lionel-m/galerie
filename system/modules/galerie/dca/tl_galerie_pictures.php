@@ -157,7 +157,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
                         'eval'                    => array('fieldType' => 'radio', 'files' => true, 'filesOnly' => true),
-                        'sql'                     => "varchar(255) NOT NULL default ''"
+                        'sql'                     => "binary(16) NULL"
                 ),
                 'singleSRC' => array
                 (
@@ -165,7 +165,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
                         'eval'                    => array('fieldType' => 'radio', 'files' => true, 'filesOnly' => true),
-                        'sql'                     => "varchar(255) NOT NULL default ''"
+                        'sql'                     => "binary(16) NULL"
                 ),
                 'thumbSRC' => array
                 (
@@ -173,7 +173,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
                         'eval'                    => array('fieldType' => 'radio', 'files' => true, 'filesOnly' => true),
-                        'sql'                     => "varchar(255) NOT NULL default ''"
+                        'sql'                     => "binary(16) NULL"
                 ),
                 'alt' => array
                 (
@@ -294,8 +294,8 @@ class tl_galerie_pictures extends Backend {
 
         $type = '';
         $key = ($arrRow['published']) ? 'published' : 'unpublished';
-        $objFile = FilesModel::findByPk($arrRow['singleSRC']);
-        $image = Image::get($objFile->path, 150, 150, 'center_center');
+        $objFile = FilesModel::findByUuid($arrRow['singleSRC']);
+        $image = Image::get($objFile->path, 200, 150, 'center_center');
 
         if($arrRow['title'])
             $title = $arrRow['title'];
