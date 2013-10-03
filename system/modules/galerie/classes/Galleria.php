@@ -686,7 +686,7 @@ class Galleria extends \Frontend {
                 $objThumb = \FilesModel::findByUuid($objPictures->thumbSRC);
 
                 // Is there an alternative thumbnail ? If not, we create the thumbnail from the main image.
-                ($objPictures->thumbSRC ? ($thumbnail = $objThumb->path) : ($thumbnail = $objImg->path));
+                ($objThumb ? ($thumbnail = $objThumb->path) : ($thumbnail = $objImg->path));
 
                 if($thumbSize[0] == NULL && $thumbSize[1] == NULL)
                     $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), '100px', NULL, 'center_center');
