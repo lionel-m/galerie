@@ -22,9 +22,10 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['galerie'] = array
 (
     'label'                   => &$GLOBALS['TL_LANG']['tl_content']['galerie'],
     'exclude'                 => true,
-    'inputType'               => 'radio',
+    'flag'                    => 1,
+    'inputType'               => 'select',
     'options_callback'        => array('tl_content_galerie', 'getGalleries'),
-    'eval'                    => array('mandatory'=>true),
+    'eval'                    => array('doNotCopy'=>true, 'chosen'=>true, 'mandatory'=>true, 'tl_class'=>'w50'),
     'sql'                     => "int(10) unsigned NOT NULL default '0'"
 );
 
