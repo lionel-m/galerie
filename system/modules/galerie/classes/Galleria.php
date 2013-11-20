@@ -299,6 +299,10 @@ class Galleria extends \Frontend {
                 $options[62] = 'maxVideoSize: ' . "'undefined'";
             else
                 $options[62] = 'maxVideoSize: ' . $arrOptions['maxVideoSize'];
+        
+            // type: String
+            if($arrOptions['variation'] != NULL)
+                $options[63] = 'variation: ' . "'" . $arrOptions['variation'] . "'";
 
             // Reindex the array
             $options = array_values($options);
