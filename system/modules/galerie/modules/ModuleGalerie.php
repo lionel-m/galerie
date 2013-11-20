@@ -63,7 +63,7 @@ class ModuleGalerie extends \Module {
         if (TL_MODE == 'FE') {
 
             // From the extension - Galleria script
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.2.9.min.js';
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.3.2.min.js';
 
             // Flickr Plugin
             if($galleria->isFlickrEnabled($this->galerie, $this->Template))
