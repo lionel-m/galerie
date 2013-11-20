@@ -83,6 +83,7 @@ $GLOBALS['TL_LANG']['tl_galerie']['thumbDisplayOrder'] = array('Thumb display or
 $GLOBALS['TL_LANG']['tl_galerie']['dataSort'] = array('Data sort', 'Function to sort the data before using it. You can use it the same way you would use Array.sort(). If you want to sort the images in a random order, you can set this to ‘random’.');
 $GLOBALS['TL_LANG']['tl_galerie']['maxVideoSize'] = array('Max video size', 'Defines the maximum size for videos (or any other iframe). If set, a video iframe will never be taller or wider than this value in pixels. This also applies to lightbox and fullscreen. \'0\' will allow any scaling of the videos.');
 $GLOBALS['TL_LANG']['tl_galerie']['variation'] = array('Variation', 'Some themes have visual variations defined in the CSS. It can be a lighter color scheme, different arrows or something else. You can read about each variation in the documentation for each theme. You can add multiple variations byseparating them by spaces, f.ex "light smallarow".');
+$GLOBALS['TL_LANG']['tl_galerie']['videoPoster'] = array('Video poster', 'Since Galleria 1.3 it will use a poster image before showing thed video iframe. You can set a custom image or load one automatically from the provider (YouTube, etc). If you wish to load the iframe directly, set this option to false.');
 
 // Flickr Options
 $GLOBALS['TL_LANG']['tl_galerie']['flickr'] = array('Flickr', 'Use the gallery with the Flickr API.');

@@ -303,6 +303,9 @@ class Galleria extends \Frontend {
             // type: String
             if($arrOptions['variation'] != NULL)
                 $options[63] = 'variation: ' . "'" . $arrOptions['variation'] . "'";
+        
+            // type: Boolean
+            ($arrOptions['videoPoster'] == '' ? $options[64] = 'videoPoster: false' : $options[64] = 'videoPoster: true');
 
             // Reindex the array
             $options = array_values($options);

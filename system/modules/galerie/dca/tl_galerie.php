@@ -113,7 +113,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
         'palettes' => array
         (
                 '__selector__'                => array('autoplay', 'lightbox', 'flickr', 'picasa'),
-                'default'                     => '{title_legend},title,alias;{themes_legend},themesSRC,minifiedJS;{dimensions_legend},width,height,responsive;{effects_legend},initialTransition,transition,fullscreenTransition,touchTransition,transitionSpeed,easing,queue;{navigation_legend},clicknext,popupLinks,swipe;{fullscreen_legend},fullscreenCrop,fullscreenDoubleTap,trueFullscreen;{show_legend},gShow,showInfo,showImagenav,showCounter,variation;{autoplay_legend},autoplay,pauseOnInteraction;{lightbox_legend},lightbox;{images_legend},imageCrop,imageMargin,imagePosition,imagePan,imagePanSmoothness,preload,maxScaleRatio,layerFollow;{carousel_legend},carousel,carouselFollow,carouselSpeed,carouselSteps;{thumbnails_legend},thumbnails,thumbCrop,thumbMargin,thumbQuality,thumbDisplayOrder;{idle_legend},idleMode,idleTime,idleSpeed;{video_legend},dailymotion,vimeo,youtube,maxVideoSize;{flickr_legend},flickr;{picasa_legend},picasa;{history_legend},history;{error_legend},dummy,imageTimeout,wait;{extend_legend},extend,dataConfig,dataSort,json,dataSource,dataSelector,keepSource,debug;{publish_legend},published'
+                'default'                     => '{title_legend},title,alias;{themes_legend},themesSRC,minifiedJS;{dimensions_legend},width,height,responsive;{effects_legend},initialTransition,transition,fullscreenTransition,touchTransition,transitionSpeed,easing,queue;{navigation_legend},clicknext,popupLinks,swipe;{fullscreen_legend},fullscreenCrop,fullscreenDoubleTap,trueFullscreen;{show_legend},gShow,showInfo,showImagenav,showCounter,variation;{autoplay_legend},autoplay,pauseOnInteraction;{lightbox_legend},lightbox;{images_legend},imageCrop,imageMargin,imagePosition,imagePan,imagePanSmoothness,preload,maxScaleRatio,layerFollow;{carousel_legend},carousel,carouselFollow,carouselSpeed,carouselSteps;{thumbnails_legend},thumbnails,thumbCrop,thumbMargin,thumbQuality,thumbDisplayOrder;{idle_legend},idleMode,idleTime,idleSpeed;{video_legend},dailymotion,vimeo,youtube,maxVideoSize,videoPoster;{flickr_legend},flickr;{picasa_legend},picasa;{history_legend},history;{error_legend},dummy,imageTimeout,wait;{extend_legend},extend,dataConfig,dataSort,json,dataSource,dataSelector,keepSource,debug;{publish_legend},published'
         ),
 
         // Subpalettes
@@ -914,6 +914,15 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'inputType'               => 'text',
                         'eval'                    => array('maxlength'=>255, 'tl_class'=>'w50'),
                         'sql'                     => "varchar(32) NOT NULL default ''"
+                ),
+                'videoPoster' => array
+                (
+                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie']['videoPoster'],
+                        'exclude'                 => true,
+                        'default'                 => true,
+                        'inputType'               => 'checkbox',
+                        'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
+                        'sql'                     => "char(1) NOT NULL default '1'"
                 )
         )
 );
