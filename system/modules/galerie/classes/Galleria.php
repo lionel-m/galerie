@@ -306,6 +306,10 @@ class Galleria extends \Frontend {
         
             // type: Boolean
             ($arrOptions['videoPoster'] == '' ? $options[64] = 'videoPoster: false' : $options[64] = 'videoPoster: true');
+            
+            // type: String
+            if ($arrOptions['thumbPosition'] != NULL)
+                $options[65] = 'thumbPosition: ' . "'" . $arrOptions['thumbPosition'] . "'";
 
             // Reindex the array
             $options = array_values($options);
