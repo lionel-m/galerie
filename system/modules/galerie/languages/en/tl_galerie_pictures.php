@@ -23,7 +23,6 @@ $GLOBALS['TL_LANG']['tl_galerie_pictures']['imageUrl']            = array('Image
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['size']                = array('Image - width and height', 'Here you can set the image dimensions and the resize mode.');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['thumbSize']           = array('Thumbnail - width and height', 'Here you can set the thumbnail dimensions and the resize mode.');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['video']               = array('Video', 'Galleria supports Youtube, Vimeo and Dailymotion embeds. The way it works is that you pass a full URL to the movie and then Galleria will parse and create the video frame for you.');
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['videoThumb']          = array('Thumbnail from the provider', 'Fetches the thumbnail from the provider API\'s.');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['iframe']              = array('Iframe', 'Galleria also supports iframes to be displayed instead of an image.');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['iframeThumb']         = array('Skip the thumbnail', 'You can also skip the thumbnail by adding an element with the class "iframe".');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML']      = array('HTML with dataConfig', 'You can use the dataConfig option combined with HTML to obtain richer data from other sources to provide HTML captions or other custom data types. Don\'t forget to add the variable $pictures[\'dataConfig\'] in the template.');

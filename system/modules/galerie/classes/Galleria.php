@@ -299,14 +299,14 @@ class Galleria extends \Frontend {
                 $options[62] = 'maxVideoSize: ' . "'undefined'";
             else
                 $options[62] = 'maxVideoSize: ' . $arrOptions['maxVideoSize'];
-        
+
             // type: String
             if($arrOptions['variation'] != NULL)
                 $options[63] = 'variation: ' . "'" . $arrOptions['variation'] . "'";
-        
+
             // type: Boolean
             ($arrOptions['videoPoster'] == '' ? $options[64] = 'videoPoster: false' : $options[64] = 'videoPoster: true');
-            
+
             // type: String
             if ($arrOptions['thumbPosition'] != NULL)
                 $options[65] = 'thumbPosition: ' . "'" . $arrOptions['thumbPosition'] . "'";
@@ -712,7 +712,6 @@ class Galleria extends \Frontend {
                     'thumbnailSRC'          => $thumbnailSRC,
                     'imageFullscreenSRC'    => $this->urlEncode($objFullscreenImgSRC->path),
                     'video'                 => self::urlVerification($objPictures->video),
-                    'videoThumb'            => $objPictures->videoThumb,
                     'iframe'                => $objPictures->iframe,
                     'iframeThumb'           => $objPictures->iframeThumb,
                     'layer'                 => htmlentities($objPictures->layerHTML, ENT_COMPAT, 'UTF-8'),

@@ -13,11 +13,9 @@
                 <?php foreach ($this->pictures as $pictures):
 
                     if (($pictures['video'] != NULL) && ($pictures['iframe'] == NULL)):
-                        if ($pictures['videoThumb'] == 1):
-                            echo '<a href="' . $pictures['video'] . '"><span class="video"></span></a>';
-                        else:
-                            echo '<a href="' . $pictures['video'] . '"><img src="'.$pictures['thumbnailSRC'].'" ' . '/></a>';
-                        endif;
+
+                        echo '<a href="' . $pictures['video'] . '"><span class="video" ' . ($pictures['imageSRC'] ? 'data-image="'.$pictures['imageSRC'].'" src="'.$pictures['thumbnailSRC'].'"' : '') . '></span></a>';
+
                     elseif (($pictures['iframe'] != NULL) && ($pictures['video'] == NULL)):
                         if ($pictures['iframeThumb'] == 1):
                             echo '<a href="' . $pictures['iframe'] . '"><span class="iframe"></span></a>';

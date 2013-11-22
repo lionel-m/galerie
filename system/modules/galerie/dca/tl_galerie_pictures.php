@@ -105,7 +105,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
         // Palettes
         'palettes' => array
         (
-                'default'                     => '{title_legend},title;{image_fullscreen_legend},fullscreenSingleSRC;{image_legend},singleSRC,alt,imageUrl,size;{thumbnail_legend},thumbSize;{altThumbnail_legend},thumbSRC;{video_legend},video,videoThumb;{iframe_legend},iframe,iframeThumb;{layerHTML_legend},layerHTML;{dataConfigHTML_legend},dataConfigHTML;{publish_legend},published'
+                'default'                     => '{title_legend},title;{image_fullscreen_legend},fullscreenSingleSRC;{image_legend},singleSRC,alt,imageUrl,size;{thumbnail_legend},thumbSize;{altThumbnail_legend},thumbSRC;{video_legend},video;{iframe_legend},iframe,iframeThumb;{layerHTML_legend},layerHTML;{dataConfigHTML_legend},dataConfigHTML;{publish_legend},published'
         ),
 
         // Fields
@@ -223,14 +223,6 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'eval'                    => array('maxlength' => 255, 'tl_class' => 'w50'),
                         'sql'                     => "varchar(255) NOT NULL default ''"
                 ),
-                'videoThumb' => array
-                (
-                        'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['videoThumb'],
-                        'exclude'                 => true,
-                        'inputType'               => 'checkbox',
-                        'eval'                    => array('isBoolean' => true, 'tl_class'=>'w50 m12'),
-                        'sql'                     => "char(1) NOT NULL default ''"
-                ),
                 'iframe' => array
                 (
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['iframe'],
@@ -330,8 +322,6 @@ class tl_galerie_pictures extends Backend {
     protected function videoSharingWebsiteName($url) {
 
         $videoSharingWebsiteName = '';
-
-        $url = Galleria::urlVerification($url);
 
         // Extract the hostname of the url.
         $url_parsed = parse_url($url);
