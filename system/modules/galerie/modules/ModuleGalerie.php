@@ -59,11 +59,11 @@ class ModuleGalerie extends \Module {
         $galleria->getPictures($this->Database, $this->galerie, $this->Template, $this->imagesFolder, $this->sortBy, $this->groupImgSize, $this->orderSRC);
         $galleria->getGalleriaTheme($this->galerie);
 
-        // Use specific CSS and JS when the CTE is loaded
+        // Use specific CSS and JS when the module is loaded
         if (TL_MODE == 'FE') {
 
-            // From the extension - Galleria script
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.3.2.min.js';
+            // Galleria script
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.3.3.min.js';
 
             // Flickr Plugin
             if($galleria->isFlickrEnabled($this->galerie, $this->Template))

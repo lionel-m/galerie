@@ -1,5 +1,5 @@
 /**
- * Galleria v 1.3.2 2013-11-04
+ * Galleria v 1.3.3 2013-11-18
  * http://galleria.io
  *
  * Licensed under the MIT license
@@ -7,13 +7,12 @@
  *
  */
 
-(function( $, Galleria, undef ) {
+(function( $, window, Galleria, undef ) {
 
-/*global jQuery, navigator, Image */
+/*global jQuery, navigator, Image, module, define */
 
 // some references
-var window = this,
-    doc    = window.document,
+var doc    = window.document,
     $doc   = $( doc ),
     $win   = $( window ),
 
@@ -21,7 +20,7 @@ var window = this,
     protoArray = Array.prototype,
 
 // internal constants
-    VERSION = 1.32,
+    VERSION = 1.33,
     DEBUG = true,
     TIMEOUT = 30000,
     DUMMY = false,
@@ -41,7 +40,7 @@ var window = this,
             div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->';
         } while ( all[0] );
 
-        return v > 4 ? v : undef;
+        return v > 4 ? v : doc.documentMode || undef;
 
     }() ),
     DOM = function() {
@@ -474,7 +473,7 @@ var window = this,
                     // stop
                     if ( options.stop ) {
                         // clear the animation
-                        elem.unbind( endEvent );
+                        elem.off( endEvent );
                         clearStyle( elem );
                     }
 
@@ -1053,8 +1052,51 @@ var window = this,
 // listen to fullscreen
 _nativeFullscreen.listen();
 
+// create special click:fast event for fast touch interaction
+$.event.special['click:fast'] = {
+    propagate: true,
+    add: function(handleObj) {
+        var prop = this.propagate;
+        if ( Galleria.TOUCH ) {
+            $(this).on('touchstart.fast', function start(e) {
+                var ev = e.originalEvent,
+                    x, y, dist = 0;
+                if ( ev.touches.length == 1 ) {
+                    x = ev.touches[0].pageX;
+                    y = ev.touches[0].pageY;
+                    $(this).on('touchmove.fast', function(f) {
+                        var ft = f.originalEvent.touches;
+                        if ( ft.length == 1 ) {
+                            dist = M.max(
+                                M.abs( x - ft[0].pageX ),
+                                M.abs( y - ft[0].pageY )
+                            );
+                        }
+                    });
+                    $(this).on('touchend.fast', function() {
+                        if( dist > 4 ) {
+                            return $(this).off('touchend.fast touchmove.fast');
+                        }
+                        handleObj.handler.call(this, e);
+                        $(this).off('touchend.fast touchmove.fast');
+                    });
+                }
+            });
+        } else {
+            $(this).on('click.fast', handleObj.handler);
+        }
+    },
+    remove: function(handleObj) {
+        if ( Galleria.TOUCH ) {
+            $(this).off('touchstart.fast touchmove.fast touchend.fast');
+        } else {
+            $(this).off('click.fast', handleObj.handler);
+        }
+    }
+};
+
 // trigger resize on orientationchange (IOS7)
-$win.bind( 'orientationchange', function() {
+$win.on( 'orientationchange', function() {
     $(this).resize();
 });
 
@@ -1072,7 +1114,7 @@ $win.bind( 'orientationchange', function() {
 
 */
 
-Galleria = window.Galleria = function() {
+Galleria = function() {
 
     var self = this;
 
@@ -1179,14 +1221,14 @@ Galleria = window.Galleria = function() {
             }
             if ( !keyboard.bound ) {
                 keyboard.bound = true;
-                $doc.bind('keydown', keyboard.press);
+                $doc.on('keydown', keyboard.press);
             }
         },
 
         detach: function() {
             keyboard.bound = false;
             keyboard.map = {};
-            $doc.unbind('keydown', keyboard.press);
+            $doc.off('keydown', keyboard.press);
         }
     };
 
@@ -1279,7 +1321,7 @@ Galleria = window.Galleria = function() {
 
             var i;
 
-            carousel.next.bind( 'click', function(e) {
+            carousel.next.on( 'click:fast', function(e) {
                 e.preventDefault();
 
                 if ( self._options.carouselSteps === 'auto' ) {
@@ -1296,7 +1338,7 @@ Galleria = window.Galleria = function() {
                 }
             });
 
-            carousel.prev.bind( 'click', function(e) {
+            carousel.prev.on( 'click:fast', function(e) {
                 e.preventDefault();
 
                 if ( self._options.carouselSteps === 'auto' ) {
@@ -1459,7 +1501,7 @@ Galleria = window.Galleria = function() {
             }
 
             var mouseout = function() {
-                self.$( 'container' ).unbind( 'mousemove', tooltip.move );
+                self.$( 'container' ).off( 'mousemove', tooltip.move );
                 self.clearTimer( tooltip.timer );
 
                 self.$( 'tooltip' ).stop().animate({
@@ -1481,7 +1523,7 @@ Galleria = window.Galleria = function() {
                 $( elem ).hover(function() {
 
                     self.clearTimer( tooltip.swapTimer );
-                    self.$('container').unbind( 'mousemove', tooltip.move ).bind( 'mousemove', tooltip.move ).trigger( 'mousemove' );
+                    self.$('container').off( 'mousemove', tooltip.move ).on( 'mousemove', tooltip.move ).trigger( 'mousemove' );
                     tooltip.show( elem );
 
                     self.addTimer( tooltip.timer, function() {
@@ -1519,7 +1561,7 @@ Galleria = window.Galleria = function() {
                         };
                     }( e )), 10);
 
-                    elem.unbind( 'mouseup', mouseup );
+                    elem.off( 'mouseup', mouseup );
 
                 };
 
@@ -1532,7 +1574,7 @@ Galleria = window.Galleria = function() {
             self.$( 'tooltip' ).html( text.replace(/\s/, '&#160;') );
 
             // trigger mousemove on mouseup in case of click
-            elem.bind( 'mouseup', mouseup );
+            elem.on( 'mouseup', mouseup );
         },
 
         define: function( elem, value ) {
@@ -1919,7 +1961,7 @@ Galleria = window.Galleria = function() {
                 self.trigger( Galleria.FULLSCREEN_EXIT );
             });
 
-            $win.unbind('resize', fullscreen.scale);
+            $win.off('resize', fullscreen.scale);
         }
     };
 
@@ -1991,17 +2033,17 @@ Galleria = window.Galleria = function() {
 
         addEvent : function() {
             idle.bound = true;
-            self.$('container').bind( 'mousemove click', idle.showAll );
+            self.$('container').on( 'mousemove click', idle.showAll );
             if ( self._options.idleMode == 'hover' ) {
-                self.$('container').bind( 'mouseleave', idle.hide );
+                self.$('container').on( 'mouseleave', idle.hide );
             }
         },
 
         removeEvent : function() {
             idle.bound = false;
-            self.$('container').bind( 'mousemove click', idle.showAll );
+            self.$('container').on( 'mousemove click', idle.showAll );
             if ( self._options.idleMode == 'hover' ) {
-                self.$('container').unbind( 'mouseleave', idle.hide );
+                self.$('container').off( 'mouseleave', idle.hide );
             }
         },
 
@@ -2185,14 +2227,14 @@ Galleria = window.Galleria = function() {
 
             // add the prev/next nav and bind some controls
 
-            hover( $( el.close ).bind( 'click', lightbox.hide ).html('&#215;') );
+            hover( $( el.close ).on( 'click:fast', lightbox.hide ).html('&#215;') );
 
             $.each( ['Prev','Next'], function(i, dir) {
 
                 var $d = $( el[ dir.toLowerCase() ] ).html( /v/.test( dir ) ? '&#8249;&#160;' : '&#160;&#8250;' ),
                     $e = $( el[ dir.toLowerCase()+'holder'] );
 
-                $e.bind( 'click', function() {
+                $e.on( 'click:fast', function() {
                     lightbox[ 'show' + dir ]();
                 });
 
@@ -2209,7 +2251,7 @@ Galleria = window.Galleria = function() {
                 });
 
             });
-            $( el.overlay ).bind( 'click', lightbox.hide );
+            $( el.overlay ).on( 'click:fast', lightbox.hide );
 
             // the lightbox animation is slow on ipad
             if ( Galleria.IPAD ) {
@@ -2263,7 +2305,7 @@ Galleria = window.Galleria = function() {
             // remove the image
             lightbox.image.image = null;
 
-            $win.unbind('resize', lightbox.rescale);
+            $win.off('resize', lightbox.rescale);
 
             $( lightbox.elems.box ).hide().find( 'iframe' ).remove();
 
@@ -2312,7 +2354,7 @@ Galleria = window.Galleria = function() {
                 });
             }
 
-            $win.unbind('resize', lightbox.rescale );
+            $win.off('resize', lightbox.rescale );
 
             var data = self.getData(index),
                 total = self.getDataLength(),
@@ -2550,7 +2592,7 @@ Galleria.prototype = {
             showImagenav: true,
             swipe: true, // 1.2.4 -> revised in 1.3
             thumbCrop: true,
-            thumbEventType: 'click',
+            thumbEventType: 'click:fast',
             thumbMargin: 0,
             thumbQuality: 'auto',
             thumbDisplayOrder: true, // 1.2.8
@@ -2669,9 +2711,6 @@ Galleria.prototype = {
             };
 
         }( doc.createElement( 'canvas' ) ) );
-
-
-        Galleria.Fastclick.init( this.get('target' ));
 
         // bind the gallery to run when data is ready
         this.bind( Galleria.DATA, function() {
@@ -2841,8 +2880,7 @@ Galleria.prototype = {
             });
             this.finger = new Galleria.Finger(this.get('stage'), {
                 onchange: function(page) {
-                    self.setCounter( page );
-                    self.pause();
+                    self.setCounter( page ).setInfo( page ).pause();
                     self.show(page);
                 },
                 oncomplete: function(page) {
@@ -2857,20 +2895,6 @@ Galleria.prototype = {
                     self.$( 'images' ).find( 'iframe' ).remove();
                     self.$( 'images' ).find( '.galleria-frame' ).css('opacity', 0).hide();
 
-                    var src = self.isFullscreen() && data.big ? data.big : ( data.image || data.iframe ),
-                        image = self._controls.slides[index],
-                        cached = image.isCached( src ),
-                        thumb = self._thumbnails[ index ];
-
-                    self.trigger({
-                        type: Galleria.IMAGE,
-                        cached: cached,
-                        index: index,
-                        imageTarget: image.image,
-                        thumbTarget: thumb.image,
-                        galleriaData: data
-                    });
-
                     if ( self._options.carousel && self._options.carouselFollow ) {
                         self._carousel.follow( index );
                     }
@@ -2879,7 +2903,7 @@ Galleria.prototype = {
             this.bind( Galleria.RESCALE, function() {
                 this.finger.setup();
             });
-            this.$('stage').bind('click', function(e) {
+            this.$('stage').on('click', function(e) {
                 var data = self.getData();
                 if ( !data ) {
                     return;
@@ -2988,12 +3012,7 @@ Galleria.prototype = {
         });
 
         // bind image navigation arrows
-        this.$( 'image-nav-right, image-nav-left' ).bind( 'click', function(e) {
-
-            // tune the clicknext option
-            if ( options.clicknext ) {
-                e.stopPropagation();
-            }
+        this.$( 'image-nav-right, image-nav-left' ).on( 'click:fast', function(e) {
 
             // pause if options is set
             if ( options.pauseOnInteraction ) {
@@ -3004,6 +3023,14 @@ Galleria.prototype = {
             var fn = /right/.test( this.className ) ? 'next' : 'prev';
             self[ fn ]();
 
+        }).on('click', function(e) {
+
+            e.preventDefault();
+
+            // tune the clicknext option
+            if ( options.clicknext || options.swipe ) {
+                e.stopPropagation();
+            }
         });
 
         // hide controls if chosen to
@@ -3044,7 +3071,7 @@ Galleria.prototype = {
 
         // bind window resize for responsiveness
         if ( options.responsive ) {
-            $win.bind( 'resize', function() {
+            $win.on( 'resize', function() {
                 if ( !self.isFullscreen() ) {
                     self.resize();
                 }
@@ -3055,12 +3082,12 @@ Galleria.prototype = {
 
         if ( options.fullscreenDoubleTap ) {
 
-            this.$( 'stage' ).bind( 'touchstart', (function() {
+            this.$( 'stage' ).on( 'touchstart', (function() {
                 var last, cx, cy, lx, ly, now,
                     getData = function(e) {
                         return e.originalEvent.touches ? e.originalEvent.touches[0] : e;
                     };
-                self.$( 'stage' ).bind('touchmove', function() {
+                self.$( 'stage' ).on('touchmove', function() {
                     last = 0;
                 });
                 return function(e) {
@@ -3416,7 +3443,7 @@ Galleria.prototype = {
             // we'll add the same event to the source if it's kept
 
             $( thumb.container ).add( o.keepSource && o.linkSourceImages ? data.original : null )
-                .data('index', i).bind( o.thumbEventType, onThumbEvent )
+                .data('index', i).on( o.thumbEventType, onThumbEvent )
                 .data('thumbload', onThumbLoad);
 
             if (active === src) {
@@ -3662,7 +3689,6 @@ Galleria.prototype = {
                         fn.call( self, self._options );
                     }
                 });
-                Galleria.ready.callbacks = [];
 
                 // call the extend option
                 self._options.extend.call( self, self._options );
@@ -3914,7 +3940,7 @@ Galleria.prototype = {
 
     destroy : function() {
         this.$( 'target' ).data( 'galleria', null );
-        this.$( 'container' ).unbind( 'galleria' );
+        this.$( 'container' ).off( 'galleria' );
         this.get( 'target' ).innerHTML = this._original.html;
         this.clearTimer();
         Utils.removeFromArray( _instances, this );
@@ -4001,7 +4027,7 @@ Galleria.prototype = {
         // allow 'image' instead of Galleria.IMAGE
         type = _patchEvent( type );
 
-        this.$( 'container' ).bind( type, this.proxy(fn) );
+        this.$( 'container' ).on( type, this.proxy(fn) );
         return this;
     },
 
@@ -4017,7 +4043,7 @@ Galleria.prototype = {
 
         type = _patchEvent( type );
 
-        this.$( 'container' ).unbind( type );
+        this.$( 'container' ).off( type );
         return this;
     },
 
@@ -4352,7 +4378,7 @@ $(document).mousemove(function(e) {
         }
 
         // unbind and bind event
-        this.$( 'stage' ).unbind( 'mousemove', calculate ).bind( 'mousemove', calculate );
+        this.$( 'stage' ).off( 'mousemove', calculate ).on( 'mousemove', calculate );
 
         // loop the loop
         this.addTimer( 'pan' + self._id, loop, 50, true);
@@ -4391,7 +4417,7 @@ $(document).mousemove(function(e) {
 
         // todo: doublecheck IE8
 
-        this.$( 'stage' ).unbind( 'mousemove' );
+        this.$( 'stage' ).off( 'mousemove' );
 
         this.clearTimer( 'pan' + this._id );
 
@@ -4736,7 +4762,6 @@ this.prependChild( 'info', 'myElement' );
             this.finger.to = -( index*this.finger.width );
             this.finger.index = index;
         }
-
         this._active = index;
 
         // we do things a bit simpler in swipe:
@@ -4802,7 +4827,7 @@ this.prependChild( 'info', 'myElement' );
                     }));
                     complete();
                 }
-            },800);
+            }, 100);
 
         } else {
             protoArray.push.call( this._queue, {
@@ -4883,7 +4908,7 @@ this.prependChild( 'info', 'myElement' );
 
                     $( next.image ).css({
                         cursor: 'pointer'
-                    }).bind( 'mouseup', function( e ) {
+                    }).on( 'mouseup', function( e ) {
 
                         // non-left click
                         if ( typeof e.which == 'number' && e.which > 1 ) {
@@ -5053,7 +5078,7 @@ this.prependChild( 'info', 'myElement' );
                         layer.show();
                         // inherit click events set on image
                         if ( ( data.iframe && data.image ) || data.link || self._options.lightbox || self._options.clicknext ) {
-                            layer.css( 'cursor', 'pointer' ).unbind( 'mouseup' ).mouseup( mousetrigger );
+                            layer.css( 'cursor', 'pointer' ).off( 'mouseup' ).mouseup( mousetrigger );
                         }
                     }
 
@@ -5595,29 +5620,42 @@ Galleria.addTheme = function( theme ) {
         // else look for the absolute path and load the CSS dynamic
         if ( !css ) {
 
+
             $(function() {
+                // Try to determine the css-path from the theme script.
+                // In IE8/9, the script-dom-element seems to be not present
+                // at once, if galleria itself is inserted into the dom
+                // dynamically. We therefore try multiple times before raising
+                // an error.
+                var retryCount = 0;
+                var tryLoadCss = function() {
+                    $('script').each(function (i, script) {
+                        // look for the theme script
+                        reg = new RegExp('galleria\\.' + theme.name.toLowerCase() + '\\.');
+                        if (reg.test(script.src)) {
 
-                $('script').each(function( i, script ) {
-                    // look for the theme script
-                    reg = new RegExp( 'galleria\\.' + theme.name.toLowerCase() + '\\.' );
-                    if( reg.test( script.src )) {
+                            // we have a match
+                            css = script.src.replace(/[^\/]*$/, '') + theme.css;
 
-                        // we have a match
-                        css = script.src.replace(/[^\/]*$/, '') + theme.css;
+                            window.setTimeout(function () {
+                                Utils.loadCSS(css, 'galleria-theme', function () {
 
-                        window.setTimeout(function() {
-                            Utils.loadCSS( css, 'galleria-theme', function() {
+                                    // the themeload trigger
+                                    _themeLoad(theme);
 
-                                // the themeload trigger
-                                _themeLoad( theme );
-
-                            });
-                        }, 1);
+                                });
+                            }, 1);
+                        }
+                    });
+                    if (!css) {
+                        if (retryCount++ > 5) {
+                            Galleria.raise('No theme CSS loaded');
+                        } else {
+                            window.setTimeout(tryLoadCss, 500);
+                        }
                     }
-                });
-                if ( !css ) {
-                    Galleria.raise('No theme CSS loaded');
-                }
+                };
+                tryLoadCss();
             });
         }
 
@@ -6125,7 +6163,7 @@ Galleria.Picture.prototype = {
                     // reload the image with a timestamp
                     window.setTimeout((function(image, src) {
                         return function() {
-                            image.attr('src', src + '?' + Utils.timestamp() );
+                            image.attr('src', src + (src.indexOf('?') > -1 ? '&' : '?') + Utils.timestamp() );
                         };
                     }( $(this), src )), 50);
                 } else {
@@ -6145,7 +6183,7 @@ Galleria.Picture.prototype = {
 
                     var complete = function() {
 
-                        $( this ).unbind( 'load' );
+                        $( this ).off( 'load' );
 
                         // save the original size
                         self.original = size || {
@@ -6172,12 +6210,15 @@ Galleria.Picture.prototype = {
                     // Delay the callback to "fix" the Adblock Bug
                     // http://code.google.com/p/adblockforchrome/issues/detail?id=3701
                     if ( ( !this.width || !this.height ) ) {
-                        window.setTimeout( (function( img ) {
-                            return function() {
-                                if ( img.width && img.height ) {
+                        (function( img ) {
+                            Utils.wait({
+                                until: function() {
+                                    return img.width && img.height;
+                                },
+                                success: function() {
                                     complete.call( img );
-                                } else {
-                                    // last resort, this should never happen but just in case it does...
+                                },
+                                error: function() {
                                     if ( !resort ) {
                                         $(new Image()).load( onload ).attr( 'src', img.src );
                                         resort = true;
@@ -6185,9 +6226,10 @@ Galleria.Picture.prototype = {
                                         Galleria.raise('Could not extract width/height from image: ' + img.src +
                                             '. Traced measures: width:' + img.width + 'px, height: ' + img.height + 'px.');
                                     }
-                                }
-                            };
-                        }( this )), 2);
+                                },
+                                timeout: 100
+                            });
+                        }( this ));
                     } else {
                         complete.call( this );
                     }
@@ -6209,7 +6251,7 @@ Galleria.Picture.prototype = {
         });
 
         // begin load and insert in cache when done
-        $image.load( onload ).bind( 'error', onerror ).attr( 'src', src );
+        $image.load( onload ).on( 'error', onerror ).attr( 'src', src );
 
         // return the container
         return this.container;
@@ -6458,233 +6500,6 @@ $.extend( $.easing, {
 
 });
 
-// fastclick, for faster touch interactions
-// loosely based on FastClick by FTLabs (Financial Times)
-
-Galleria.Fastclick = (function() {
-
-    var deviceIsIOS = /iP(ad|hone|od)/.test(navigator.userAgent),
-        deviceIsIOS4 = deviceIsIOS && (/OS 4_\d(_\d)?/).test(navigator.userAgent),
-        deviceIsIOSWithBadTarget = deviceIsIOS && (/OS ([6-9]|\d{2})_\d/).test(navigator.userAgent);
-
-    return {
-        init: function(layer) {
-            var oldOnClick, self = this;
-            this.trackingClick = false;
-            this.trackingClickStart = 0;
-            this.targetElement = null;
-            this.touchStartX = 0;
-            this.touchStartY = 0;
-            this.lastTouchIdentifier = 0;
-            this.layer = layer;
-
-            $.each(['Click', 'TouchStart', 'TouchMove', 'TouchEnd', 'TouchCancel'], function(i, fn) {
-                self['on'+fn] = (function(caller) {
-                    return function() {
-                        caller.apply( self, arguments );
-                    };
-                }(self['on'+fn]));
-            });
-
-            if (!Galleria.TOUCH) {
-                return;
-            }
-
-            // Set up event handlers as required
-            layer.addEventListener('click', this.onClick, true);
-            layer.addEventListener('touchstart', this.onTouchStart, false);
-            layer.addEventListener('touchmove', this.onTouchMove, false);
-            layer.addEventListener('touchend', this.onTouchEnd, false);
-            layer.addEventListener('touchcancel', this.onTouchCancel, false);
-
-            if (!window.Event.prototype.stopImmediatePropagation) {
-                layer.removeEventListener = function(type, callback, capture) {
-                    var rmv = window.Node.prototype.removeEventListener;
-                    if (type === 'click') {
-                        rmv.call(layer, type, callback.hijacked || callback, capture);
-                    } else {
-                        rmv.call(layer, type, callback, capture);
-                    }
-                };
-                layer.addEventListener = function(type, callback, capture) {
-                    var adv = window.Node.prototype.addEventListener;
-                    if (type === 'click') {
-                        adv.call(layer, type, callback.hijacked || (callback.hijacked = function(event) {
-                            if (!event.propagationStopped) {
-                                callback(event);
-                            }
-                        }), capture);
-                    } else {
-                        adv.call(layer, type, callback, capture);
-                    }
-                };
-            }
-            if (typeof layer.onclick === 'function') {
-                oldOnClick = layer.onclick;
-                layer.addEventListener('click', function(event) {
-                    oldOnClick(event);
-                }, false);
-                layer.onclick = null;
-            }
-
-        },
-        sendClick: function(targetElement, event) {
-            var clickEvent, touch;
-
-            if (doc.activeElement && doc.activeElement !== targetElement) {
-                doc.activeElement.blur();
-            }
-
-            touch = event.changedTouches[0];
-
-            // Synthesise a click event, with an extra attribute so it can be tracked
-            clickEvent = doc.createEvent('MouseEvents');
-            clickEvent.initMouseEvent('click', true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null);
-            clickEvent.forwardedTouchEvent = true;
-            targetElement.dispatchEvent(clickEvent);
-        },
-        onTouchStart: function(event) {
-            var targetElement, touch, selection;
-
-            targetElement = event.target;
-            touch = event.targetTouches[0];
-
-            if (deviceIsIOS) {
-
-                selection = window.getSelection();
-                if (selection.rangeCount && !selection.isCollapsed) {
-                    return true;
-                }
-
-                if (!deviceIsIOS4) {
-                    if (touch.identifier === this.lastTouchIdentifier) {
-                        event.preventDefault();
-                        return false;
-                    }
-
-                    this.lastTouchIdentifier = touch.identifier;
-                }
-            }
-
-            this.trackingClick = true;
-            this.trackingClickStart = event.timeStamp;
-            this.targetElement = targetElement;
-
-            this.touchStartX = touch.pageX;
-            this.touchStartY = touch.pageY;
-
-            if ((event.timeStamp - this.lastClickTime) < 200) {
-                event.preventDefault();
-            }
-
-            return true;
-        },
-        touchHasMoved: function(event) {
-            var touch = event.targetTouches[0];
-
-            if (M.abs(touch.pageX - this.touchStartX) > 10 || M.abs(touch.pageY - this.touchStartY) > 10) {
-                return true;
-            }
-
-            return false;
-        },
-        onTouchMove: function(event) {
-            if (!this.trackingClick) {
-                return true;
-            }
-
-            // If the touch has moved, cancel the click tracking
-            if (this.targetElement !== event.target || this.touchHasMoved(event)) {
-                this.trackingClick = false;
-                this.targetElement = null;
-            }
-
-            return true;
-        },
-        onTouchEnd: function(event) {
-            var trackingClickStart, targetTagName, touch, targetElement = this.targetElement;
-
-            if (!this.trackingClick) {
-                return true;
-            }
-
-            // Prevent phantom clicks on fast double-tap (issue #36)
-            if ((event.timeStamp - this.lastClickTime) < 200) {
-                this.cancelNextClick = true;
-                return true;
-            }
-
-            this.lastClickTime = event.timeStamp;
-
-            trackingClickStart = this.trackingClickStart;
-            this.trackingClick = false;
-            this.trackingClickStart = 0;
-
-            if (deviceIsIOSWithBadTarget) {
-                touch = event.changedTouches[0];
-                targetElement = event.target;
-                targetElement = doc.elementFromPoint(touch.pageX - window.pageXOffset, touch.pageY - window.pageYOffset);
-            }
-
-            targetTagName = targetElement.tagName.toLowerCase();
-
-            event.preventDefault();
-            this.sendClick(targetElement, event);
-
-            return false;
-        },
-        onTouchCancel: function() {
-            this.trackingClick = false;
-            this.targetElement = null;
-        },
-        onClick: function(event) {
-            var oldTargetElement;
-
-            // If a target element was never set (because a touch event was never fired) allow the click
-            if (!this.targetElement) {
-                return true;
-            }
-
-            if (event.forwardedTouchEvent) {
-                return true;
-            }
-
-            oldTargetElement = this.targetElement;
-            this.targetElement = null;
-
-            if (this.trackingClick) {
-                this.trackingClick = false;
-                return true;
-            }
-
-            // Programmatically generated events targeting a specific element should be permitted
-            if (!event.cancelable) {
-                return true;
-            }
-
-            if (this.cancelNextClick) {
-                this.cancelNextClick = false;
-
-                // Prevent any user-added listeners declared on FastClick element from being fired.
-                if (event.stopImmediatePropagation) {
-                    event.stopImmediatePropagation();
-                } else {
-
-                    // Part of the hack for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)
-                    event.propagationStopped = true;
-                }
-
-                // Cancel the event
-                event.stopPropagation();
-                event.preventDefault();
-
-                return false;
-            }
-            return true;
-        }
-    };
-}());
-
 // Forked version of Ainos Finger.js for native-style touch
 
 Galleria.Finger = (function() {
@@ -6696,7 +6511,10 @@ Galleria.Finger = (function() {
 
         var el = doc.createElement('p'),
             has3d,
-            t = ['webkit','O','ms','Moz',''], s, i=0, a = 'transform';
+            t = ['webkit','O','ms','Moz',''],
+            s,
+            i=0,
+            a = 'transform';
 
         DOM().html.insertBefore(el, null);
 
@@ -6738,6 +6556,10 @@ Galleria.Finger = (function() {
             }
         };
 
+        this.easeout = function (x, t, b, c, d) {
+            return c*((t=t/d-1)*t*t*t*t + 1) + b;
+        };
+
         if ( !elem.children.length ) {
             return;
         }
@@ -6754,6 +6576,7 @@ Galleria.Finger = (function() {
         this.start = {};
         this.index = this.config.start;
         this.anim = 0;
+        this.easing = this.config.easing;
 
         if ( !has3d ) {
           this.child.style.position = 'absolute';
@@ -6784,9 +6607,9 @@ Galleria.Finger = (function() {
         };
 
         // bind events
-        $(elem).bind('touchstart', this.ontouchstart);
-        $(window).bind('resize', this.setup);
-        $(window).bind('orientationchange', this.setup);
+        $(elem).on('touchstart', this.ontouchstart);
+        $(window).on('resize', this.setup);
+        $(window).on('orientationchange', this.setup);
 
         // set up width
         this.setup();
@@ -6831,8 +6654,8 @@ Galleria.Finger = (function() {
             this.touching = true;
             this.deltaX = 0;
 
-            $doc.bind('touchmove', this.ontouchmove);
-            $doc.bind('touchend', this.ontouchend);
+            $doc.on('touchmove', this.ontouchmove);
+            $doc.on('touchend', this.ontouchend);
         },
 
         ontouchmove: function(e) {
@@ -6850,7 +6673,7 @@ Galleria.Finger = (function() {
             if ( this.isScrolling === null ) {
                 this.isScrolling = !!(
                     this.isScrolling ||
-                    abs(this.deltaX) < abs(touch[0].pageY - this.start.pageY)
+                    M.abs(this.deltaX) < M.abs(touch[0].pageY - this.start.pageY)
                 );
             }
 
@@ -6862,7 +6685,7 @@ Galleria.Finger = (function() {
 
                 // increase resistance if first or last slide
                 this.deltaX /= ( (!this.index && this.deltaX > 0 || this.index == this.length - 1 && this.deltaX < 0 ) ?
-                    ( abs(this.deltaX) / this.width + 1.8 )  : 1 );
+                    ( M.abs(this.deltaX) / this.width + 1.8 )  : 1 );
                 this.to = this.deltaX - this.index * this.width;
             }
             e.stopPropagation();
@@ -6874,8 +6697,8 @@ Galleria.Finger = (function() {
 
             // determine if slide attempt triggers next/prev slide
             var isValidSlide = +new Date() - this.start.time < 250 &&
-                abs(this.deltaX) > 40 ||
-                abs(this.deltaX) > this.width/2,
+                M.abs(this.deltaX) > 40 ||
+                M.abs(this.deltaX) > this.width/2,
 
                 isPastBounds = !this.index && this.deltaX > 0 ||
                     this.index == this.length - 1 && this.deltaX < 0;
@@ -6885,8 +6708,8 @@ Galleria.Finger = (function() {
                 this.show( this.index + ( isValidSlide && !isPastBounds ? (this.deltaX < 0 ? 1 : -1) : 0 ) );
             }
 
-            $doc.unbind('touchmove', this.ontouchmove);
-            $doc.unbind('touchend', this.ontouchend);
+            $doc.off('touchmove', this.ontouchmove);
+            $doc.off('touchend', this.ontouchend);
         },
 
         show: function( index ) {
@@ -6910,23 +6733,38 @@ Galleria.Finger = (function() {
                 factor = 1;
 
             if ( this.width && distance ) {
-                factor = M.max(0.5, M.min(2, M.abs(distance / this.width) ) );
+                factor = M.max(0.5, M.min(1.5, M.abs(distance / this.width) ) );
             }
 
             // if distance is short or the user is touching, do a 1-1 animation
-            if ( this.touching || abs(distance) <= 1 ) {
-              this.pos = this.to;
-              if ( this.anim ) {
-                this.config.oncomplete( this.index );
-              }
-              this.anim = 0;
+            if ( this.touching || M.abs(distance) <= 1 ) {
+                this.pos = this.to;
+                distance = 0;
+                if ( this.anim && !this.touching ) {
+                    this.config.oncomplete( this.index );
+                }
+                this.anim = 0;
+                this.easing = this.config.easing;
             } else {
                 if ( !this.anim ) {
                     // save animation parameters
-                    this.anim = { v: this.pos, c: distance, t: +new Date(), f: factor };
+                    this.anim = { start: this.pos, time: +new Date(), distance: distance, factor: factor, destination: this.to };
+                }
+                // check if to has changed
+                if ( this.anim.destination != this.to ) {
+                    this.anim = 0;
+                    this.easing = this.easeout;
+                    return;
                 }
                 // apply easing
-                this.pos = this.config.easing(null, +new Date() - this.anim.t, this.anim.v, this.anim.c, this.config.duration*this.anim.f);
+                this.pos = this.easing(
+                    null,
+                    +new Date() - this.anim.time,
+                    this.anim.start,
+                    this.anim.distance,
+                    this.config.duration*this.anim.factor
+                );
+
             }
             this.setX();
         }
@@ -6985,6 +6823,16 @@ $.fn.galleria = function( options ) {
 
 };
 
+// export as AMD or CommonJS
+if ( typeof module === "object" && module && typeof module.exports === "object" ) {
+    module.exports = Galleria;
+} else {
+    window.Galleria = Galleria;
+    if ( typeof define === "function" && define.amd ) {
+        define( "galleria", ['jquery'], function() { return Galleria; } );
+    }
+}
+
 // phew
 
-}( jQuery ) );
+}( jQuery, this ) );
