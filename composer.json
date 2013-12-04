@@ -32,7 +32,7 @@
                 "system/modules/galerie": "system/modules/galerie"
             },
             "userfiles": {
-                "files/galleria/themes/classic": "files/galleria/themes/classic"
+                "files/galleria/themes/classic": "galleria/themes/classic"
             }
         }
     }
