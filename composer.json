@@ -20,15 +20,16 @@
     },
     "require":{
         "php":">=5.3",
-        "contao/core": ">=3.2,<3.3"               
+        "contao/core": ">=3.2,<3.3",
+        "contao-community-alliance/composer-installer": "*"
     },
     "replace": {
             "contao-legacy/galerie": "*"
     },        
     "extra": {
         "contao": {
-            "symlinks": {
-                    ".": "system/modules/galerie"
+            "sources": {
+                "": "system/modules/galerie"
             }
         }
     }
