@@ -29,10 +29,10 @@
     "extra": {
         "contao": {
             "sources": {
-                "": "system/modules/galerie"
+                "system/modules/galerie": "system/modules/galerie"
             },
             "userfiles": {
-                "": "files/"
+                "files/galerie": "files/galerie"
             }
         }
     }
