@@ -32,7 +32,7 @@
                 "system/modules/galerie": "system/modules/galerie"
             },
             "userfiles": {
-                "files/galerie": "files/galerie"
+                "galerie/files": "galerie/files"
             }
         }
     }
