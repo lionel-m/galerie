@@ -30,6 +30,9 @@
         "contao": {
             "sources": {
                 "": "system/modules/galerie"
+            },
+            "userfiles": {
+                "": "files/"
             }
         }
     }
