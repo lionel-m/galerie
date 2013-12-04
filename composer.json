@@ -1,0 +1,35 @@
+{
+    "name":"lionel/galerie",
+    "description":"Professional pictures galleries for the web and mobile devices.",
+    "keywords":["gallery", "Galleria", "Picasa", "Flickr", "slideshow", "iframe", "video"],
+    "type":"contao-module",
+    "license":"MIT",
+    "authors":[
+        {
+        "name":"Lionel Maccaud",
+        "email":"work@lionelmaccaud.ch",
+        "homepage":"http://lionelmaccaud.ch",
+        "role":"Developer"
+        }
+    ],
+    "support":{
+        "email":"work@lionelmaccaud.ch",
+        "issues":"https://github.com/lionel-m/galerie/issues?page=1&state=open",
+        "forum":"https://community.contao.org/de/showthread.php?20482-Galerie&highlight=galerie",
+        "source":"https://github.com/lionel-m/galerie"
+    },
+    "require":{
+        "php":">=5.3",
+        "contao/core": ">=3.2,<3.3"               
+    },
+    "replace": {
+            "contao-legacy/galerie": "*"
+    },        
+    "extra": {
+        "contao": {
+            "symlinks": {
+                    ".": "system/modules/galerie"
+            }
+        }
+    }
+}
