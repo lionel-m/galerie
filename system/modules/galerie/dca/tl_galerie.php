@@ -678,7 +678,7 @@ $GLOBALS['TL_DCA']['tl_galerie'] = array
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
                         'eval'                    => array('fieldType'=>'radio', 'files' => true, 'filesOnly' => true),
-                        'sql'                     => "varchar(255) NOT NULL default ''"
+                        'sql'                     => "binary(16) NULL"
                 ),
                 'layerFollow' => array
                 (
