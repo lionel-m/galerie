@@ -115,7 +115,7 @@ $GLOBALS['TL_LANG']['tl_galerie']['touchTransition']['1'] = "Definiert unterschi
 $GLOBALS['TL_LANG']['tl_galerie']['dataConfig']['0'] = "'Data'-Konfiguration";
 $GLOBALS['TL_LANG']['tl_galerie']['dataConfig']['1'] = "Dokumentation unter <a href=\"http://galleria.io/docs/options/dataConfig/\">http://galleria.io/docs/options/dataConfig/</a>. Diese Optionen bestimmen, wie Daten aus der Quelle extrahiert werden. Gibt ein Objekt zurück dass zu den Standardeinstellungen vereinigt wird.";
 $GLOBALS['TL_LANG']['tl_galerie']['dailymotion']['0'] = "Dailymotion";
-$GLOBALS['TL_LANG']['tl_galerie']['dailymotion']['1'] = "Die Konfiguration des Dailymotion-Players ist durch die entsprechenden Optionen möglich, die beim Erstellen des <embed>-Codes sichtbar sind.";
+$GLOBALS['TL_LANG']['tl_galerie']['dailymotion']['1'] = "Die Konfiguration des Dailymotion-Players ist durch die entsprechenden Optionen möglich, die beim Erstellen des embed-Codes sichtbar sind.";
 $GLOBALS['TL_LANG']['tl_galerie']['vimeo']['0'] = "Vimeo";
 $GLOBALS['TL_LANG']['tl_galerie']['vimeo']['1'] = "Die Konfiguration des Vimeo-Players ist durch die entsprechenden Optionen möglich, die unter <a href=\"http://vimeo.com/api/docs/player#universal-params\">http://vimeo.com/api/docs/player#universal-params</a> zu finden sind.";
 $GLOBALS['TL_LANG']['tl_galerie']['youtube']['0'] = "YouTube";
