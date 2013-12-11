@@ -8,7 +8,7 @@ class GalleriaRunonceJob extends Controller
     }
     public function run()
     {
-        if (version_compare(VERSION, '3.2', '>=') && $database->tableExists('tl_galerie_pictures'))
+        if (version_compare(VERSION, '3.2', '>=') && $this->Database->tableExists('tl_galerie_pictures'))
         {
             $arrFields = $this->Database->listFields('tl_galerie_pictures');
 
@@ -29,7 +29,7 @@ class GalleriaRunonceJob extends Controller
             }
         }
 
-        if (version_compare(VERSION, '3.2', '>=') && $database->tableExists('tl_galerie'))
+        if (version_compare(VERSION, '3.2', '>=') && $this->Database->tableExists('tl_galerie'))
         {
             $arrFields = $this->Database->listFields('tl_galerie');
 
@@ -46,7 +46,7 @@ class GalleriaRunonceJob extends Controller
             }
         }
 
-        if (version_compare(VERSION, '3.2', '>=') && $database->tableExists('tl_content'))
+        if (version_compare(VERSION, '3.2', '>=') && $this->Database->tableExists('tl_content'))
         {
             $arrFields = $this->Database->listFields('tl_content');
 
@@ -59,7 +59,7 @@ class GalleriaRunonceJob extends Controller
             }
         }
 
-        if (version_compare(VERSION, '3.2', '>=') && $database->tableExists('tl_module'))
+        if (version_compare(VERSION, '3.2', '>=') && $this->Database->tableExists('tl_module'))
         {
             $arrFields = $this->Database->listFields('tl_module');
 
