@@ -394,7 +394,7 @@ class tl_galerie_pictures extends Backend {
         // Check permissions to publish
         if (!$this->User->isAdmin && !$this->User->hasAccess('tl_galerie_pictures::published', 'alexf'))
         {
-            $this->log('Not enough permissions to publish/unpublish image ID "'.$intId.'"', 'tl_galerie_pictures toggleVisibility', TL_ERROR);
+            $this->log('Not enough permissions to publish/unpublish image ID "'.$intId.'"', __METHOD__, TL_ERROR);
             $this->redirect('contao/main.php?act=error');
         }
 
@@ -416,7 +416,7 @@ class tl_galerie_pictures extends Backend {
                         ->execute($intId);
 
         $objVersions->create();
-        $this->log('A new version of record "tl_galerie_pictures.id='.$intId.'" has been created'.$this->getParentEntries('tl_galerie_pictures', $intId), 'tl_galerie_pictures toggleVisibility()', TL_GENERAL);
+        $this->log('A new version of record "tl_galerie_pictures.id='.$intId.'" has been created'.$this->getParentEntries('tl_galerie_pictures', $intId), __METHOD__, TL_GENERAL);
     }
 
     /**
@@ -461,7 +461,7 @@ class tl_galerie_pictures extends Backend {
             case 'create':
                 if (!strlen(Input::get('pid')) || !in_array(Input::get('pid'), $root))
                 {
-                    $this->log('Not enough permissions to create images in gallery ID "'.Input::get('pid').'"', 'tl_galerie_pictures checkPermission', TL_ERROR);
+                    $this->log('Not enough permissions to create images in gallery ID "'.Input::get('pid').'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
                 break;
@@ -470,7 +470,7 @@ class tl_galerie_pictures extends Backend {
             case 'copy':
                 if (!in_array(Input::get('pid'), $root))
                 {
-                    $this->log('Not enough permissions to '.Input::get('act').' image ID "'.$id.'" to gallery ID "'.Input::get('pid').'"', 'tl_galerie_pictures checkPermission', TL_ERROR);
+                    $this->log('Not enough permissions to '.Input::get('act').' image ID "'.$id.'" to gallery ID "'.Input::get('pid').'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
                 // NO BREAK STATEMENT HERE
@@ -479,20 +479,19 @@ class tl_galerie_pictures extends Backend {
             case 'show':
             case 'delete':
             case 'toggle':
-            case 'feature':
                 $objGalleria = $this->Database->prepare("SELECT pid FROM tl_galerie_pictures WHERE id=?")
                                     ->limit(1)
                                     ->execute($id);
 
                 if ($objGalleria->numRows < 1)
                 {
-                    $this->log('Invalid image ID "'.$id.'"', 'tl_galerie_pictures checkPermission', TL_ERROR);
+                    $this->log('Invalid image ID "'.$id.'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
 
                 if (!in_array($objGalleria->pid, $root))
                 {
-                    $this->log('Not enough permissions to '.Input::get('act').' image ID "'.$id.'" of gallery ID "'.$objGalleria->pid.'"', 'tl_galerie_pictures checkPermission', TL_ERROR);
+                    $this->log('Not enough permissions to '.Input::get('act').' image ID "'.$id.'" of gallery ID "'.$objGalleria->pid.'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
                 break;
@@ -505,7 +504,7 @@ class tl_galerie_pictures extends Backend {
             case 'copyAll':
                 if (!in_array($id, $root))
                 {
-                    $this->log('Not enough permissions to access gallery ID "'.$id.'"', 'tl_galerie_pictures checkPermission', TL_ERROR);
+                    $this->log('Not enough permissions to access gallery ID "'.$id.'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
 
@@ -514,7 +513,7 @@ class tl_galerie_pictures extends Backend {
 
                 if ($objGalleria->numRows < 1)
                 {
-                    $this->log('Invalid gallery ID "'.$id.'"', 'tl_galerie_pictures checkPermission', TL_ERROR);
+                    $this->log('Invalid gallery ID "'.$id.'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
 
@@ -526,12 +525,12 @@ class tl_galerie_pictures extends Backend {
             default:
                 if (strlen(Input::get('act')))
                 {
-                    $this->log('Invalid command "'.Input::get('act').'"', 'tl_galerie_pictures checkPermission', TL_ERROR);
+                    $this->log('Invalid command "'.Input::get('act').'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
                 elseif (!in_array($id, $root))
                 {
-                    $this->log('Not enough permissions to access gallery ID ' . $id, 'tl_galerie_pictures checkPermission', TL_ERROR);
+                    $this->log('Not enough permissions to access gallery ID ' . $id, __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
                 break;

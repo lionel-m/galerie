@@ -1117,7 +1117,7 @@ class tl_galerie extends Backend {
         // Check permissions to publish
         if (!$this->User->isAdmin && !$this->User->hasAccess('tl_galerie::published', 'alexf'))
         {
-            $this->log('Not enough permissions to publish/unpublish gallery ID "'.$intId.'"', 'tl_galerie toggleVisibility', TL_ERROR);
+            $this->log('Not enough permissions to publish/unpublish gallery ID "'.$intId.'"', __METHOD__, TL_ERROR);
             $this->redirect('contao/main.php?act=error');
         }
 
@@ -1139,7 +1139,7 @@ class tl_galerie extends Backend {
                         ->execute($intId);
 
         $objVersions->create();
-        $this->log('A new version of record "tl_galerie.id='.$intId.'" has been created'.$this->getParentEntries('tl_galerie', $intId), 'tl_galerie toggleVisibility()', TL_GENERAL);
+        $this->log('A new version of record "tl_galerie.id='.$intId.'" has been created'.$this->getParentEntries('tl_galerie', $intId), __METHOD__, TL_GENERAL);
     }
 
     /**
@@ -1287,7 +1287,7 @@ class tl_galerie extends Backend {
             case 'show':
                 if (!in_array(Input::get('id'), $root) || (Input::get('act') == 'delete' && !$this->User->hasAccess('delete', 'galleria_permission')))
                 {
-                    $this->log('Not enough permissions to '.Input::get('act').' gallery ID "'.Input::get('id').'"', 'tl_galerie checkPermission', TL_ERROR);
+                    $this->log('Not enough permissions to '.Input::get('act').' gallery ID "'.Input::get('id').'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
                 break;
@@ -1310,7 +1310,7 @@ class tl_galerie extends Backend {
             default:
                 if (strlen(Input::get('act')))
                 {
-                    $this->log('Not enough permissions to '.Input::get('act').' galleries', 'tl_galerie checkPermission', TL_ERROR);
+                    $this->log('Not enough permissions to '.Input::get('act').' galleries', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
                 break;
