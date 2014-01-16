@@ -14,7 +14,7 @@
 
                     if (($pictures['video'] != NULL) && ($pictures['iframe'] == NULL)):
 
-                        echo '<a href="' . $pictures['video'] . '"><span class="video" ' . ($pictures['imageSRC'] ? 'data-image="'.$pictures['imageSRC'].'" src="'.$pictures['thumbnailSRC'].'"' : '') . '></span></a>';
+                        echo '<a href="' . $pictures['video'] . '"><span class="video" ' . ($pictures['imageSRC'] ? 'data-image="'.$pictures['imageSRC'].'" src="'.$pictures['thumbnailSRC'].'"' : '') . " " . ($pictures['alt'] ? 'data-description="'.$pictures['alt'].'"' : '') . '></span></a>';
 
                     elseif (($pictures['iframe'] != NULL) && ($pictures['video'] == NULL)):
                         if ($pictures['iframeThumb'] == 1):
