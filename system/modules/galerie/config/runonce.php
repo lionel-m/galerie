@@ -18,11 +18,11 @@ class GalleriaRunonceJob extends Controller
                 {
                     Database\Updater::convertSingleField('tl_galerie_pictures', 'fullscreenSingleSRC');
                 }
-                else if ($arrField['name'] == 'singleSRC' && $arrField['type'] != 'binary')
+                if ($arrField['name'] == 'singleSRC' && $arrField['type'] != 'binary')
                 {
                     Database\Updater::convertSingleField('tl_galerie_pictures', 'singleSRC');
                 }
-                else if ($arrField['name'] == 'thumbSRC' && $arrField['type'] != 'binary')
+                if ($arrField['name'] == 'thumbSRC' && $arrField['type'] != 'binary')
                 {
                     Database\Updater::convertSingleField('tl_galerie_pictures', 'thumbSRC');
                 }
@@ -39,7 +39,7 @@ class GalleriaRunonceJob extends Controller
                 {
                     Database\Updater::convertSingleField('tl_galerie', 'themesSRC');
                 }
-                else if ($arrField['name'] == 'dummy' && $arrField['type'] != 'binary')
+                if ($arrField['name'] == 'dummy' && $arrField['type'] != 'binary')
                 {
                     Database\Updater::convertSingleField('tl_galerie', 'dummy');
                 }
