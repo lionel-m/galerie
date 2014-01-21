@@ -6,71 +6,17 @@ class GalleriaRunonceJob extends Controller
         parent::__construct();
         $this->import('Database');
     }
-    public function run()
-    {
-        if (version_compare(VERSION, '3.2', '>=') && $this->Database->tableExists('tl_galerie_pictures'))
-        {
-            $arrFields = $this->Database->listFields('tl_galerie_pictures');
+    public function run() {
 
-            foreach ($arrFields as $arrField)
-            {
-                if ($arrField['name'] == 'fullscreenSingleSRC' && $arrField['type'] != 'binary')
-                {
-                    Database\Updater::convertSingleField('tl_galerie_pictures', 'fullscreenSingleSRC');
-                }
-                if ($arrField['name'] == 'singleSRC' && $arrField['type'] != 'binary')
-                {
-                    Database\Updater::convertSingleField('tl_galerie_pictures', 'singleSRC');
-                }
-                if ($arrField['name'] == 'thumbSRC' && $arrField['type'] != 'binary')
-                {
-                    Database\Updater::convertSingleField('tl_galerie_pictures', 'thumbSRC');
-                }
-            }
-        }
+        Database\Updater::convertSingleField('tl_galerie_pictures', 'fullscreenSingleSRC');
+        Database\Updater::convertSingleField('tl_galerie_pictures', 'singleSRC');
+        Database\Updater::convertSingleField('tl_galerie_pictures', 'thumbSRC');
 
-        if (version_compare(VERSION, '3.2', '>=') && $this->Database->tableExists('tl_galerie'))
-        {
-            $arrFields = $this->Database->listFields('tl_galerie');
+        Database\Updater::convertSingleField('tl_galerie', 'themesSRC');
+        Database\Updater::convertSingleField('tl_galerie', 'dummy');
 
-            foreach ($arrFields as $arrField)
-            {
-                if ($arrField['name'] == 'themesSRC' && $arrField['type'] != 'binary')
-                {
-                    Database\Updater::convertSingleField('tl_galerie', 'themesSRC');
-                }
-                if ($arrField['name'] == 'dummy' && $arrField['type'] != 'binary')
-                {
-                    Database\Updater::convertSingleField('tl_galerie', 'dummy');
-                }
-            }
-        }
-
-        if (version_compare(VERSION, '3.2', '>=') && $this->Database->tableExists('tl_content'))
-        {
-            $arrFields = $this->Database->listFields('tl_content');
-
-            foreach ($arrFields as $arrField)
-            {
-                if ($arrField['name'] == 'imagesFolder' && $arrField['type'] != 'binary')
-                {
-                    Database\Updater::convertMultiField('tl_content', 'imagesFolder');
-                }
-            }
-        }
-
-        if (version_compare(VERSION, '3.2', '>=') && $this->Database->tableExists('tl_module'))
-        {
-            $arrFields = $this->Database->listFields('tl_module');
-
-            foreach ($arrFields as $arrField)
-            {
-                if ($arrField['name'] == 'imagesFolder' && $arrField['type'] != 'binary')
-                {
-                    Database\Updater::convertMultiField('tl_content', 'imagesFolder');
-                }
-            }
-        }
+        Database\Updater::convertMultiField('tl_content', 'imagesFolder');
+        Database\Updater::convertMultiField('tl_content', 'imagesFolder');
     }
 }
 $objGalleriaRunonceJob = new GalleriaRunonceJob();
