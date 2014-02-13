@@ -33,7 +33,10 @@
             },
             "userfiles": {
                 "files/galleria/themes/classic": "galleria/themes/classic"
-            }
+            },
+            "runonce": [
+                "system/modules/galerie/config/runonce.php"
+            ]
         }
     }
 }
