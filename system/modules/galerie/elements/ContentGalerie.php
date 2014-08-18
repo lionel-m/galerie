@@ -16,9 +16,9 @@
 namespace Galleria;
 
 /**
- * Class ContentGalerie 
+ * Class ContentGalerie
  *
- * @copyright  Lionel Maccaud 
+ * @copyright  Lionel Maccaud
  * @author     Lionel Maccaud
  * @package    Controller
  */
@@ -52,20 +52,22 @@ class ContentGalerie extends \ContentElement {
         if (TL_MODE == 'FE') {
 
             // Galleria script
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.3.5.min.js';
+            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.4.2.js';
 
             // Flickr Plugin
-            if($galleria->isFlickrEnabled($this->galerie, $this->Template))
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/flickr/galleria.flickr.min.js';
+            if($galleria->isFlickrEnabled($this->galerie, $this->Template)) {
+                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/flickr/galleria.flickr.js';
+            }
 
             // History Plugin
-            if($galleria->isHistoryEnabled($this->galerie))
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/history/galleria.history.min.js';
+            if($galleria->isHistoryEnabled($this->galerie)) {
+                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/history/galleria.history.js';
+            }
 
             // Picasa Plugin
-            if($galleria->isPicasaEnabled($this->galerie, $this->Template))
-            $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/picasa/galleria.picasa.min.js';
+            if($galleria->isPicasaEnabled($this->galerie, $this->Template)) {
+                $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/picasa/galleria.picasa.js';
+            }
         }
     }
 }
-?>

@@ -22,8 +22,8 @@ namespace Galleria;
  * @author     Lionel Maccaud
  * @package    Controller
  */
-class Galleria extends \Frontend {
-
+class Galleria extends \Frontend
+{
     /**
      * Files object
      * @var \FilesModel
@@ -36,14 +36,14 @@ class Galleria extends \Frontend {
      * @access public
      * @return null
      */
-    public function getOptions($galerie, $template) {
-
+    public function getOptions($galerie, $template)
+    {
         // Retrieve the current gallery options
         $objOptions = GalerieModel::findPublishedById($galerie, array('*'));
 
         if ($objOptions !== null) {
 
-                $arrOptions = $objOptions->row();
+            $arrOptions = $objOptions->row();
 
             /* Standard options *
              ********************/
@@ -53,19 +53,19 @@ class Galleria extends \Frontend {
             // type: Number or String
             if (is_numeric($arrOptions['width']) && $arrOptions['width'] > 0)
                 $options[0] = 'width: ' . $arrOptions['width'];
-            elseif(!is_numeric($arrOptions['width']) && $arrOptions['width'] != NULL)
+            elseif (!is_numeric($arrOptions['width']) && $arrOptions['width'] != null)
                 $options[0] = 'width: ' . "'" . $arrOptions['width'] . "'";
 
             // type: Number
-            if($arrOptions['height'] > 0)
-            $options[1] = 'height: ' . $arrOptions['height'];
+            if ($arrOptions['height'] > 0)
+                $options[1] = 'height: ' . $arrOptions['height'];
 
             // type: String
-            if($arrOptions['transition'] != NULL)
+            if ($arrOptions['transition'] != null)
                 $options[2] = 'transition: ' . "'" . $arrOptions['transition'] . "'";
 
             // type: String
-            if($arrOptions['initialTransition'] != NULL)
+            if ($arrOptions['initialTransition'] != null)
                 $options[3] = 'initialTransition: ' . "'" . $arrOptions['initialTransition'] . "'";
 
             // type: Boolean
@@ -89,7 +89,7 @@ class Galleria extends \Frontend {
                 $options[9] = 'overlayOpacity: ' . $arrOptions['overlayOpacity'];
 
             // type: Boolean or String
-            if($arrOptions['imageCrop'] != NULL) {
+            if ($arrOptions['imageCrop'] != null) {
                 if (($arrOptions['imageCrop'] == 'false') || ($arrOptions['imageCrop'] == 'true'))
                     $options[10] = 'imageCrop: ' . $arrOptions['imageCrop'];
                 else
@@ -138,7 +138,7 @@ class Galleria extends \Frontend {
             ($arrOptions['showInfo'] == '' ? $options[22] = 'showInfo: false' : $options[22] = 'showInfo: true');
 
             // type: Boolean or String
-            if ($arrOptions['thumbnails'] != NULL) {
+            if ($arrOptions['thumbnails'] != null) {
                 if (($arrOptions['thumbnails'] == 'true') || ($arrOptions['thumbnails'] == 'false'))
                     $options[23] = 'thumbnails: ' . $arrOptions['thumbnails'];
                 else
@@ -146,7 +146,7 @@ class Galleria extends \Frontend {
             }
 
             // type: Boolean or String
-            if ($arrOptions['thumbCrop'] != NULL) {
+            if ($arrOptions['thumbCrop'] != null) {
                 if (($arrOptions['thumbCrop'] == 'true') || ($arrOptions['thumbCrop'] == 'false'))
                     $options[24] = 'thumbCrop: ' . $arrOptions['thumbCrop'];
                 else
@@ -157,7 +157,7 @@ class Galleria extends \Frontend {
             $options[25] = 'thumbMargin: ' . $arrOptions['thumbMargin'];
 
             // type: Boolean or String
-            if ($arrOptions['thumbQuality'] != NULL) {
+            if ($arrOptions['thumbQuality'] != null) {
                 if (($arrOptions['thumbQuality'] == 'true') || ($arrOptions['thumbQuality'] == 'false'))
                     $options[27] = 'thumbQuality: ' . $arrOptions['thumbQuality'];
                 else
@@ -170,7 +170,7 @@ class Galleria extends \Frontend {
                 $options[28] = 'imagePanSmoothness: ' . $arrOptions['imagePanSmoothness'];
 
             // type: String
-            if ($arrOptions['easing'] != NULL)
+            if ($arrOptions['easing'] != null)
                 $options[29] = 'easing: ' . "'" . $arrOptions['easing'] . "'";
 
             // type: Number
@@ -186,7 +186,7 @@ class Galleria extends \Frontend {
                 $options[32] = 'preload: ' . "'" . $arrOptions['preload'] . "'";
 
             // type: Function
-            if ($arrOptions['extend'] != NULL)
+            if ($arrOptions['extend'] != null)
                 $options[33] = $arrOptions['extend'];
 
             // type: Boolean
@@ -196,7 +196,7 @@ class Galleria extends \Frontend {
             ($arrOptions['queue'] == '' ? $options[35] = 'queue: false' : $options[35] = 'queue: true');
 
             // type: String
-            if ($arrOptions['imagePosition'] != NULL)
+            if ($arrOptions['imagePosition'] != null)
                 $options[36] = 'imagePosition: ' . "'" . $arrOptions['imagePosition'] . "'";
 
             // type: Number
@@ -214,14 +214,14 @@ class Galleria extends \Frontend {
             // type: String
             $dummy = deserialize($arrOptions['dummy']);
             $objDummy = \FilesModel::findByUuid($dummy);
-            if ($arrOptions['dummy'] != NULL)
+            if ($arrOptions['dummy'] != null)
                 $options[42] = 'dummy: ' . "'" . $objDummy->path . "'";
 
             // type: Number
             $options[43] = 'imageTimeout: ' . $arrOptions['imageTimeout'];
 
             // type: Boolean or String
-            if ($arrOptions['fullscreenCrop'] != NULL) {
+            if ($arrOptions['fullscreenCrop'] != null) {
                 if (($arrOptions['fullscreenCrop'] == 'false') || ($arrOptions['fullscreenCrop'] == 'true'))
                     $options[44] = 'fullscreenCrop: ' . $arrOptions['fullscreenCrop'];
                 else
@@ -229,26 +229,26 @@ class Galleria extends \Frontend {
             }
 
             // type: String
-            if ($arrOptions['fullscreenTransition'] != NULL)
+            if ($arrOptions['fullscreenTransition'] != null)
                 $options[45] = 'fullscreenTransition: ' . "'" . $arrOptions['fullscreenTransition'] . "'";
 
             // type: String
-            if ($arrOptions['touchTransition'] != NULL)
+            if ($arrOptions['touchTransition'] != null)
                 $options[46] = 'touchTransition: ' . "'" . $arrOptions['touchTransition'] . "'";
 
             // type: String or Array
-            if ($arrOptions['dataSource'] != NULL)
+            if ($arrOptions['dataSource'] != null)
                 $options[47] = 'dataSource: ' . $arrOptions['dataSource'];
 
             // type: String
-            if ($arrOptions['dataSelector'] != NULL)
+            if ($arrOptions['dataSelector'] != null)
                 $options[48] = 'dataSelector: ' . $arrOptions['dataSelector'];
 
             // type: Boolean
             if ($arrOptions['keepSource'] == '' ? $options[49] = 'keepSource: false' : $options[49] = 'keepSource: true');
 
             // type: Function
-            if ($arrOptions['dataConfig'] != NULL)
+            if ($arrOptions['dataConfig'] != null)
                 $options[50] = $arrOptions['dataConfig'];
 
             // type: Boolean
@@ -258,23 +258,23 @@ class Galleria extends \Frontend {
             ($arrOptions['responsive'] == '' ? $options[52] = 'responsive: false' : $options[52] = 'responsive: true');
 
             // type: Number or Boolean
-            if ($arrOptions['wait'] != NULL)
+            if ($arrOptions['wait'] != null)
                 $options[53] = 'wait: ' . $arrOptions['wait'];
 
             // type: Object
-            if ($arrOptions['dailymotion'] != NULL)
+            if ($arrOptions['dailymotion'] != null)
                 $options[54] = 'dailymotion: ' . $arrOptions['dailymotion'];
 
             // type: Object
-            if ($arrOptions['vimeo'] != NULL)
+            if ($arrOptions['vimeo'] != null)
                 $options[55] = 'vimeo: ' . $arrOptions['vimeo'];
 
             // type: Object
-            if ($arrOptions['youtube'] != NULL)
+            if ($arrOptions['youtube'] != null)
                 $options[56] = 'youtube: ' . $arrOptions['youtube'];
 
             // type: Boolean or String
-            if ($arrOptions['idleMode'] != NULL) {
+            if ($arrOptions['idleMode'] != null) {
                 if (($arrOptions['idleMode'] == 'false') || ($arrOptions['idleMode'] == 'true'))
                     $options[57] = 'idleMode: ' . $arrOptions['idleMode'];
                 else
@@ -291,7 +291,7 @@ class Galleria extends \Frontend {
             ($arrOptions['thumbDisplayOrder'] == '' ? $options[60] = 'thumbDisplayOrder: false' : $options[60] = 'thumbDisplayOrder: true');
 
             // type: Function or String
-            if ($arrOptions['dataSort'] != NULL)
+            if ($arrOptions['dataSort'] != null)
                 $options[61] = $arrOptions['dataSort'];
 
             // type: Number
@@ -301,14 +301,14 @@ class Galleria extends \Frontend {
                 $options[62] = 'maxVideoSize: ' . $arrOptions['maxVideoSize'];
 
             // type: String
-            if($arrOptions['variation'] != NULL)
+            if($arrOptions['variation'] != null)
                 $options[63] = 'variation: ' . "'" . $arrOptions['variation'] . "'";
 
             // type: Boolean
             ($arrOptions['videoPoster'] == '' ? $options[64] = 'videoPoster: false' : $options[64] = 'videoPoster: true');
 
             // type: String
-            if ($arrOptions['thumbPosition'] != NULL)
+            if ($arrOptions['thumbPosition'] != null)
                 $options[65] = 'thumbPosition: ' . "'" . $arrOptions['thumbPosition'] . "'";
 
             // Reindex the array
@@ -329,7 +329,7 @@ class Galleria extends \Frontend {
             $template->options = $strOptions;
 
             // Add JSON if exist
-            ($arrOptions['json'] != NULL ? ($template->json = $arrOptions['json']) : ($template->json = ""));
+            ($arrOptions['json'] != null ? ($template->json = $arrOptions['json']) : ($template->json = ""));
 
             /* Flickr options *
              ******************/
@@ -365,17 +365,20 @@ class Galleria extends \Frontend {
             /* Picasa options *
              ******************/
 
-            // If the tested values ​​are not the default values, then it saves.
+            // If the tested values are not the default values, then it saves.
             $picasaOptions = array();
 
-            if ($arrOptions['picasaOptMax'] != 30)
+            if ($arrOptions['picasaOptMax'] != 30) {
                 $picasaOptions[0] = 'max: ' . $arrOptions['picasaOptMax'];
+            }
 
-            if ($arrOptions['picasaOptImageSize'] != 'medium')
+            if ($arrOptions['picasaOptImageSize'] != 'medium') {
                 $picasaOptions[1] = 'imageSize: ' . "'" . $arrOptions['picasaOptImageSize'] . "'";
+            }
 
-            if ($arrOptions['picasaOptThumbSize'] != 'thumb')
+            if ($arrOptions['picasaOptThumbSize'] != 'thumb') {
                 $picasaOptions[2] = 'thumbSize: ' . "'" . $arrOptions['picasaOptThumbSize'] . "'";
+            }
 
             // Reindex the array
             $picasaOptions = array_values($picasaOptions);
@@ -424,10 +427,11 @@ class Galleria extends \Frontend {
         // Path of the JavaScript file for the function loadTheme() included in the template
         $theme = $this->getGalleriaTheme($galerie);
 
-        if($arrOptions['minifiedJS'] != '1')
+        if ($arrOptions['minifiedJS'] != '1') {
             $pathJS = $theme[0] . '/galleria' . '.' . $theme[1] . '.js';
-        else
+        } else {
             $pathJS = $theme[0] . '/galleria' . '.' . $theme[1] . '.min.js';
+        }
 
         $template->pathJS = $pathJS;
 
@@ -442,14 +446,14 @@ class Galleria extends \Frontend {
      * @access public
      * @return boolean
      */
-    public function isFlickrEnabled($galerie, $template) {
-
+    public function isFlickrEnabled($galerie, $template)
+    {
         $objFlickr = GalerieModel::findPublishedById($galerie, array('flickr'));
 
-        if ($objFlickr->flickr == NULL)
-            $isFlickrEnabled = FALSE;
+        if ($objFlickr->flickr == null)
+            $isFlickrEnabled = false;
         else
-            $isFlickrEnabled = TRUE;
+            $isFlickrEnabled = true;
 
         // Boolean : Does the Flickr plugin is enabled ?
         $template->flickr = $isFlickrEnabled;
@@ -463,14 +467,14 @@ class Galleria extends \Frontend {
      * @access public
      * @return boolean
      */
-    public function isPicasaEnabled($galerie, $template) {
-
+    public function isPicasaEnabled($galerie, $template)
+    {
         $objPicasa = GalerieModel::findPublishedById($galerie, array('picasa'));
 
-        if ($objPicasa->picasa == NULL)
-            $isPicasaEnabled = FALSE;
+        if ($objPicasa->picasa == null)
+            $isPicasaEnabled = false;
         else
-            $isPicasaEnabled = TRUE;
+            $isPicasaEnabled = true;
 
         // Boolean : Does the Picasa plugin is enabled ?
         $template->picasa = $isPicasaEnabled;
@@ -484,14 +488,14 @@ class Galleria extends \Frontend {
      * @access public
      * @return boolean
      */
-    public function isHistoryEnabled($galerie) {
-
+    public function isHistoryEnabled($galerie)
+    {
         $objHistory = GalerieModel::findPublishedById($galerie, array('history'));
 
-        if ($objHistory->history == NULL)
-            $isHistoryEnabled = FALSE;
+        if ($objHistory->history == null)
+            $isHistoryEnabled = false;
         else
-            $isHistoryEnabled = TRUE;
+            $isHistoryEnabled = true;
 
         return $isHistoryEnabled;
     }
@@ -502,8 +506,8 @@ class Galleria extends \Frontend {
      * @access public
      * @return null
      */
-    public function getPictures($database, $galerie, $template, $imagesFolder, $sortBy, $size, $orderSRC) {
-
+    public function getPictures($database, $galerie, $template, $imagesFolder, $sortBy, $size, $orderSRC)
+    {
         // Adds a group of images from a folder
         $imagesFolder = deserialize($imagesFolder);
         $objFiles = \FilesModel::findMultipleByUuids($imagesFolder);
@@ -545,12 +549,12 @@ class Galleria extends \Frontend {
 
                     // Add the image
                     $images[$objFiles->path] = array
-                    (
+                        (
                         'id'           => $objFiles->id,
                         'uuid'         => $objFiles->uuid,
                         'name'         => $objFile->basename,
-                        'imageSRC'     => (($size[0] == NULL && $size[1] == NULL) ? $objFiles->path : (\Image::get($this->urlEncode($objFiles->path), $size[0], $size[1], $size[2]))),
-                        'thumbnailSRC' => \Image::get($this->urlEncode($objFiles->path), '100px', NULL, 'center_center'),
+                        'imageSRC'     => (($size[0] == null && $size[1] == null) ? $objFiles->path : (\Image::get($this->urlEncode($objFiles->path), $size[0], $size[1], $size[2]))),
+                        'thumbnailSRC' => \Image::get($this->urlEncode($objFiles->path), '100px', null, 'center_center'),
                         'title'        => $arrMeta['title'],
                         'imageUrl'     => $arrMeta['link'],
                         'alt'          => $arrMeta['caption']
@@ -594,12 +598,12 @@ class Galleria extends \Frontend {
 
                         // Add the image
                         $images[$objSubfiles->path] = array
-                        (
+                            (
                             'id'           => $objSubfiles->id,
                             'uuid'         => $objSubfiles->uuid,
                             'name'         => $objFile->basename,
-                            'imageSRC'     => (($size[0] == NULL && $size[1] == NULL) ? $objSubfiles->path : (\Image::get($this->urlEncode($objSubfiles->path), $size[0], $size[1], $size[2]))),
-                            'thumbnailSRC' => \Image::get($this->urlEncode($objSubfiles->path), '100px', NULL, 'center_center'),
+                            'imageSRC'     => (($size[0] == null && $size[1] == null) ? $objSubfiles->path : (\Image::get($this->urlEncode($objSubfiles->path), $size[0], $size[1], $size[2]))),
+                            'thumbnailSRC' => \Image::get($this->urlEncode($objSubfiles->path), '100px', null, 'center_center'),
                             'title'        => $arrMeta['title'],
                             'imageUrl'     => $arrMeta['link'],
                             'alt'          => $arrMeta['caption']
@@ -615,58 +619,58 @@ class Galleria extends \Frontend {
             {
                 default:
                 case 'name_asc':
-                        uksort($images, 'basename_natcasecmp');
-                        break;
+                    uksort($images, 'basename_natcasecmp');
+                break;
 
                 case 'name_desc':
-                        uksort($images, 'basename_natcasercmp');
-                        break;
+                    uksort($images, 'basename_natcasercmp');
+                break;
 
                 case 'date_asc':
-                        array_multisort($images, SORT_NUMERIC, $auxDate, SORT_ASC);
-                        break;
+                    array_multisort($images, SORT_NUMERIC, $auxDate, SORT_ASC);
+                break;
 
                 case 'date_desc':
-                        array_multisort($images, SORT_NUMERIC, $auxDate, SORT_DESC);
-                        break;
+                    array_multisort($images, SORT_NUMERIC, $auxDate, SORT_DESC);
+                break;
 
                 case 'meta': // Backwards compatibility
                 case 'custom':
-                        if ($orderSRC != '')
+                if ($orderSRC != '')
+                {
+                    $tmp = deserialize($orderSRC);
+
+                    if (!empty($tmp) && is_array($tmp))
+                    {
+                        // Remove all values
+                        $arrOrder = array_map(function(){}, array_flip($tmp));
+
+                        // Move the matching elements to their position in $arrOrder
+                        foreach ($images as $k => $v)
                         {
-                                $tmp = deserialize($orderSRC);
-
-                                if (!empty($tmp) && is_array($tmp))
-                                {
-                                        // Remove all values
-                                        $arrOrder = array_map(function(){}, array_flip($tmp));
-
-                                        // Move the matching elements to their position in $arrOrder
-                                        foreach ($images as $k=>$v)
-                                        {
-                                                if (array_key_exists($v['uuid'], $arrOrder))
-                                                {
-                                                        $arrOrder[$v['uuid']] = $v;
-                                                        unset($images[$k]);
-                                                }
-                                        }
-
-                                        // Append the left-over images at the end
-                                        if (!empty($images))
-                                        {
-                                                $arrOrder = array_merge($arrOrder, array_values($images));
-                                        }
-
-                                        // Remove empty (unreplaced) entries
-                                        $images = array_values(array_filter($arrOrder));
-                                        unset($arrOrder);
-                                }
+                            if (array_key_exists($v['uuid'], $arrOrder))
+                            {
+                                $arrOrder[$v['uuid']] = $v;
+                                unset($images[$k]);
+                            }
                         }
-                        break;
+
+                        // Append the left-over images at the end
+                        if (!empty($images))
+                        {
+                            $arrOrder = array_merge($arrOrder, array_values($images));
+                        }
+
+                        // Remove empty (unreplaced) entries
+                        $images = array_values(array_filter($arrOrder));
+                        unset($arrOrder);
+                    }
+                }
+                break;
 
                 case 'random':
-                        shuffle($images);
-                        break;
+                    shuffle($images);
+                break;
             }
 
             $images = array_values($images);
@@ -678,7 +682,7 @@ class Galleria extends \Frontend {
 
         // Retrieve the current gallery images
         $objPictures = $database->prepare("SELECT * FROM tl_galerie_pictures WHERE pid=? AND published=1 ORDER BY sorting")
-                ->execute($galerie);
+            ->execute($galerie);
 
         if ($objPictures->numRows > 0) {
 
@@ -699,8 +703,8 @@ class Galleria extends \Frontend {
                 // Is there an alternative thumbnail ? If not, we create the thumbnail from the main image.
                 ($objThumb ? ($thumbnail = $objThumb->path) : ($thumbnail = $objImg->path));
 
-                if($thumbSize[0] == NULL && $thumbSize[1] == NULL)
-                    $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), '100px', NULL, 'center_center');
+                if ($thumbSize[0] == null && $thumbSize[1] == null)
+                    $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), '100px', null, 'center_center');
                 else
                     $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), $thumbSize[0], $thumbSize[1], $thumbSize[2]);
 
@@ -722,12 +726,12 @@ class Galleria extends \Frontend {
             $pictures = array_values($arrPictures);
 
             // Add a group of images
-            if($total > 0)
+            if ($total > 0)
                 $pictures = array_merge($pictures, $images);
 
             $template->pictures = $pictures;
         }
-        else if($total > 0) {
+        elseif ($total > 0) {
             $template->pictures = $images;
         }
         else {
@@ -742,8 +746,8 @@ class Galleria extends \Frontend {
      * @access public
      * @return array
      */
-    public function getGalleriaTheme($galerie) {
-
+    public function getGalleriaTheme($galerie)
+    {
         $theme = array();
 
         $objThemesSRC = GalerieModel::findPublishedById($galerie, array('themesSRC'));
@@ -774,18 +778,18 @@ class Galleria extends \Frontend {
      * @param String
      * @return String
      */
-    public static function urlVerification($url) {
-
-        if(!empty($url)) {
+    public static function urlVerification($url)
+    {
+        if (!empty($url))
+        {
             $urlPrefix = strpos($url, "http://");
 
-            if($urlPrefix === false) {
+            if ($urlPrefix === false) {
                 $url = "http://" . $url;
             }
             return $url;
-        }
-        else
+        } else {
             return '';
+        }
     }
 }
-?>

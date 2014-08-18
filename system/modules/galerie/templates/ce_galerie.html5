@@ -3,20 +3,20 @@
         <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
     <?php endif; ?>
 
-    <?php if (($this->noImages == TRUE) && ($this->flickr == FALSE) && ($this->picasa == FALSE)): echo '<p>'.$this->noImages.'</p></section>'; ?>
+    <?php if (($this->noImages == true) && ($this->flickr == false) && ($this->picasa == false)): echo '<p>'.$this->noImages.'</p></section>'; ?>
     <?php else: ?>
 
-        <?php if (($this->flickr == FALSE) && ($this->picasa == FALSE)): ?>
+        <?php if (($this->flickr == false) && ($this->picasa == false)): ?>
 
             <div id="<?php echo $this->alias.'-'.$this->moduleID; ?>">
 
                 <?php foreach ($this->pictures as $pictures):
 
-                    if (($pictures['video'] != NULL) && ($pictures['iframe'] == NULL)):
+                    if (($pictures['video'] != null) && ($pictures['iframe'] == null)):
 
                         echo '<a href="' . $pictures['video'] . '"><span class="video" ' . ($pictures['imageSRC'] ? 'data-image="'.$pictures['imageSRC'].'" src="'.$pictures['thumbnailSRC'].'"' : '') . " " . ($pictures['alt'] ? 'data-description="'.$pictures['alt'].'"' : '') . '></span></a>';
 
-                    elseif (($pictures['iframe'] != NULL) && ($pictures['video'] == NULL)):
+                    elseif (($pictures['iframe'] != null) && ($pictures['video'] == null)):
                         if ($pictures['iframeThumb'] == 1):
                             echo '<a href="' . $pictures['iframe'] . '"><span class="iframe"></span></a>';
                         else:
@@ -45,13 +45,13 @@ Galleria.loadTheme('<?php echo $this->pathJS; ?>');
 Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>' , {
     <?php echo $this->options; ?>
 
-    <?php if ($this->flickr == TRUE): echo ',' ?>
+    <?php if ($this->flickr == true): echo ',' ?>
 
         <?php echo $this->flickrFunction; ?>
 
     <?php endif; ?>
 
-    <?php if ($this->picasa == TRUE): echo ',' ?>
+    <?php if ($this->picasa == true): echo ',' ?>
 
         <?php echo $this->picasaFunction; ?>
 
