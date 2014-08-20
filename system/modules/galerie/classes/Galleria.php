@@ -334,7 +334,7 @@ class Galleria extends \Frontend
             /* Flickr options *
              ******************/
 
-            // If the tested values ​​are not the default values, then it saves.
+            // If the tested values are not the default values, then it saves.
             $flickrOptions = array();
 
             if ($arrOptions['flickrOptMax'] != 30)
@@ -426,11 +426,11 @@ class Galleria extends \Frontend
 
         // Path of the JavaScript file for the function loadTheme() included in the template
         $theme = $this->getGalleriaTheme($galerie);
-
-        if ($arrOptions['minifiedJS'] != '1') {
-            $pathJS = $theme[0] . '/galleria' . '.' . $theme[1] . '.js';
-        } else {
+        
+        if (file_exists(TL_ROOT . '/' . $theme[0] . '/galleria' . '.' . $theme[1] . '.min.js')) {
             $pathJS = $theme[0] . '/galleria' . '.' . $theme[1] . '.min.js';
+        } else {
+            $pathJS = $theme[0] . '/galleria' . '.' . $theme[1] . '.js';
         }
 
         $template->pathJS = $pathJS;
@@ -450,10 +450,12 @@ class Galleria extends \Frontend
     {
         $objFlickr = GalerieModel::findPublishedById($galerie, array('flickr'));
 
-        if ($objFlickr->flickr == null)
+        if ($objFlickr->flickr == null) {
             $isFlickrEnabled = false;
-        else
+        }
+        else {
             $isFlickrEnabled = true;
+        }
 
         // Boolean : Does the Flickr plugin is enabled ?
         $template->flickr = $isFlickrEnabled;
@@ -471,10 +473,12 @@ class Galleria extends \Frontend
     {
         $objPicasa = GalerieModel::findPublishedById($galerie, array('picasa'));
 
-        if ($objPicasa->picasa == null)
+        if ($objPicasa->picasa == null) {
             $isPicasaEnabled = false;
-        else
+        }
+        else {
             $isPicasaEnabled = true;
+        }
 
         // Boolean : Does the Picasa plugin is enabled ?
         $template->picasa = $isPicasaEnabled;

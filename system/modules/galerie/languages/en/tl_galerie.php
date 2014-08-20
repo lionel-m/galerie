@@ -17,7 +17,6 @@ $GLOBALS['TL_LANG']['tl_galerie']['title'] = array('Title', 'Please enter the ga
 $GLOBALS['TL_LANG']['tl_galerie']['alias'] = array('Alias', 'This alias is a unique reference to the gallery which can be called instead of its numeric ID.');
 $GLOBALS['TL_LANG']['tl_galerie']['published'] = array('Publish', 'Make the gallery publicly visible on the website.');
 $GLOBALS['TL_LANG']['tl_galerie']['themesSRC'] = array('Themes', 'Select the theme folder of the gallery. (e.g. "classic")');
-$GLOBALS['TL_LANG']['tl_galerie']['minifiedJS'] = array('Use minified JavaScript file', 'Use minified JavaScript if available.');
 
 // Options
 $GLOBALS['TL_LANG']['tl_galerie']['width'] = array('Width (Number or \'auto\')', 'By default, Galleria fetches the width from the containing element. But you can use this option to set a gallery width manually.');

@@ -22,15 +22,16 @@ namespace Galleria;
  * @author     Lionel Maccaud
  * @package    Controller
  */
-class ModuleGalerie extends \Module {
-
+class ModuleGalerie extends \Module
+{
     /**
      * Template
      * @var string
      */
     protected $strTemplate = 'ce_galerie';
 
-    public function generate() {
+    public function generate()
+    {
 
         if (TL_MODE == 'BE') {
             $objTemplate = new \BackendTemplate('be_wildcard');
@@ -49,8 +50,8 @@ class ModuleGalerie extends \Module {
     /**
      * Generate module
      */
-    protected function compile() {
-
+    protected function compile()
+    {
         $this->Template = new \FrontendTemplate('ce_galerie');
         $this->import('Database');
         $galleria = new Galleria();
@@ -66,17 +67,17 @@ class ModuleGalerie extends \Module {
             $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/galleria/galleria-1.4.2.js';
 
             // Flickr Plugin
-            if($galleria->isFlickrEnabled($this->galerie, $this->Template)) {
+            if ($galleria->isFlickrEnabled($this->galerie, $this->Template)) {
                 $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/flickr/galleria.flickr.js';
             }
 
             // History Plugin
-            if($galleria->isHistoryEnabled($this->galerie)) {
+            if ($galleria->isHistoryEnabled($this->galerie)) {
                 $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/history/galleria.history.js';
             }
 
             // Picasa Plugin
-            if($galleria->isPicasaEnabled($this->galerie, $this->Template)) {
+            if ($galleria->isPicasaEnabled($this->galerie, $this->Template)) {
                 $GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/galerie/html/external/plugins/picasa/galleria.picasa.js';
             }
         }
