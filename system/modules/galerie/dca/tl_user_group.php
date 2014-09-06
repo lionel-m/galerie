@@ -22,21 +22,21 @@ $GLOBALS['TL_DCA']['tl_user_group']['palettes']['default'] = str_replace('fop;',
  */
 $GLOBALS['TL_DCA']['tl_user_group']['fields']['galleria'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_user']['galleria'],
-	'exclude'                 => true,
-	'inputType'               => 'checkbox',
-	'foreignKey'              => 'tl_galerie.title',
-	'eval'                    => array('multiple'=>true),
-	'sql'                     => "blob NULL"
+    'label'                   => &$GLOBALS['TL_LANG']['tl_user']['galleria'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+    'foreignKey'              => 'tl_galerie.title',
+    'eval'                    => array('multiple'=>true),
+    'sql'                     => "blob NULL"
 );
 
 $GLOBALS['TL_DCA']['tl_user_group']['fields']['galleria_permission'] = array
 (
-	'label'                   => &$GLOBALS['TL_LANG']['tl_user']['galleria_permission'],
-	'exclude'                 => true,
-	'inputType'               => 'checkbox',
-	'options'                 => array('create', 'delete'),
-	'reference'               => &$GLOBALS['TL_LANG']['MSC'],
-	'eval'                    => array('multiple'=>true),
-	'sql'                     => "blob NULL"
+    'label'                   => &$GLOBALS['TL_LANG']['tl_user']['galleria_permission'],
+    'exclude'                 => true,
+    'inputType'               => 'checkbox',
+    'options'                 => array('create', 'delete'),
+    'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+    'eval'                    => array('multiple'=>true),
+    'sql'                     => "blob NULL"
 );

@@ -42,7 +42,6 @@ class Galleria extends \Frontend
         $objOptions = GalerieModel::findPublishedById($galerie, array('*'));
 
         if ($objOptions !== null) {
-
             $arrOptions = $objOptions->row();
 
             /* Standard options *
@@ -51,106 +50,151 @@ class Galleria extends \Frontend
             $options = array();
 
             // type: Number or String
-            if (is_numeric($arrOptions['width']) && $arrOptions['width'] > 0)
+            if (is_numeric($arrOptions['width']) && $arrOptions['width'] > 0) {
                 $options[0] = 'width: ' . $arrOptions['width'];
-            elseif (!is_numeric($arrOptions['width']) && $arrOptions['width'] != null)
+            } elseif (!is_numeric($arrOptions['width']) && $arrOptions['width'] != null) {
                 $options[0] = 'width: ' . "'" . $arrOptions['width'] . "'";
+            }
 
             // type: Number
-            if ($arrOptions['height'] > 0)
+            if ($arrOptions['height'] > 0) {
                 $options[1] = 'height: ' . $arrOptions['height'];
+            }
 
             // type: String
-            if ($arrOptions['transition'] != null)
+            if ($arrOptions['transition'] != null) {
                 $options[2] = 'transition: ' . "'" . $arrOptions['transition'] . "'";
+            }
 
             // type: String
-            if ($arrOptions['initialTransition'] != null)
+            if ($arrOptions['initialTransition'] != null) {
                 $options[3] = 'initialTransition: ' . "'" . $arrOptions['initialTransition'] . "'";
+            }
 
             // type: Boolean
-            ($arrOptions['clicknext'] == '' ? $options[4] = 'clicknext: false' : $options[4] = 'clicknext: true');
+            if ($arrOptions['clicknext'] == '') {
+                $options[4] = 'clicknext: false';
+            } else {
+                $options[4] = 'clicknext: true';
+            }
 
             // type: Boolean
-            ($arrOptions['showImagenav'] == '' ? $options[5] = 'showImagenav: false' : $options[5] = 'showImagenav: true');
+            if ($arrOptions['showImagenav'] == '') {
+                $options[5] = 'showImagenav: false';
+            } else {
+                $options[5] = 'showImagenav: true';
+            }
 
             // type: Boolean
-            ($arrOptions['showCounter'] == '' ? $options[6] = 'showCounter: false' : $options[6] = 'showCounter: true');
+            if ($arrOptions['showCounter'] == '') {
+                $options[6] = 'showCounter: false';
+            } else {
+                $options[6] = 'showCounter: true';
+            }
 
             // type: Boolean
-            ($arrOptions['lightbox'] == '' ? $options[7] = 'lightbox: false' : $options[7] = 'lightbox: true');
+            if ($arrOptions['lightbox'] == '') {
+                $options[7] = 'lightbox: false';
+            } else {
+                $options[7] = 'lightbox: true';
+            }
 
             // type: String
-            if ($arrOptions['lightbox'] == '1')
+            if ($arrOptions['lightbox'] == '1') {
                 $options[8] = 'overlayBackground: ' . "'#" . $arrOptions['overlayBackground'] . "'";
+            }
 
             // type: Number
-            if ($arrOptions['lightbox'] == '1')
+            if ($arrOptions['lightbox'] == '1') {
                 $options[9] = 'overlayOpacity: ' . $arrOptions['overlayOpacity'];
+            }
 
             // type: Boolean or String
             if ($arrOptions['imageCrop'] != null) {
-                if (($arrOptions['imageCrop'] == 'false') || ($arrOptions['imageCrop'] == 'true'))
+                if (($arrOptions['imageCrop'] == 'false') || ($arrOptions['imageCrop'] == 'true')) {
                     $options[10] = 'imageCrop: ' . $arrOptions['imageCrop'];
-                else
+                } else {
                     $options[10] = 'imageCrop: ' . "'" . $arrOptions['imageCrop'] . "'";
+                }
             }
 
             // type: Number
             $options[11] = 'imageMargin: ' . $arrOptions['imageMargin'];
 
             // type: Boolean
-            ($arrOptions['imagePan'] == '' ? $options[12] = 'imagePan: false' : $options[12] = 'imagePan: true');
+            if ($arrOptions['imagePan'] == '') {
+                $options[12] = 'imagePan: false';
+            } else {
+                $options[12] = 'imagePan: true';
+            }
 
             // type: Boolean or Number
             if ($arrOptions['autoplay'] == '1') {
-                if(is_numeric($arrOptions['autoplayInterval']))
+                if (is_numeric($arrOptions['autoplayInterval'])) {
                     $options[13] = 'autoplay: ' . $arrOptions['autoplayInterval'];
+                }
             }
 
             // type: Boolean
-            ($arrOptions['carousel'] == '' ? $options[14] = 'carousel: false' : $options[14] = 'carousel: true');
+            if ($arrOptions['carousel'] == '') {
+                $options[14] = 'carousel: false';
+            } else {
+                $options[14] = 'carousel: true';
+            }
 
             // type: Number
             $options[16] = 'carouselSpeed: ' . $arrOptions['carouselSpeed'];
 
             // type: Number or String
-            if (is_numeric($arrOptions['carouselSteps']))
+            if (is_numeric($arrOptions['carouselSteps'])) {
                 $options[17] = 'carouselSteps: ' . $arrOptions['carouselSteps'];
-            else
+            } else {
                 $options[17] = 'carouselSteps: ' . "'" . $arrOptions['carouselSteps'] ."'";
+            }
 
             // type: Number
-            if ($arrOptions['lightbox'] == '1')
+            if ($arrOptions['lightbox'] == '1') {
                 $options[18] = 'lightboxFadeSpeed: ' . $arrOptions['lightboxFadeSpeed'];
+            }
 
             // type: Number
-            if ($arrOptions['lightbox'] == '1')
+            if ($arrOptions['lightbox'] == '1') {
                 $options[19] = 'lightboxTransitionSpeed: ' . $arrOptions['lightboxTransitionSpeed'];
+            }
 
             // type: Boolean
-            ($arrOptions['pauseOnInteraction'] == '' ? $options[20] = 'pauseOnInteraction: false' : $options[20] = 'pauseOnInteraction: true');
+            if ($arrOptions['pauseOnInteraction'] == '') {
+                $options[20] = 'pauseOnInteraction: false';
+            } else {
+                $options[20] = 'pauseOnInteraction: true';
+            }
 
             // type: Number
             $options[21] = 'show: ' . $arrOptions['gShow'];
 
             // type: Boolean
-            ($arrOptions['showInfo'] == '' ? $options[22] = 'showInfo: false' : $options[22] = 'showInfo: true');
+            if ($arrOptions['showInfo'] == '') {
+                $options[22] = 'showInfo: false';
+            } else {
+                $options[22] = 'showInfo: true';
+            }
 
             // type: Boolean or String
             if ($arrOptions['thumbnails'] != null) {
-                if (($arrOptions['thumbnails'] == 'true') || ($arrOptions['thumbnails'] == 'false'))
+                if (($arrOptions['thumbnails'] == 'true') || ($arrOptions['thumbnails'] == 'false')) {
                     $options[23] = 'thumbnails: ' . $arrOptions['thumbnails'];
-                else
+                } else {
                     $options[23] = 'thumbnails: ' . "'" . $arrOptions['thumbnails'] . "'";
+                }
             }
 
             // type: Boolean or String
             if ($arrOptions['thumbCrop'] != null) {
-                if (($arrOptions['thumbCrop'] == 'true') || ($arrOptions['thumbCrop'] == 'false'))
+                if (($arrOptions['thumbCrop'] == 'true') || ($arrOptions['thumbCrop'] == 'false')) {
                     $options[24] = 'thumbCrop: ' . $arrOptions['thumbCrop'];
-                else
+                } else {
                     $options[24] = 'thumbCrop: ' . "'" . $arrOptions['thumbCrop'] . "'";
+                }
             }
 
             // type: Number
@@ -158,127 +202,181 @@ class Galleria extends \Frontend
 
             // type: Boolean or String
             if ($arrOptions['thumbQuality'] != null) {
-                if (($arrOptions['thumbQuality'] == 'true') || ($arrOptions['thumbQuality'] == 'false'))
+                if (($arrOptions['thumbQuality'] == 'true') || ($arrOptions['thumbQuality'] == 'false')) {
                     $options[27] = 'thumbQuality: ' . $arrOptions['thumbQuality'];
-                else
+                } else {
                     $options[27] = 'thumbQuality: ' . "'" . $arrOptions['thumbQuality'] . "'";
+                }
             }
 
             // type: Number
             // Only works if "image_pan" is set to true
-            if ($arrOptions['imagePan'] == '1')
+            if ($arrOptions['imagePan'] == '1') {
                 $options[28] = 'imagePanSmoothness: ' . $arrOptions['imagePanSmoothness'];
+            }
 
             // type: String
-            if ($arrOptions['easing'] != null)
+            if ($arrOptions['easing'] != null) {
                 $options[29] = 'easing: ' . "'" . $arrOptions['easing'] . "'";
+            }
 
             // type: Number
             $options[30] = 'transitionSpeed: ' . $arrOptions['transitionSpeed'];
 
             // type: Boolean
-            ($arrOptions['popupLinks'] == '' ? $options[31] = 'popupLinks: false' : $options[31] = 'popupLinks: true');
+            if ($arrOptions['popupLinks'] == '') {
+                $options[31] = 'popupLinks: false';
+            } else {
+                $options[31] = 'popupLinks: true';
+            }
 
             // type: String or Number
-            if (is_numeric($arrOptions['preload']))
+            if (is_numeric($arrOptions['preload'])) {
                 $options[32] = 'preload: ' . $arrOptions['preload'];
-            else
+            } else {
                 $options[32] = 'preload: ' . "'" . $arrOptions['preload'] . "'";
+            }
 
             // type: Function
-            if ($arrOptions['extend'] != null)
+            if ($arrOptions['extend'] != null) {
                 $options[33] = $arrOptions['extend'];
+            }
 
             // type: Boolean
-            ($arrOptions['debug'] == '' ? $options[34] = 'debug: false' : $options[34] = 'debug: true');
+            if ($arrOptions['debug'] == '') {
+                $options[34] = 'debug: false';
+            } else {
+                $options[34] = 'debug: true';
+            }
 
             // type: Boolean
-            ($arrOptions['queue'] == '' ? $options[35] = 'queue: false' : $options[35] = 'queue: true');
+            if ($arrOptions['queue'] == '') {
+                $options[35] = 'queue: false';
+            } else {
+                $options[35] = 'queue: true';
+            }
 
             // type: String
-            if ($arrOptions['imagePosition'] != null)
+            if ($arrOptions['imagePosition'] != null) {
                 $options[36] = 'imagePosition: ' . "'" . $arrOptions['imagePosition'] . "'";
+            }
 
             // type: Number
             $options[38] = 'maxScaleRatio: ' . $arrOptions['maxScaleRatio'];
 
             // type: Boolean
-            ($arrOptions['swipe'] == '' ? $options[39] = 'swipe: false' : $options[39] = 'swipe: true');
+            if ($arrOptions['swipe'] == '') {
+                $options[39] = 'swipe: false';
+            } else {
+                $options[39] = 'swipe: true';
+            }
 
             // type: Boolean
-            ($arrOptions['fullscreenDoubleTap'] == '' ? $options[40] = 'fullscreenDoubleTap: false' : $options[40] = 'fullscreenDoubleTap: true');
+            if ($arrOptions['fullscreenDoubleTap'] == '') {
+                $options[40] = 'fullscreenDoubleTap: false';
+            } else {
+                $options[40] = 'fullscreenDoubleTap: true';
+            }
 
             // type: Boolean
-            ($arrOptions['layerFollow'] == '' ? $options[41] = 'layerFollow: false' : $options[41] = 'layerFollow: true');
+            if ($arrOptions['layerFollow'] == '') {
+                $options[41] = 'layerFollow: false';
+            } else {
+                $options[41] = 'layerFollow: true';
+            }
 
             // type: String
             $dummy = deserialize($arrOptions['dummy']);
             $objDummy = \FilesModel::findByUuid($dummy);
-            if ($arrOptions['dummy'] != null)
+            if ($arrOptions['dummy'] != null) {
                 $options[42] = 'dummy: ' . "'" . $objDummy->path . "'";
+            }
 
             // type: Number
             $options[43] = 'imageTimeout: ' . $arrOptions['imageTimeout'];
 
             // type: Boolean or String
             if ($arrOptions['fullscreenCrop'] != null) {
-                if (($arrOptions['fullscreenCrop'] == 'false') || ($arrOptions['fullscreenCrop'] == 'true'))
+                if (($arrOptions['fullscreenCrop'] == 'false') || ($arrOptions['fullscreenCrop'] == 'true')) {
                     $options[44] = 'fullscreenCrop: ' . $arrOptions['fullscreenCrop'];
-                else
+                } else {
                     $options[44] = 'fullscreenCrop: ' . "'" . $arrOptions['fullscreenCrop'] . "'";
+                }
             }
 
             // type: String
-            if ($arrOptions['fullscreenTransition'] != null)
+            if ($arrOptions['fullscreenTransition'] != null) {
                 $options[45] = 'fullscreenTransition: ' . "'" . $arrOptions['fullscreenTransition'] . "'";
+            }
 
             // type: String
-            if ($arrOptions['touchTransition'] != null)
+            if ($arrOptions['touchTransition'] != null) {
                 $options[46] = 'touchTransition: ' . "'" . $arrOptions['touchTransition'] . "'";
+            }
 
             // type: String or Array
-            if ($arrOptions['dataSource'] != null)
+            if ($arrOptions['dataSource'] != null) {
                 $options[47] = 'dataSource: ' . $arrOptions['dataSource'];
+            }
 
             // type: String
-            if ($arrOptions['dataSelector'] != null)
+            if ($arrOptions['dataSelector'] != null) {
                 $options[48] = 'dataSelector: ' . $arrOptions['dataSelector'];
+            }
 
             // type: Boolean
-            if ($arrOptions['keepSource'] == '' ? $options[49] = 'keepSource: false' : $options[49] = 'keepSource: true');
+            if ($arrOptions['keepSource'] == '') {
+                $options[49] = 'keepSource: false';
+            } else {
+                $options[49] = 'keepSource: true';
+            }
 
             // type: Function
-            if ($arrOptions['dataConfig'] != null)
+            if ($arrOptions['dataConfig'] != null) {
                 $options[50] = $arrOptions['dataConfig'];
+            }
 
             // type: Boolean
-            ($arrOptions['trueFullscreen'] == '' ? $options[51] = 'trueFullscreen: false' : $options[51] = 'trueFullscreen: true');
+            if ($arrOptions['trueFullscreen'] == '') {
+                $options[51] = 'trueFullscreen: false';
+            } else {
+                $options[51] = 'trueFullscreen: true';
+            }
 
             // type: Boolean
-            ($arrOptions['responsive'] == '' ? $options[52] = 'responsive: false' : $options[52] = 'responsive: true');
+            if ($arrOptions['responsive'] == '') {
+                $options[52] = 'responsive: false';
+            } else {
+                $options[52] = 'responsive: true';
+            }
 
             // type: Number or Boolean
-            if ($arrOptions['wait'] != null)
+            if ($arrOptions['wait'] != null) {
                 $options[53] = 'wait: ' . $arrOptions['wait'];
+            }
 
             // type: Object
-            if ($arrOptions['dailymotion'] != null)
+            if ($arrOptions['dailymotion'] != null) {
                 $options[54] = 'dailymotion: ' . $arrOptions['dailymotion'];
+            }
 
             // type: Object
-            if ($arrOptions['vimeo'] != null)
+            if ($arrOptions['vimeo'] != null) {
                 $options[55] = 'vimeo: ' . $arrOptions['vimeo'];
+            }
 
             // type: Object
-            if ($arrOptions['youtube'] != null)
+            if ($arrOptions['youtube'] != null) {
                 $options[56] = 'youtube: ' . $arrOptions['youtube'];
+            }
 
             // type: Boolean or String
             if ($arrOptions['idleMode'] != null) {
-                if (($arrOptions['idleMode'] == 'false') || ($arrOptions['idleMode'] == 'true'))
+                if (($arrOptions['idleMode'] == 'false') || ($arrOptions['idleMode'] == 'true')) {
                     $options[57] = 'idleMode: ' . $arrOptions['idleMode'];
-                else
+                } else {
                     $options[57] = 'idleMode: ' . "'" . $arrOptions['idleMode'] . "'";
+                }
             }
 
             // type: Number
@@ -288,28 +386,40 @@ class Galleria extends \Frontend
             $options[59] = 'idleSpeed: ' . $arrOptions['idleSpeed'];
 
             // type: Boolean
-            ($arrOptions['thumbDisplayOrder'] == '' ? $options[60] = 'thumbDisplayOrder: false' : $options[60] = 'thumbDisplayOrder: true');
+            if ($arrOptions['thumbDisplayOrder'] == '') {
+                $options[60] = 'thumbDisplayOrder: false';
+            } else {
+                $options[60] = 'thumbDisplayOrder: true';
+            }
 
             // type: Function or String
-            if ($arrOptions['dataSort'] != null)
+            if ($arrOptions['dataSort'] != null) {
                 $options[61] = $arrOptions['dataSort'];
+            }
 
             // type: Number
-            if ($arrOptions['maxVideoSize'] == 0)
+            if ($arrOptions['maxVideoSize'] == 0) {
                 $options[62] = 'maxVideoSize: ' . "'undefined'";
-            else
+            } else {
                 $options[62] = 'maxVideoSize: ' . $arrOptions['maxVideoSize'];
+            }
 
             // type: String
-            if($arrOptions['variation'] != null)
+            if ($arrOptions['variation'] != null) {
                 $options[63] = 'variation: ' . "'" . $arrOptions['variation'] . "'";
+            }
 
             // type: Boolean
-            ($arrOptions['videoPoster'] == '' ? $options[64] = 'videoPoster: false' : $options[64] = 'videoPoster: true');
+            if ($arrOptions['videoPoster'] == '') {
+                $options[64] = 'videoPoster: false';
+            } else {
+                $options[64] = 'videoPoster: true';
+            }
 
             // type: String
-            if ($arrOptions['thumbPosition'] != null)
+            if ($arrOptions['thumbPosition'] != null) {
                 $options[65] = 'thumbPosition: ' . "'" . $arrOptions['thumbPosition'] . "'";
+            }
 
             // Reindex the array
             $options = array_values($options);
@@ -337,20 +447,25 @@ class Galleria extends \Frontend
             // If the tested values are not the default values, then it saves.
             $flickrOptions = array();
 
-            if ($arrOptions['flickrOptMax'] != 30)
+            if ($arrOptions['flickrOptMax'] != 30) {
                 $flickrOptions[0] = 'max: ' . $arrOptions['flickrOptMax'];
+            }
 
-            if ($arrOptions['flickrOptImageSize'] != 'medium')
+            if ($arrOptions['flickrOptImageSize'] != 'medium') {
                 $flickrOptions[1] = 'imageSize: ' . "'" . $arrOptions['flickrOptImageSize'] . "'";
+            }
 
-            if ($arrOptions['flickrOptThumbSize'] != 'thumb')
+            if ($arrOptions['flickrOptThumbSize'] != 'thumb') {
                 $flickrOptions[2] = 'thumbSize: ' . "'" . $arrOptions['flickrOptThumbSize'] . "'";
+            }
 
-            if ($arrOptions['flickrOptSort'] != 'interestingness-desc')
+            if ($arrOptions['flickrOptSort'] != 'interestingness-desc') {
                 $flickrOptions[3] = 'sort: ' . "'" . $arrOptions['flickrOptSort'] . "'";
+            }
 
-            if ($arrOptions['flickrOptDescription'] == '1')
+            if ($arrOptions['flickrOptDescription'] == '1') {
                 $flickrOptions[4] = 'description: true';
+            }
 
             // Reindex the array
             $flickrOptions = array_values($flickrOptions);
@@ -452,8 +567,7 @@ class Galleria extends \Frontend
 
         if ($objFlickr->flickr == null) {
             $isFlickrEnabled = false;
-        }
-        else {
+        } else {
             $isFlickrEnabled = true;
         }
 
@@ -475,8 +589,7 @@ class Galleria extends \Frontend
 
         if ($objPicasa->picasa == null) {
             $isPicasaEnabled = false;
-        }
-        else {
+        } else {
             $isPicasaEnabled = true;
         }
 
@@ -496,10 +609,11 @@ class Galleria extends \Frontend
     {
         $objHistory = GalerieModel::findPublishedById($galerie, array('history'));
 
-        if ($objHistory->history == null)
+        if ($objHistory->history == null) {
             $isHistoryEnabled = false;
-        else
+        } else {
             $isHistoryEnabled = true;
+        }
 
         return $isHistoryEnabled;
     }
@@ -523,31 +637,25 @@ class Galleria extends \Frontend
         $auxDate = array();
 
         if ($objFiles !== null) {
-
             // Get all images
-            while ($objFiles->next())
-            {
+            while ($objFiles->next()) {
                 // Continue if the files has been processed or does not exist
-                if (isset($images[$objFiles->path]) || !file_exists(TL_ROOT . '/' . $objFiles->path))
-                {
+                if (isset($images[$objFiles->path]) || !file_exists(TL_ROOT . '/' . $objFiles->path)) {
                     continue;
                 }
 
                 // Single files
-                if ($objFiles->type == 'file')
-                {
+                if ($objFiles->type == 'file') {
                     $objFile = new \File($objFiles->path, true);
 
-                    if (!$objFile->isGdImage)
-                    {
+                    if (!$objFile->isGdImage) {
                         continue;
                     }
 
                     $arrMeta = $this->getMetaData($objFiles->meta, $objPage->language);
 
                     // Use the file name as title if none is given
-                    if ($arrMeta['title'] == '')
-                    {
+                    if ($arrMeta['title'] == '') {
                         $arrMeta['title'] = specialchars(str_replace('_', ' ', $objFile->filename));
                     }
 
@@ -566,37 +674,30 @@ class Galleria extends \Frontend
 
                     $auxDate[] = $objFile->mtime;
                 }
-
                 // Folders
-                else
-                {
+                else {
                     $objSubfiles = \FilesModel::findByPid($objFiles->uuid);
 
-                    if ($objSubfiles === null)
-                    {
+                    if ($objSubfiles === null) {
                         continue;
                     }
 
-                    while ($objSubfiles->next())
-                    {
+                    while ($objSubfiles->next()) {
                         // Skip subfolders
-                        if ($objSubfiles->type == 'folder')
-                        {
+                        if ($objSubfiles->type == 'folder') {
                             continue;
                         }
 
                         $objFile = new \File($objSubfiles->path, true);
 
-                        if (!$objFile->isGdImage)
-                        {
+                        if (!$objFile->isGdImage) {
                             continue;
                         }
 
                         $arrMeta = $this->getMetaData($objSubfiles->meta, $objPage->language);
 
                         // Use the file name as title if none is given
-                        if ($arrMeta['title'] == '')
-                        {
+                        if ($arrMeta['title'] == '') {
                             $arrMeta['title'] = specialchars(str_replace('_', ' ', $objFile->filename));
                         }
 
@@ -624,63 +725,57 @@ class Galleria extends \Frontend
                 default:
                 case 'name_asc':
                     uksort($images, 'basename_natcasecmp');
-                break;
+                    break;
 
                 case 'name_desc':
                     uksort($images, 'basename_natcasercmp');
-                break;
+                    break;
 
                 case 'date_asc':
                     array_multisort($images, SORT_NUMERIC, $auxDate, SORT_ASC);
-                break;
+                    break;
 
                 case 'date_desc':
                     array_multisort($images, SORT_NUMERIC, $auxDate, SORT_DESC);
-                break;
+                    break;
 
                 case 'meta': // Backwards compatibility
                 case 'custom':
-                if ($orderSRC != '')
-                {
-                    $tmp = deserialize($orderSRC);
+                    if ($orderSRC != '') {
+                        $tmp = deserialize($orderSRC);
 
-                    if (!empty($tmp) && is_array($tmp))
-                    {
-                        // Remove all values
-                        $arrOrder = array_map(function(){}, array_flip($tmp));
+                        if (!empty($tmp) && is_array($tmp)) {
+                            // Remove all values
+                            $arrOrder = array_map(function(){}, array_flip($tmp));
 
-                        // Move the matching elements to their position in $arrOrder
-                        foreach ($images as $k => $v)
-                        {
-                            if (array_key_exists($v['uuid'], $arrOrder))
-                            {
-                                $arrOrder[$v['uuid']] = $v;
-                                unset($images[$k]);
+                            // Move the matching elements to their position in $arrOrder
+                            foreach ($images as $k => $v) {
+                                if (array_key_exists($v['uuid'], $arrOrder)) {
+                                    $arrOrder[$v['uuid']] = $v;
+                                    unset($images[$k]);
+                                }
                             }
-                        }
 
-                        // Append the left-over images at the end
-                        if (!empty($images))
-                        {
-                            $arrOrder = array_merge($arrOrder, array_values($images));
-                        }
+                            // Append the left-over images at the end
+                            if (!empty($images)) {
+                                $arrOrder = array_merge($arrOrder, array_values($images));
+                            }
 
-                        // Remove empty (unreplaced) entries
-                        $images = array_values(array_filter($arrOrder));
-                        unset($arrOrder);
+                            // Remove empty (unreplaced) entries
+                            $images = array_values(array_filter($arrOrder));
+                            unset($arrOrder);
+                        }
                     }
-                }
-                break;
+                    break;
 
                 case 'random':
                     shuffle($images);
-                break;
+                    break;
             }
 
             $images = array_values($images);
             $total = count($images);
-        }
-        else {
+        } else {
             $total = 0;
         }
 
@@ -689,9 +784,7 @@ class Galleria extends \Frontend
             ->execute($galerie);
 
         if ($objPictures->numRows > 0) {
-
             while ($objPictures->next()) {
-
                 // Standard image
                 $imgSize = deserialize($objPictures->size);
                 $objImg = \FilesModel::findByUuid($objPictures->singleSRC);
@@ -707,10 +800,11 @@ class Galleria extends \Frontend
                 // Is there an alternative thumbnail ? If not, we create the thumbnail from the main image.
                 ($objThumb ? ($thumbnail = $objThumb->path) : ($thumbnail = $objImg->path));
 
-                if ($thumbSize[0] == null && $thumbSize[1] == null)
+                if ($thumbSize[0] == null && $thumbSize[1] == null) {
                     $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), '100px', null, 'center_center');
-                else
+                } else {
                     $thumbnailSRC = \Image::get($this->urlEncode($thumbnail), $thumbSize[0], $thumbSize[1], $thumbSize[2]);
+                }
 
                 $arrPictures[$objPictures->id] = array(
                     'alt'                   => $objPictures->alt,
@@ -730,15 +824,14 @@ class Galleria extends \Frontend
             $pictures = array_values($arrPictures);
 
             // Add a group of images
-            if ($total > 0)
+            if ($total > 0) {
                 $pictures = array_merge($pictures, $images);
+            }
 
             $template->pictures = $pictures;
-        }
-        elseif ($total > 0) {
+        } elseif ($total > 0) {
             $template->pictures = $images;
-        }
-        else {
+        } else {
             $template->pictures = array();
             $template->noImages = $GLOBALS['TL_LANG']['MSC']['noImages'];
         }
@@ -784,8 +877,7 @@ class Galleria extends \Frontend
      */
     public static function urlVerification($url)
     {
-        if (!empty($url))
-        {
+        if (!empty($url)) {
             $urlPrefix = strpos($url, "http://");
 
             if ($urlPrefix === false) {

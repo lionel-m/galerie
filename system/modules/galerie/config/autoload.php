@@ -16,7 +16,7 @@
  */
 ClassLoader::addNamespaces(array
 (
-	'Galleria',
+    'Galleria',
 ));
 
 
@@ -25,17 +25,17 @@ ClassLoader::addNamespaces(array
  */
 ClassLoader::addClasses(array
 (
-	// Classes
-	'Galleria\Galleria'       => 'system/modules/galerie/classes/Galleria.php',
+    // Classes
+    'Galleria\Galleria'       => 'system/modules/galerie/classes/Galleria.php',
 
-	// Elements
-	'Galleria\ContentGalerie' => 'system/modules/galerie/elements/ContentGalerie.php',
+    // Elements
+    'Galleria\ContentGalerie' => 'system/modules/galerie/elements/ContentGalerie.php',
 
-	// Models
-	'Galleria\GalerieModel'   => 'system/modules/galerie/models/GalerieModel.php',
+    // Models
+    'Galleria\GalerieModel'   => 'system/modules/galerie/models/GalerieModel.php',
 
-	// Modules
-	'Galleria\ModuleGalerie'  => 'system/modules/galerie/modules/ModuleGalerie.php',
+    // Modules
+    'Galleria\ModuleGalerie'  => 'system/modules/galerie/modules/ModuleGalerie.php',
 ));
 
 
@@ -44,5 +44,5 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
-	'ce_galerie' => 'system/modules/galerie/templates',
+    'ce_galerie' => 'system/modules/galerie/templates',
 ));

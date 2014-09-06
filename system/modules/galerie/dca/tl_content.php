@@ -38,8 +38,8 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['imagesFolder'] = array
     'sql'                     => "blob NULL"
 );
 
-class tl_content_galerie extends Backend {
-
+class tl_content_galerie extends Backend
+{
     /**
      * Import the back end user object
      */
@@ -55,18 +55,15 @@ class tl_content_galerie extends Backend {
      */
     public function getGalleries()
     {
-        if (!$this->User->isAdmin && !is_array($this->User->galleria))
-        {
+        if (!$this->User->isAdmin && !is_array($this->User->galleria)) {
             return array();
         }
 
         $arrGalleries = array();
         $objGalleries = $this->Database->execute("SELECT id, title FROM tl_galerie ORDER BY title");
 
-        while ($objGalleries->next())
-        {
-            if ($this->User->isAdmin || $this->User->hasAccess($objGalleries->id, 'galleria'))
-            {
+        while ($objGalleries->next()) {
+            if ($this->User->isAdmin || $this->User->hasAccess($objGalleries->id, 'galleria')) {
                 $arrGalleries[$objGalleries->id] = $objGalleries->title;
             }
         }
@@ -74,4 +71,3 @@ class tl_content_galerie extends Backend {
         return $arrGalleries;
     }
 }
-?>

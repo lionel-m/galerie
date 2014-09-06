@@ -16,7 +16,6 @@
  */
 namespace Galleria;
 
-
 /**
  * Reads a gallery
  *
@@ -41,7 +40,7 @@ class GalerieModel extends \Model
      *
      * @return \Model|null The model or null if there is no published gallery
      */
-    public static function findPublishedById($intId, array $arrOptions=array())
+    public static function findPublishedById($intId, array $arrOptions = array())
     {
         $t = static::$strTable;
         $arrColumns = array("$t.id=? AND $t.published=1");

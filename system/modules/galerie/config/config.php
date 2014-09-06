@@ -45,4 +45,3 @@ $GLOBALS['TL_CTE']['media']['galerie'] = 'Galleria\ContentGalerie';
  */
 $GLOBALS['TL_PERMISSIONS'][] = 'galleria';
 $GLOBALS['TL_PERMISSIONS'][] = 'galleria_permission';
-?>

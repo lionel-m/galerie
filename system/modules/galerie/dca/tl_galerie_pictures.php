@@ -265,8 +265,8 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
  * Provide miscellaneous methods that are used by the data configuration array.
  * @package Controller
  */
-class tl_galerie_pictures extends Backend {
-
+class tl_galerie_pictures extends Backend
+{
     /**
      * Import the back end user object
      */
@@ -282,26 +282,27 @@ class tl_galerie_pictures extends Backend {
      * @param array
      * @return string
      */
-    public function listPictures($arrRow) {
-
+    public function listPictures($arrRow)
+    {
         $type = '';
         $key = ($arrRow['published']) ? 'published' : 'unpublished';
         $objFile = FilesModel::findByUuid($arrRow['singleSRC']);
         $image = Image::get($objFile->path, 200, 150, 'center_center');
 
-        if($arrRow['title'])
+        if ($arrRow['title']) {
             $title = $arrRow['title'];
-        else
+        } else {
             $title = $GLOBALS['TL_LANG']['tl_galerie_pictures']['untitled'];
+        }
 
-        if($arrRow['video']) {
+        if ($arrRow['video']) {
             $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_video'];
             $type .= " " . $GLOBALS['TL_LANG']['tl_galerie_pictures']['from'] . " " . $this->videoSharingWebsiteName($arrRow['video']);
-        }
-        elseif($arrRow['iframe'])
+        } elseif ($arrRow['iframe']) {
             $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_iframe'];
-        else
+        } else {
             $type = $GLOBALS['TL_LANG']['tl_galerie_pictures']['label_image'];
+        }
 
         return '
           <div class="cte_type ' . $key . '" style="color:#444;"> ' . '<span style="color:#777;">[' . $type . ']</span> - ' . $title . '</div>
@@ -319,8 +320,8 @@ class tl_galerie_pictures extends Backend {
      * @param String
      * @return String
      */
-    protected function videoSharingWebsiteName($url) {
-
+    protected function videoSharingWebsiteName($url)
+    {
         $videoSharingWebsiteName = '';
 
         // Extract the hostname of the url.
@@ -330,16 +331,16 @@ class tl_galerie_pictures extends Backend {
         $domain = preg_replace('/www./', '', $domain);
 
         switch($domain) {
-            case $domain == 'dai.ly'  || $domain == 'dailymotion.com' :
+            case $domain == 'dai.ly'  || $domain == 'dailymotion.com':
                 $videoSharingWebsiteName = 'dailymotion';
                 break;
-            case $domain == 'youtu.be' || $domain == 'youtube.com' :
+            case $domain == 'youtu.be' || $domain == 'youtube.com':
                 $videoSharingWebsiteName = 'youtube';
                 break;
-            case $domain == 'vimeo.com' :
+            case $domain == 'vimeo.com':
                 $videoSharingWebsiteName = 'vimeo';
                 break;
-            default : $videoSharingWebsiteName = 'undefined';
+            default: $videoSharingWebsiteName = 'undefined';
         }
 
         return $videoSharingWebsiteName;
@@ -355,24 +356,21 @@ class tl_galerie_pictures extends Backend {
      * @param string
      * @return string
      */
-    public function toggleIcon($row, $href, $label, $title, $icon, $attributes) {
-
+    public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
+    {
         if (strlen(Input::get('tid'))) {
-
             $this->toggleVisibility(Input::get('tid'), (Input::get('state') == 1));
             $this->redirect($this->getReferer());
         }
 
         // Check permissions AFTER checking the tid, so hacking attempts are logged
-        if (!$this->User->isAdmin && !$this->User->hasAccess('tl_galerie_pictures::published', 'alexf'))
-        {
+        if (!$this->User->isAdmin && !$this->User->hasAccess('tl_galerie_pictures::published', 'alexf')) {
             return '';
         }
 
         $href .= '&amp;tid=' . $row['id'] . '&amp;state=' . ($row['published'] ? '' : 1);
 
         if (!$row['published']) {
-
             $icon = 'invisible.gif';
         }
 
@@ -384,16 +382,15 @@ class tl_galerie_pictures extends Backend {
      * @param integer
      * @param boolean
      */
-    public function toggleVisibility($intId, $blnVisible) {
-
+    public function toggleVisibility($intId, $blnVisible)
+    {
         // Check permissions to edit
         Input::setGet('id', $intId);
         Input::setGet('act', 'toggle');
         $this->checkPermission();
 
         // Check permissions to publish
-        if (!$this->User->isAdmin && !$this->User->hasAccess('tl_galerie_pictures::published', 'alexf'))
-        {
+        if (!$this->User->isAdmin && !$this->User->hasAccess('tl_galerie_pictures::published', 'alexf')) {
             $this->log('Not enough permissions to publish/unpublish image ID "'.$intId.'"', __METHOD__, TL_ERROR);
             $this->redirect('contao/main.php?act=error');
         }
@@ -402,10 +399,8 @@ class tl_galerie_pictures extends Backend {
         $objVersions->initialize();
 
         // Trigger the save_callback
-        if (is_array($GLOBALS['TL_DCA']['tl_galerie_pictures']['fields']['published']['save_callback']))
-        {
-            foreach ($GLOBALS['TL_DCA']['tl_galerie_pictures']['fields']['published']['save_callback'] as $callback)
-            {
+        if (is_array($GLOBALS['TL_DCA']['tl_galerie_pictures']['fields']['published']['save_callback'])) {
+            foreach ($GLOBALS['TL_DCA']['tl_galerie_pictures']['fields']['published']['save_callback'] as $callback) {
                 $this->import($callback[0]);
                 $blnVisible = $this->$callback[0]->$callback[1]($blnVisible, $this);
             }
@@ -424,43 +419,37 @@ class tl_galerie_pictures extends Backend {
      * @param \DataContainer
      * @return string
      */
-    public function pagePicker(DataContainer $dc) {
-
+    public function pagePicker(DataContainer $dc)
+    {
         return ' <a href="contao/page.php?do='.Input::get('do').'&amp;table='.$dc->table.'&amp;field='.$dc->field.'&amp;value='.str_replace(array('{{link_url::', '}}'), '', $dc->value).'" title="'.specialchars($GLOBALS['TL_LANG']['MSC']['pagepicker']).'" onclick="Backend.getScrollOffset();Backend.openModalSelector({\'width\':765,\'title\':\''.specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['MOD']['page'][0])).'\',\'url\':this.href,\'id\':\''.$dc->field.'\',\'tag\':\'ctrl_'.$dc->field . ((Input::get('act') == 'editAll') ? '_' . $dc->id : '').'\',\'self\':this});return false">' . $this->generateImage('pickpage.gif', $GLOBALS['TL_LANG']['MSC']['pagepicker'], 'style="vertical-align:top;cursor:pointer"') . '</a>';
     }
 
     /**
     * Check permissions to edit table tl_galerie_pictures
     */
-    public function checkPermission() {
-
-        if ($this->User->isAdmin)
-        {
+    public function checkPermission()
+    {
+        if ($this->User->isAdmin) {
             return;
         }
 
         // Set the root IDs
-        if (!is_array($this->User->galleria) || empty($this->User->galleria))
-        {
+        if (!is_array($this->User->galleria) || empty($this->User->galleria)) {
             $root = array(0);
-        }
-        else
-        {
+        } else {
             $root = $this->User->galleria;
         }
 
         $id = strlen(Input::get('id')) ? Input::get('id') : CURRENT_ID;
 
         // Check current action
-        switch (Input::get('act'))
-        {
+        switch (Input::get('act')) {
             case 'paste':
                 // Allow
                 break;
 
             case 'create':
-                if (!strlen(Input::get('pid')) || !in_array(Input::get('pid'), $root))
-                {
+                if (!strlen(Input::get('pid')) || !in_array(Input::get('pid'), $root)) {
                     $this->log('Not enough permissions to create images in gallery ID "'.Input::get('pid').'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
@@ -468,8 +457,7 @@ class tl_galerie_pictures extends Backend {
 
             case 'cut':
             case 'copy':
-                if (!in_array(Input::get('pid'), $root))
-                {
+                if (!in_array(Input::get('pid'), $root)) {
                     $this->log('Not enough permissions to '.Input::get('act').' image ID "'.$id.'" to gallery ID "'.Input::get('pid').'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
@@ -483,14 +471,12 @@ class tl_galerie_pictures extends Backend {
                                     ->limit(1)
                                     ->execute($id);
 
-                if ($objGalleria->numRows < 1)
-                {
+                if ($objGalleria->numRows < 1) {
                     $this->log('Invalid image ID "'.$id.'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
 
-                if (!in_array($objGalleria->pid, $root))
-                {
+                if (!in_array($objGalleria->pid, $root)) {
                     $this->log('Not enough permissions to '.Input::get('act').' image ID "'.$id.'" of gallery ID "'.$objGalleria->pid.'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
@@ -502,8 +488,7 @@ class tl_galerie_pictures extends Backend {
             case 'overrideAll':
             case 'cutAll':
             case 'copyAll':
-                if (!in_array($id, $root))
-                {
+                if (!in_array($id, $root)) {
                     $this->log('Not enough permissions to access gallery ID "'.$id.'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
@@ -511,8 +496,7 @@ class tl_galerie_pictures extends Backend {
                 $objGalleria = $this->Database->prepare("SELECT id FROM tl_galerie_pictures WHERE pid=?")
                                     ->execute($id);
 
-                if ($objGalleria->numRows < 1)
-                {
+                if ($objGalleria->numRows < 1) {
                     $this->log('Invalid gallery ID "'.$id.'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
@@ -523,13 +507,10 @@ class tl_galerie_pictures extends Backend {
                 break;
 
             default:
-                if (strlen(Input::get('act')))
-                {
+                if (strlen(Input::get('act'))) {
                     $this->log('Invalid command "'.Input::get('act').'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
-                }
-                elseif (!in_array($id, $root))
-                {
+                } elseif (!in_array($id, $root)) {
                     $this->log('Not enough permissions to access gallery ID ' . $id, __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
@@ -537,4 +518,3 @@ class tl_galerie_pictures extends Backend {
         }
     }
 }
-?>
