@@ -1,15 +1,14 @@
 <?php
 
 /**
- * TL_ROOT/system/modules/galerie/languages/de/tl_galerie.php 
- * 
- * Contao extension: galerie 1.4.0 stable 
- * German translation file 
- * 
- * Copyright : Lionel Maccaud 
- * License   : MIT (http://lionel-m.mit-license.org/)
- * Author    : Lionel Maccaud (lionel), http://lionelmaccaud.ch
- * Translator: Carolina Koehn (lucina), http://kikmedia.de
+ * Galerie
+ * Professional pictures galleries for the web and mobile devices.
+ *
+ * @author     Lionel Maccaud
+ * @copyright  Lionel Maccaud
+ * @translator Carolina Koehn (lucina), http://kikmedia.de
+ * @package    galerie
+ * @license    MIT (http://lionel-m.mit-license.org/)
  */
 
 $GLOBALS['TL_LANG']['tl_galerie']['title']['0'] = "Titel";
@@ -247,4 +246,3 @@ $GLOBALS['TL_LANG']['tl_galerie']['toggle']['0'] = "Veröffentlichen / Verbergen
 $GLOBALS['TL_LANG']['tl_galerie']['toggle']['1'] = "Die Galerie mit der ID %s veröffentlichen / verbergen";
 $GLOBALS['TL_LANG']['tl_galerie']['show']['0'] = "Galerie-Details";
 $GLOBALS['TL_LANG']['tl_galerie']['show']['1'] = "Die Details der Galerie mit der ID %s anzeigen";
-?>

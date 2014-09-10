@@ -10,7 +10,6 @@
  * @license   MIT (http://lionel-m.mit-license.org/)
  */
 
-
 /**
  * Run in a custom namespace, so the class can be replaced
  */
@@ -25,7 +24,6 @@ namespace Galleria;
  */
 class GalerieModel extends \Model
 {
-
     /**
      * Table name
      * @var string

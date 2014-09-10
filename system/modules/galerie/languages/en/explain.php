@@ -58,4 +58,3 @@ $GLOBALS['TL_LANG']['XPL']['cropMethods'] = array
     array('Landscape', 'Will fill up images that has landscape proportions, but scale portrait images to fit inside the container.'),
     array('Portrait', 'Is like ‘landscape’ but the other way around.')
 );
-?>

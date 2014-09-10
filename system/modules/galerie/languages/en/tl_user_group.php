@@ -20,4 +20,3 @@ $GLOBALS['TL_LANG']['tl_user_group']['galleria_permission'] = array('Galleria pe
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_user_group']['galleria_legend']     = 'Galleria permissions';
-?>

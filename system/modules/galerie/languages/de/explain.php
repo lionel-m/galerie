@@ -1,15 +1,14 @@
 <?php
 
 /**
- * TL_ROOT/system/modules/galerie/languages/de/explain.php 
- * 
- * Contao extension: galerie 1.4.0 stable 
- * German translation file 
- * 
- * Copyright : Lionel Maccaud 
- * License   : MIT (http://lionel-m.mit-license.org/)
- * Author    : Lionel Maccaud (lionel), http://lionelmaccaud.ch
- * Translator: Carolina Koehn (lucina), http://kikmedia.de
+ * Galerie
+ * Professional pictures galleries for the web and mobile devices.
+ *
+ * @author     Lionel Maccaud
+ * @copyright  Lionel Maccaud
+ * @translator Carolina Koehn (lucina), http://kikmedia.de
+ * @package    galerie
+ * @license    MIT (http://lionel-m.mit-license.org/)
  */
 
 $GLOBALS['TL_LANG']['XPL']['flickrMethods']['0']['0'] = "Suchen";
@@ -54,4 +53,3 @@ $GLOBALS['TL_LANG']['XPL']['cropMethods']['4']['0'] = "Landscape (Querformat)";
 $GLOBALS['TL_LANG']['XPL']['cropMethods']['4']['1'] = "Passt Bilder im Querformat an die Breite an, skaliert Bilder im Hochformat so dass sie in den Container passen.";
 $GLOBALS['TL_LANG']['XPL']['cropMethods']['5']['0'] = "Portrait (Hochformat)";
 $GLOBALS['TL_LANG']['XPL']['cropMethods']['5']['1'] = "Wie Landscape, nur umgekehrt.";
-?>

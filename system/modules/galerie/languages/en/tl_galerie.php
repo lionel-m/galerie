@@ -13,8 +13,8 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_galerie']['title'] = array('Title', 'Please enter the gallery title.');
-$GLOBALS['TL_LANG']['tl_galerie']['alias'] = array('Alias', 'This alias is a unique reference to the gallery which can be called instead of its numeric ID.');
+$GLOBALS['TL_LANG']['tl_galerie']['title']     = array('Title', 'Please enter the gallery title.');
+$GLOBALS['TL_LANG']['tl_galerie']['alias']     = array('Alias', 'This alias is a unique reference to the gallery which can be called instead of its numeric ID.');
 $GLOBALS['TL_LANG']['tl_galerie']['published'] = array('Publish', 'Make the gallery publicly visible on the website.');
 $GLOBALS['TL_LANG']['tl_galerie']['themesSRC'] = array('Themes', 'Select the theme folder of the gallery. (e.g. "classic")');
 
@@ -111,45 +111,44 @@ $GLOBALS['TL_LANG']['tl_galerie']['history'] = array('History', 'The Galleria Hi
  * Reference
  */
 $GLOBALS['TL_LANG']['tl_galerie']['undefined'] = 'Undefined';
-$GLOBALS['TL_LANG']['tl_galerie']['fade'] = 'Crossfade betweens images.';
-$GLOBALS['TL_LANG']['tl_galerie']['flash'] = 'Fades into background color between images.';
-$GLOBALS['TL_LANG']['tl_galerie']['pulse'] = 'Quickly removes the image into background color, then fades the next image.';
-$GLOBALS['TL_LANG']['tl_galerie']['slide'] = 'Slides the images depending on image position.';
+$GLOBALS['TL_LANG']['tl_galerie']['fade']      = 'Crossfade betweens images.';
+$GLOBALS['TL_LANG']['tl_galerie']['flash']     = 'Fades into background color between images.';
+$GLOBALS['TL_LANG']['tl_galerie']['pulse']     = 'Quickly removes the image into background color, then fades the next image.';
+$GLOBALS['TL_LANG']['tl_galerie']['slide']     = 'Slides the images depending on image position.';
 $GLOBALS['TL_LANG']['tl_galerie']['fadeslide'] = 'Fade between images and slide slightly at the same time.';
 $GLOBALS['TL_LANG']['tl_galerie']['doorslide'] = 'Slide the images in opposite directions.';
-$GLOBALS['TL_LANG']['tl_galerie']['false'] = 'No';
-$GLOBALS['TL_LANG']['tl_galerie']['true'] = 'Yes';
-$GLOBALS['TL_LANG']['tl_galerie']['empty'] = 'Empty';
-$GLOBALS['TL_LANG']['tl_galerie']['numbers'] = 'Numbers';
-$GLOBALS['TL_LANG']['tl_galerie']['lazy'] = 'Lazy';
-$GLOBALS['TL_LANG']['tl_galerie']['auto'] = 'auto';
+$GLOBALS['TL_LANG']['tl_galerie']['false']     = 'No';
+$GLOBALS['TL_LANG']['tl_galerie']['true']      = 'Yes';
+$GLOBALS['TL_LANG']['tl_galerie']['empty']     = 'Empty';
+$GLOBALS['TL_LANG']['tl_galerie']['numbers']   = 'Numbers';
+$GLOBALS['TL_LANG']['tl_galerie']['lazy']      = 'Lazy';
+$GLOBALS['TL_LANG']['tl_galerie']['auto']      = 'auto';
 $GLOBALS['TL_LANG']['tl_galerie']['landscape'] = 'Landscape';
-$GLOBALS['TL_LANG']['tl_galerie']['portrait'] = 'Portrait';
+$GLOBALS['TL_LANG']['tl_galerie']['portrait']  = 'Portrait';
 
 //Flickr methods
-$GLOBALS['TL_LANG']['tl_galerie']['search'] = 'Search';
-$GLOBALS['TL_LANG']['tl_galerie']['tags'] = 'Tags';
-$GLOBALS['TL_LANG']['tl_galerie']['user'] = 'User';
-$GLOBALS['TL_LANG']['tl_galerie']['set'] = 'Set';
-$GLOBALS['TL_LANG']['tl_galerie']['gallery'] = 'Gallery';
-$GLOBALS['TL_LANG']['tl_galerie']['groupsearch'] = 'Group search';
-$GLOBALS['TL_LANG']['tl_galerie']['group'] = 'Group';
-$GLOBALS['TL_LANG']['tl_galerie']['small'] = 'Small';
-$GLOBALS['TL_LANG']['tl_galerie']['thumb'] = 'Thumb';
-$GLOBALS['TL_LANG']['tl_galerie']['medium'] = 'Medium';
-$GLOBALS['TL_LANG']['tl_galerie']['big'] = 'Big';
-$GLOBALS['TL_LANG']['tl_galerie']['original'] = 'Original';
-$GLOBALS['TL_LANG']['tl_galerie']['date-posted-asc'] = 'Date posted (asc)';
-$GLOBALS['TL_LANG']['tl_galerie']['date-posted-desc'] = 'Date posted (desc)';
-$GLOBALS['TL_LANG']['tl_galerie']['date-taken-asc'] = 'Date taken (asc)';
-$GLOBALS['TL_LANG']['tl_galerie']['date-taken-desc'] = 'Date taken (desc)';
+$GLOBALS['TL_LANG']['tl_galerie']['search']               = 'Search';
+$GLOBALS['TL_LANG']['tl_galerie']['tags']                 = 'Tags';
+$GLOBALS['TL_LANG']['tl_galerie']['user']                 = 'User';
+$GLOBALS['TL_LANG']['tl_galerie']['set']                  = 'Set';
+$GLOBALS['TL_LANG']['tl_galerie']['gallery']              = 'Gallery';
+$GLOBALS['TL_LANG']['tl_galerie']['groupsearch']          = 'Group search';
+$GLOBALS['TL_LANG']['tl_galerie']['group']                = 'Group';
+$GLOBALS['TL_LANG']['tl_galerie']['small']                = 'Small';
+$GLOBALS['TL_LANG']['tl_galerie']['thumb']                = 'Thumb';
+$GLOBALS['TL_LANG']['tl_galerie']['medium']               = 'Medium';
+$GLOBALS['TL_LANG']['tl_galerie']['big']                  = 'Big';
+$GLOBALS['TL_LANG']['tl_galerie']['original']             = 'Original';
+$GLOBALS['TL_LANG']['tl_galerie']['date-posted-asc']      = 'Date posted (asc)';
+$GLOBALS['TL_LANG']['tl_galerie']['date-posted-desc']     = 'Date posted (desc)';
+$GLOBALS['TL_LANG']['tl_galerie']['date-taken-asc']       = 'Date taken (asc)';
+$GLOBALS['TL_LANG']['tl_galerie']['date-taken-desc']      = 'Date taken (desc)';
 $GLOBALS['TL_LANG']['tl_galerie']['interestingness-desc'] = 'Interestingness (desc)';
-$GLOBALS['TL_LANG']['tl_galerie']['interestingness-asc'] = 'Interestingness (asc)';
-$GLOBALS['TL_LANG']['tl_galerie']['relevance'] = 'Relevance';
+$GLOBALS['TL_LANG']['tl_galerie']['interestingness-asc']  = 'Interestingness (asc)';
+$GLOBALS['TL_LANG']['tl_galerie']['relevance']            = 'Relevance';
 
 //Picasa methods
 $GLOBALS['TL_LANG']['tl_galerie']['useralbum'] = 'User album';
-
 
 /**
  * Video options
@@ -176,44 +175,41 @@ $GLOBALS['TL_LANG']['tl_galerie']['dailymotion_options'] = "{
     hideInfos: 1
 }";
 
-
 /**
  * Label
  */
-$GLOBALS['TL_LANG']['tl_galerie']['label_datas'] = 'datas';
-$GLOBALS['TL_LANG']['tl_galerie']['label_data'] = 'data';
-$GLOBALS['TL_LANG']['tl_galerie']['label_image'] = 'image';
-$GLOBALS['TL_LANG']['tl_galerie']['label_images'] = 'images';
-$GLOBALS['TL_LANG']['tl_galerie']['label_video'] = 'video';
-$GLOBALS['TL_LANG']['tl_galerie']['label_videos'] = 'videos';
-$GLOBALS['TL_LANG']['tl_galerie']['label_iframe'] = 'iframe';
+$GLOBALS['TL_LANG']['tl_galerie']['label_datas']   = 'datas';
+$GLOBALS['TL_LANG']['tl_galerie']['label_data']    = 'data';
+$GLOBALS['TL_LANG']['tl_galerie']['label_image']   = 'image';
+$GLOBALS['TL_LANG']['tl_galerie']['label_images']  = 'images';
+$GLOBALS['TL_LANG']['tl_galerie']['label_video']   = 'video';
+$GLOBALS['TL_LANG']['tl_galerie']['label_videos']  = 'videos';
+$GLOBALS['TL_LANG']['tl_galerie']['label_iframe']  = 'iframe';
 $GLOBALS['TL_LANG']['tl_galerie']['label_iframes'] = 'iframes';
-
 
 /**
  * Legends
  */
-$GLOBALS['TL_LANG']['tl_galerie']['title_legend'] = 'Title and alias';
-$GLOBALS['TL_LANG']['tl_galerie']['themes_legend'] = 'Themes';
+$GLOBALS['TL_LANG']['tl_galerie']['title_legend']      = 'Title and alias';
+$GLOBALS['TL_LANG']['tl_galerie']['themes_legend']     = 'Themes';
 $GLOBALS['TL_LANG']['tl_galerie']['dimensions_legend'] = 'Dimensions';
-$GLOBALS['TL_LANG']['tl_galerie']['effects_legend'] = 'Effects';
+$GLOBALS['TL_LANG']['tl_galerie']['effects_legend']    = 'Effects';
 $GLOBALS['TL_LANG']['tl_galerie']['navigation_legend'] = 'Navigation';
-$GLOBALS['TL_LANG']['tl_galerie']['publish_legend'] = 'Publish settings';
-$GLOBALS['TL_LANG']['tl_galerie']['lightbox_legend'] = 'Lightbox';
-$GLOBALS['TL_LANG']['tl_galerie']['images_legend'] = 'Image settings';
-$GLOBALS['TL_LANG']['tl_galerie']['autoplay_legend'] = 'Slideshow';
-$GLOBALS['TL_LANG']['tl_galerie']['carousel_legend'] = 'Carousel';
-$GLOBALS['TL_LANG']['tl_galerie']['show_legend'] = 'Display';
+$GLOBALS['TL_LANG']['tl_galerie']['publish_legend']    = 'Publish settings';
+$GLOBALS['TL_LANG']['tl_galerie']['lightbox_legend']   = 'Lightbox';
+$GLOBALS['TL_LANG']['tl_galerie']['images_legend']     = 'Image settings';
+$GLOBALS['TL_LANG']['tl_galerie']['autoplay_legend']   = 'Slideshow';
+$GLOBALS['TL_LANG']['tl_galerie']['carousel_legend']   = 'Carousel';
+$GLOBALS['TL_LANG']['tl_galerie']['show_legend']       = 'Display';
 $GLOBALS['TL_LANG']['tl_galerie']['thumbnails_legend'] = 'Thumbnails';
-$GLOBALS['TL_LANG']['tl_galerie']['extend_legend'] = 'Expert settings';
-$GLOBALS['TL_LANG']['tl_galerie']['flickr_legend'] = 'Flickr';
-$GLOBALS['TL_LANG']['tl_galerie']['history_legend'] = 'History Plugin';
-$GLOBALS['TL_LANG']['tl_galerie']['error_legend'] = 'Error handling';
+$GLOBALS['TL_LANG']['tl_galerie']['extend_legend']     = 'Expert settings';
+$GLOBALS['TL_LANG']['tl_galerie']['flickr_legend']     = 'Flickr';
+$GLOBALS['TL_LANG']['tl_galerie']['history_legend']    = 'History Plugin';
+$GLOBALS['TL_LANG']['tl_galerie']['error_legend']      = 'Error handling';
 $GLOBALS['TL_LANG']['tl_galerie']['fullscreen_legend'] = 'Fullscreen';
-$GLOBALS['TL_LANG']['tl_galerie']['picasa_legend'] = 'Picasa';
-$GLOBALS['TL_LANG']['tl_galerie']['video_legend'] = 'Video';
-$GLOBALS['TL_LANG']['tl_galerie']['idle_legend'] = 'Idle';
-
+$GLOBALS['TL_LANG']['tl_galerie']['picasa_legend']     = 'Picasa';
+$GLOBALS['TL_LANG']['tl_galerie']['video_legend']      = 'Video';
+$GLOBALS['TL_LANG']['tl_galerie']['idle_legend']       = 'Idle';
 
 /**
  * Buttons
@@ -225,4 +221,3 @@ $GLOBALS['TL_LANG']['tl_galerie']['copy']       = array('Duplicate', 'Duplicate 
 $GLOBALS['TL_LANG']['tl_galerie']['delete']     = array('Delete', 'Delete the gallery ID %s');
 $GLOBALS['TL_LANG']['tl_galerie']['toggle']     = array('Publish/unpublish', 'Publish/unpublish the gallery ID %s');
 $GLOBALS['TL_LANG']['tl_galerie']['show']       = array('Gallery details', 'Show the details of the gallery ID %s');
-?>

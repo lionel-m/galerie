@@ -28,7 +28,6 @@ $GLOBALS['TL_LANG']['tl_galerie_pictures']['iframeThumb']         = array('Skip 
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML']      = array('HTML with dataConfig', 'You can use the dataConfig option combined with HTML to obtain richer data from other sources to provide HTML captions or other custom data types. Don\'t forget to add the variable $pictures[\'dataConfig\'] in the template.');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['layerHTML']           = array('HTML Layer', 'Galleria also supports a layer of HTML content that can will be placed above the image or video. The layer will follow the transitions (unless you disable it using the layerFollow option) and expand on fullscreen.');
 
-
 /**
  * Legends
  */
@@ -54,13 +53,11 @@ $GLOBALS['TL_LANG']['tl_galerie_pictures']['delete'] = array('Delete image', 'De
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['toggle'] = array('Publish/unpublish image', 'Publish/unpublish image ID %s');
 $GLOBALS['TL_LANG']['tl_galerie_pictures']['show']   = array('Image details', 'Show the details of image ID %s');
 
-
 /**
  * Miscellaneous
  */
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['untitled']      = 'Untitled';
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['label_video']   = 'Video';
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['label_iframe']  = 'Iframe';
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['label_image']   = 'Image';
-$GLOBALS['TL_LANG']['tl_galerie_pictures']['from']          = 'from';
-?>
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['untitled']     = 'Untitled';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['label_video']  = 'Video';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['label_iframe'] = 'Iframe';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['label_image']  = 'Image';
+$GLOBALS['TL_LANG']['tl_galerie_pictures']['from']         = 'from';
