@@ -34,7 +34,13 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['imagesFolder'] = array
     'label'                   => &$GLOBALS['TL_LANG']['tl_module']['imagesFolder'],
     'exclude'                 => true,
     'inputType'               => 'fileTree',
-    'eval'                    => array('multiple'=>true, 'fieldType'=>'checkbox', 'orderField'=>'orderSRC', 'files'=>true, 'isGallery'=>true),
+    'eval'                    => array('multiple'=>true,
+                                       'fieldType'=>'checkbox',
+                                       'orderField'=>'orderSRC',
+                                       'extensions'=>Config::get('validImageTypes'),
+                                       'files'=>true,
+                                       'isGallery'=>true
+                                      ),
     'sql'                     => "blob NULL"
 );
 

@@ -156,7 +156,11 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['fullscreenSingleSRC'],
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
-                        'eval'                    => array('fieldType' => 'radio', 'files' => true, 'filesOnly' => true),
+                        'eval'                    => array('fieldType' => 'radio',
+                                                           'extensions'=>Config::get('validImageTypes'),
+                                                           'files' => true,
+                                                           'filesOnly' => true
+                                                          ),
                         'sql'                     => "binary(16) NULL"
                 ),
                 'singleSRC' => array
@@ -164,7 +168,11 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['singleSRC'],
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
-                        'eval'                    => array('fieldType' => 'radio', 'files' => true, 'filesOnly' => true),
+                        'eval'                    => array('fieldType' => 'radio',
+                                                           'extensions'=>Config::get('validImageTypes'),
+                                                           'files' => true,
+                                                           'filesOnly' => true
+                                                          ),
                         'sql'                     => "binary(16) NULL"
                 ),
                 'thumbSRC' => array
@@ -172,7 +180,11 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['thumbSRC'],
                         'exclude'                 => true,
                         'inputType'               => 'fileTree',
-                        'eval'                    => array('fieldType' => 'radio', 'files' => true, 'filesOnly' => true),
+                        'eval'                    => array('fieldType' => 'radio',
+                                                           'extensions'=>Config::get('validImageTypes'),
+                                                           'files' => true,
+                                                           'filesOnly' => true
+                                                          ),
                         'sql'                     => "binary(16) NULL"
                 ),
                 'alt' => array
@@ -180,7 +192,7 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['alt'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => array('preserveTags'=>false, 'decodeEntities'=>true, 'tl_class' => 'clr'),
+                        'eval'                    => array('preserveTags'=>false, 'decodeEntities'=>true, 'tl_class'=>'clr'),
                         'sql'                     => "text NULL"
                 ),
                 'imageUrl' => array
@@ -188,7 +200,11 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['imageUrl'],
                         'exclude'                 => true,
                         'inputType'               => 'text',
-                        'eval'                    => array('rgxp' => 'url', 'decodeEntities' => true, 'maxlength' => 255, 'tl_class' => 'w50 wizard'),
+                        'eval'                    => array('rgxp'=>'url',
+                                                           'decodeEntities'=>true,
+                                                           'maxlength'=>255,
+                                                           'tl_class'=>'w50 wizard'
+                                                          ),
                         'wizard'                  => array (
                                                                 array('tl_galerie_pictures', 'pagePicker')
                                                            ),
@@ -245,7 +261,12 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['dataConfigHTML'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|html', 'tl_class'=>'clr'),
+                        'eval'                    => array('preserveTags'=>true,
+                                                           'decodeEntities'=>true,
+                                                           'class'=>'monospace',
+                                                           'rte'=>'ace|html',
+                                                           'tl_class'=>'clr'
+                                                          ),
                         'sql'                     => "text NULL"
                 ),
                 'layerHTML' => array
@@ -253,7 +274,12 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                         'label'                   => &$GLOBALS['TL_LANG']['tl_galerie_pictures']['layerHTML'],
                         'exclude'                 => true,
                         'inputType'               => 'textarea',
-                        'eval'                    => array('preserveTags'=>true, 'decodeEntities'=>true, 'class'=>'monospace', 'rte'=>'ace|html', 'tl_class'=>'clr'),
+                        'eval'                    => array('preserveTags'=>true,
+                                                           'decodeEntities'=>true,
+                                                           'class'=>'monospace',
+                                                           'rte'=>'ace|html',
+                                                           'tl_class'=>'clr'
+                                                          ),
                         'sql'                     => "text NULL"
                 )
         )
