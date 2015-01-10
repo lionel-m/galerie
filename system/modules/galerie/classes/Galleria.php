@@ -36,7 +36,7 @@ class Galleria extends \Frontend
      * @access public
      * @return null
      */
-    public function getOptions($galerie, $template)
+    public function getOptions($galerie, $template, $cteOrModuleID)
     {
         // Retrieve the current gallery options
         $objOptions = GalerieModel::findPublishedById($galerie, array('*'));
@@ -550,9 +550,9 @@ class Galleria extends \Frontend
 
         $template->pathJS = $pathJS;
 
-        // Use alias and module ID for the ID container (id="{alias}-{moduleID}")
-        $template->alias = $objOptions->alias;
-        $template->moduleID = $galerie;
+        // Use the alias and the content element or module ID for the gallery ID container
+        $galleryID = $objOptions->alias . '-' . $cteOrModuleID;
+        $template->galleryID = $galleryID;
     }
 
     /**

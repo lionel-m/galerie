@@ -44,7 +44,7 @@ class ContentGalerie extends \ContentElement
         $this->import('Database');
         $galleria = new Galleria();
 
-        $galleria->getOptions($this->galerie, $this->Template);
+        $galleria->getOptions($this->galerie, $this->Template, 'c'.$this->id);
         $galleria->getPictures($this->Database, $this->galerie, $this->Template, $this->imagesFolder, $this->sortBy, $this->size, $this->orderSRC);
         $galleria->getGalleriaTheme($this->galerie);
 

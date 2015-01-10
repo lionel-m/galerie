@@ -8,7 +8,7 @@
 
         <?php if (($this->flickr == false) && ($this->picasa == false)): ?>
 
-            <div id="<?php echo $this->alias.'-'.$this->moduleID; ?>">
+            <div id="<?php echo $this->galleryID; ?>">
 
                 <?php foreach ($this->pictures as $pictures):
 
@@ -42,7 +42,7 @@ Galleria.loadTheme('<?php echo $this->pathJS; ?>');
 <?php if($this->json) echo $this->json; ?>
 
 // Initialize Galleria
-Galleria.run('#<?php echo $this->alias.'-'.$this->moduleID; ?>' , {
+Galleria.run('#<?php echo $this->galleryID; ?>' , {
     <?php echo $this->options; ?>
 
     <?php if ($this->flickr == true): echo ',' ?>

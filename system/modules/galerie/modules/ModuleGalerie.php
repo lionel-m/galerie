@@ -56,7 +56,7 @@ class ModuleGalerie extends \Module
         $this->import('Database');
         $galleria = new Galleria();
 
-        $galleria->getOptions($this->galerie, $this->Template);
+        $galleria->getOptions($this->galerie, $this->Template, 'm'.$this->id);
         $galleria->getPictures($this->Database, $this->galerie, $this->Template, $this->imagesFolder, $this->sortBy, $this->groupImgSize, $this->orderSRC);
         $galleria->getGalleriaTheme($this->galerie);
 
