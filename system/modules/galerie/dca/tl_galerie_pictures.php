@@ -471,19 +471,15 @@ class tl_galerie_pictures extends Backend
         // Check current action
         switch (Input::get('act')) {
             case 'paste':
-                // Allow
-                break;
-
             case 'create':
-                if (!strlen(Input::get('pid')) || !in_array(Input::get('pid'), $root)) {
-                    $this->log('Not enough permissions to create images in gallery ID "'.Input::get('pid').'"', __METHOD__, TL_ERROR);
-                    $this->redirect('contao/main.php?act=error');
-                }
+                // Allow
                 break;
 
             case 'cut':
             case 'copy':
-                if (!in_array(Input::get('pid'), $root)) {
+                $objGalleria = GaleriePicturesModel::findByPk($id);
+
+                if (!in_array($objGalleria->pid, $root)) {
                     $this->log('Not enough permissions to '.Input::get('act').' image ID "'.$id.'" to gallery ID "'.Input::get('pid').'"', __METHOD__, TL_ERROR);
                     $this->redirect('contao/main.php?act=error');
                 }
