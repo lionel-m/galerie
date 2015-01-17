@@ -22,10 +22,6 @@ $GLOBALS['TL_DCA']['tl_galerie_pictures'] = array
                 'dataContainer'               => 'Table',
                 'enableVersioning'            => true,
                 'ptable'                      => 'tl_galerie',
-                'onload_callback'             => array
-                (
-                        array('tl_galerie_pictures', 'checkPermission'),
-                ),
                 'sql' => array
                 (
                         'keys' => array
@@ -410,11 +406,6 @@ class tl_galerie_pictures extends Backend
      */
     public function toggleVisibility($intId, $blnVisible)
     {
-        // Check permissions to edit
-        Input::setGet('id', $intId);
-        Input::setGet('act', 'toggle');
-        $this->checkPermission();
-
         // Check permissions to publish
         if (!$this->User->isAdmin && !$this->User->hasAccess('tl_galerie_pictures::published', 'alexf')) {
             $this->log('Not enough permissions to publish/unpublish image ID "'.$intId.'"', __METHOD__, TL_ERROR);
@@ -448,95 +439,5 @@ class tl_galerie_pictures extends Backend
     public function pagePicker(DataContainer $dc)
     {
         return ' <a href="contao/page.php?do='.Input::get('do').'&amp;table='.$dc->table.'&amp;field='.$dc->field.'&amp;value='.str_replace(array('{{link_url::', '}}'), '', $dc->value).'" title="'.specialchars($GLOBALS['TL_LANG']['MSC']['pagepicker']).'" onclick="Backend.getScrollOffset();Backend.openModalSelector({\'width\':765,\'title\':\''.specialchars(str_replace("'", "\\'", $GLOBALS['TL_LANG']['MOD']['page'][0])).'\',\'url\':this.href,\'id\':\''.$dc->field.'\',\'tag\':\'ctrl_'.$dc->field . ((Input::get('act') == 'editAll') ? '_' . $dc->id : '').'\',\'self\':this});return false">' . $this->generateImage('pickpage.gif', $GLOBALS['TL_LANG']['MSC']['pagepicker'], 'style="vertical-align:top;cursor:pointer"') . '</a>';
-    }
-
-    /**
-    * Check permissions to edit table tl_galerie_pictures
-    */
-    public function checkPermission()
-    {
-        if ($this->User->isAdmin) {
-            return;
-        }
-
-        // Set the root IDs
-        if (!is_array($this->User->galleria) || empty($this->User->galleria)) {
-            $root = array(0);
-        } else {
-            $root = $this->User->galleria;
-        }
-
-        $id = strlen(Input::get('id')) ? Input::get('id') : CURRENT_ID;
-
-        // Check current action
-        switch (Input::get('act')) {
-            case 'paste':
-            case 'create':
-                // Allow
-                break;
-
-            case 'cut':
-            case 'copy':
-                $objGalleria = GaleriePicturesModel::findByPk($id);
-
-                if (!in_array($objGalleria->pid, $root)) {
-                    $this->log('Not enough permissions to '.Input::get('act').' image ID "'.$id.'" to gallery ID "'.Input::get('pid').'"', __METHOD__, TL_ERROR);
-                    $this->redirect('contao/main.php?act=error');
-                }
-                // NO BREAK STATEMENT HERE
-
-            case 'edit':
-            case 'show':
-            case 'delete':
-            case 'toggle':
-                $objGalleria = $this->Database->prepare("SELECT pid FROM tl_galerie_pictures WHERE id=?")
-                                    ->limit(1)
-                                    ->execute($id);
-
-                if ($objGalleria->numRows < 1) {
-                    $this->log('Invalid image ID "'.$id.'"', __METHOD__, TL_ERROR);
-                    $this->redirect('contao/main.php?act=error');
-                }
-
-                if (!in_array($objGalleria->pid, $root)) {
-                    $this->log('Not enough permissions to '.Input::get('act').' image ID "'.$id.'" of gallery ID "'.$objGalleria->pid.'"', __METHOD__, TL_ERROR);
-                    $this->redirect('contao/main.php?act=error');
-                }
-                break;
-
-            case 'select':
-            case 'editAll':
-            case 'deleteAll':
-            case 'overrideAll':
-            case 'cutAll':
-            case 'copyAll':
-                if (!in_array($id, $root)) {
-                    $this->log('Not enough permissions to access gallery ID "'.$id.'"', __METHOD__, TL_ERROR);
-                    $this->redirect('contao/main.php?act=error');
-                }
-
-                $objGalleria = $this->Database->prepare("SELECT id FROM tl_galerie_pictures WHERE pid=?")
-                                    ->execute($id);
-
-                if ($objGalleria->numRows < 1) {
-                    $this->log('Invalid gallery ID "'.$id.'"', __METHOD__, TL_ERROR);
-                    $this->redirect('contao/main.php?act=error');
-                }
-
-                $session = $this->Session->getData();
-                $session['CURRENT']['IDS'] = array_intersect($session['CURRENT']['IDS'], $objGalleria->fetchEach('id'));
-                $this->Session->setData($session);
-                break;
-
-            default:
-                if (strlen(Input::get('act'))) {
-                    $this->log('Invalid command "'.Input::get('act').'"', __METHOD__, TL_ERROR);
-                    $this->redirect('contao/main.php?act=error');
-                } elseif (!in_array($id, $root)) {
-                    $this->log('Not enough permissions to access gallery ID ' . $id, __METHOD__, TL_ERROR);
-                    $this->redirect('contao/main.php?act=error');
-                }
-                break;
-        }
     }
 }
