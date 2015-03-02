@@ -869,7 +869,7 @@ class Galleria extends \Frontend
     }
 
     /**
-     * Check if there is the prefix "http://" and if not, add it.
+     * Check if there is the prefix "http(s)://" and if not, add it.
      *
      * @access public
      * @param String
@@ -878,10 +878,8 @@ class Galleria extends \Frontend
     public static function urlVerification($url)
     {
         if (!empty($url)) {
-            $urlPrefix = strpos($url, "http://");
-
-            if ($urlPrefix === false) {
-                $url = "http://" . $url;
+            if (!preg_match("@^http[s]?://@i", $url)) {
+                $url = (\Environment::get('ssl') ? 'https://' : 'http://') . $url;
             }
             return $url;
         } else {
