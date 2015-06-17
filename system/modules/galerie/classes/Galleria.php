@@ -541,7 +541,7 @@ class Galleria extends \Frontend
 
         // Path of the JavaScript file for the function loadTheme() included in the template
         $theme = $this->getGalleriaTheme($galerie);
-        
+
         if (file_exists(TL_ROOT . '/' . $theme[0] . '/galleria' . '.' . $theme[1] . '.min.js')) {
             $pathJS = $theme[0] . '/galleria' . '.' . $theme[1] . '.min.js';
         } else {
