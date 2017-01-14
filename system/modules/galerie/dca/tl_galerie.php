@@ -1042,7 +1042,8 @@ class tl_galerie extends Backend
         // Generate alias if there is none
         if ($varValue == '') {
             $autoAlias = true;
-            $varValue = standardize(String::restoreBasicEntities($dc->activeRecord->title));
+            $strClass = version_compare(VERSION . '.' . BUILD, '3.5.1', '<') ? '\String' : '\StringUtil';
+            $varValue = standardize($strClass::restoreBasicEntities($dc->activeRecord->title));
         }
 
         $objAlias = $this->Database->prepare("SELECT id FROM tl_galerie WHERE alias=?")->execute($varValue);
